@@ -1,0 +1,107 @@
+<header class="tc-header" [class.collapsed]="layout.isCollapsed()">
+
+  <!-- Left: Toggle + Title -->
+  <div class="header-left">
+    <button class="toggle-btn" (click)="layout.toggle()">
+      @if (layout.isCollapsed()) {
+      <i class="bi bi-layout-sidebar"></i>
+      } @else {
+      <i class="bi bi-layout-sidebar-inset"></i>
+      }
+    </button>
+    <h1 class="header-title">Dashboard</h1>
+  </div>
+
+  <!-- Right: Actions -->
+  <div class="header-actions">
+
+    <!-- Search -->
+    <div class="search-box">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" placeholder="Search..." />
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="icon-btn dark-toggle" (click)="layout.toggleDarkMode()">
+      @if (layout.isDarkMode()) {
+      <i class="bi bi-sun flip"></i>
+      } @else {
+      <i class="bi bi-moon flip"></i>
+      }
+    </button>
+
+    <!-- Notification -->
+    <button class="icon-btn">
+      <i class="bi bi-bell"></i>
+      <span class="badge">3</span>
+    </button>
+
+    <!-- Avatar -->
+    <!-- <div class="header-avatar">
+      @if (avatarUrl) {
+      <img [src]="avatarUrl" alt="Admin" class="avatar-img" />
+      } @else {
+      A
+      }
+    </div> -->
+
+    <!-- Avatar -->
+    <div class="avatar-wrapper" (click)="toggleDropdown()">
+      <div class="header-avatar">
+        @if (avatarUrl) {
+        <img [src]="avatarUrl" alt="Admin" class="avatar-img" />
+        } @else {
+        A
+        }
+      </div>
+
+      <!-- Dropdown -->
+      @if (isDropdownOpen) {
+      <div class="avatar-dropdown">
+
+        <!-- User Info -->
+        <div class="dropdown-user">
+          <img [src]="avatarUrl" alt="Admin" class="dropdown-avatar" />
+          <div>
+            <p class="dropdown-name">Twaibu Songoro</p>
+            <p class="dropdown-email">twaibusongoro&#64;live.com</p>
+          </div>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <!-- Menu Items -->
+        <ul class="dropdown-menu">
+          <li class="dropdown-item">
+            <i class="bi bi-person-circle"></i>
+            <span>My Profile</span>
+          </li>
+          <li class="dropdown-item">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+          </li>
+          <li class="dropdown-item">
+            <i class="bi bi-person-check"></i>
+            <span>My Account</span>
+          </li>
+          
+        </ul>
+
+        <div class="dropdown-divider"></div>
+
+        <!-- Logout -->
+        <ul class="dropdown-menu">
+          <li class="dropdown-item dropdown-logout">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+          </li>
+        </ul>
+
+      </div>
+      }
+    </div>
+
+
+  </div>
+
+</header>

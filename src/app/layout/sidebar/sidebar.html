@@ -1,0 +1,96 @@
+<aside class="tc-sidebar flex flex-col" [class.collapsed]="isCollapsed"   [class.mobile-open]="layout.isOverlay()">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    @if (!isCollapsed) {
+    @if (isDark) {
+    <img src="assets/icons/logo_darkmode.png" alt="TwaibuCore Logo" class="brand-logo" />
+    } @else {
+    <img src="assets/icons/logo.png" alt="TwaibuCore Logo" class="brand-logo" />
+    }
+    } @else {
+    <img src="assets/icons/collaps_logo.png" alt="TwaibuCore" class="brand-logo-small" />
+    }
+  </div>
+
+  <!-- Nav -->
+  <nav class="sidebar-nav flex-1">
+    @for (section of navSections; track section.section) {
+
+    @if (!isCollapsed) {
+    <p class="nav-section-label">{{ section.section }}</p>
+    } @else {
+    <div class="nav-section-divider"></div>
+    }
+
+    <!-- Groups with dropdown -->
+    @for (group of section.groups; track group.label) {
+    <ul>
+      <li class="nav-group-wrapper">
+        <button class="nav-link nav-group-btn" (click)="toggleGroup(group, $event)">
+          <i [class]="group.icon" class="nav-icon"></i>
+          @if (!isCollapsed) {
+          <span class="flex-1">{{ group.label }}</span>
+          <i class="bi bi-chevron-down nav-arrow" [class.rotate]="isGroupOpen(group)"></i>
+          }
+        </button>
+
+        <!-- Floating dropdown when collapsed -->
+        @if (isGroupOpen(group) && isCollapsed) {
+        <div class="nav-floating-dropdown" [style.top.px]="floatingDropdownTop">
+          <p class="nav-floating-label">{{ group.label }}</p>
+          @for (item of group.items; track item.route) {
+          <a [routerLink]="item.route" routerLinkActive="active" class="nav-floating-item" [title]="item.label">
+            <span class="nav-sub-dot"></span>
+            <span>{{ item.label }}</span>
+          </a>
+          }
+        </div>
+        }
+      </li>
+    </ul>
+
+    <!-- Expanded dropdown when not collapsed -->
+    @if (isGroupOpen(group) && !isCollapsed) {
+    <ul class="nav-sub">
+      @for (item of group.items; track item.route) {
+      <li>
+        <a [routerLink]="item.route" routerLinkActive="active" class="nav-link nav-sub-link" [title]="item.label">
+          <span class="nav-sub-dot"></span>
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+      }
+    </ul>
+    }
+    }
+
+    <!-- Regular Items -->
+    <ul>
+      @for (item of section.items; track item.route) {
+      <li>
+        <a [routerLink]="item.route" routerLinkActive="active" class="nav-link" [title]="item.label">
+          <i [class]="item.icon" class="nav-icon"></i>
+          @if (!isCollapsed) {
+          <span>{{ item.label }}</span>
+          }
+        </a>
+      </li>
+      }
+    </ul>
+
+    }
+  </nav>
+
+  <!-- Footer -->
+  <!-- <div class="sidebar-footer">
+    <div class="user-avatar">A</div>
+    @if (!isCollapsed) {
+    <div class="user-info">
+      <p class="user-name">Admin</p>
+      <p class="user-role">Super Admin</p>
+    </div>
+    }
+  </div> -->
+
+</aside>

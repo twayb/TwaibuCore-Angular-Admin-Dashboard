@@ -1,0 +1,76 @@
+<div class="auth-page">
+
+  <!-- Card -->
+  <div class="auth-card">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+      <img src="assets/icons/logo.png" alt="TwaibuCore" class="auth-logo-img" />
+    </div>
+
+    <!-- Title -->
+    <div class="auth-header">
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your TwaibuCore account</p>
+    </div>
+
+    <!-- Form -->
+    <form class="auth-form" (ngSubmit)="onLogin()">
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <i class="bi bi-envelope input-icon"></i>
+          <input type="email" class="form-input" placeholder="Enter your email" [(ngModel)]="email" name="email"
+            required />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <div class="label-row">
+          <label class="form-label">Password</label>
+          <a routerLink="/pages/auth/forgot-password" class="forgot-link">Forgot password?</a>
+        </div>
+        <div class="input-wrapper">
+          <i class="bi bi-lock input-icon"></i>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-input" placeholder="Enter your password"
+            [(ngModel)]="password" name="password" required />
+          <button type="button" class="eye-btn" (click)="showPassword = !showPassword">
+            <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember Me -->
+      <div class="form-check">
+        <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe" class="check-input" />
+        <label for="rememberMe" class="check-label">Remember me</label>
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage) {
+      <div class="error-alert">
+        <i class="bi bi-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+      }
+
+      <!-- Submit -->
+      <button type="submit" class="auth-btn">
+        <i class="bi bi-box-arrow-in-right"></i>
+        Sign In
+      </button>
+
+    </form>
+
+    <!-- Register Link -->
+    <p class="auth-footer-text">
+      Don't have an account?
+      <a routerLink="/pages/auth/register" class="auth-link">Create one</a>
+    </p>
+
+  </div>
+
+</div>

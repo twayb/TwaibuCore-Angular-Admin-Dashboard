@@ -1,0 +1,226 @@
+<div class="dashboard-wrapper">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Recruitment Dashboard</h2>
+      <p class="page-subtitle">Track applications, interviews and hiring progress.</p>
+    </div>
+    <div class="page-actions">
+      <button class="tc-btn-primary">
+        <i class="bi bi-plus-lg"></i> Post New Job
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stat-grid">
+    @for (card of statCards; track card.title) {
+      <div class="stat-card">
+        <div class="stat-icon-box" [class]="'stat-icon-' + card.color">
+          <i [class]="card.icon"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-title">{{ card.title }}</p>
+          <h3 class="stat-value">{{ card.value }}</h3>
+          <span class="stat-change" [class]="'change-' + card.changeType">
+            <i [class]="card.changeType === 'up' ? 'bi bi-arrow-up-short' : 'bi bi-arrow-down-short'"></i>
+            {{ card.change }} this month
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Charts Row -->
+  <div class="charts-grid">
+
+    <!-- Application Trends - Line Chart -->
+    <div class="tc-card chart-card">
+      <div class="card-header">
+        <h3 class="card-title">Hired by year</h3>
+        <span class="card-badge">This Year</span>
+      </div>
+      <div class="line-chart-wrapper">
+        <svg viewBox="0 0 600 200" class="line-chart-svg" preserveAspectRatio="none">
+          <!-- Grid Lines -->
+          <line x1="0" y1="50"  x2="600" y2="50"  class="grid-line"/>
+          <line x1="0" y1="100" x2="600" y2="100" class="grid-line"/>
+          <line x1="0" y1="150" x2="600" y2="150" class="grid-line"/>
+
+          <!-- Area Fill -->
+          <polygon
+            points="0,160 50,140 100,155 150,120 200,130 250,105 300,115 350,95 400,140 450,110 500,125 550,100 600,80 600,200 0,200"
+            class="line-area"/>
+
+          <!-- Line -->
+          <polyline
+            points="0,160 50,140 100,155 150,120 200,130 250,105 300,115 350,95 400,140 450,110 500,125 550,100 600,80"
+            class="line-path"/>
+
+          <!-- Dots -->
+          @for (dot of [
+            {x:0,y:160},{x:50,y:140},{x:100,y:155},{x:150,y:120},
+            {x:200,y:130},{x:250,y:105},{x:300,y:115},{x:350,y:95},
+            {x:400,y:140},{x:450,y:110},{x:500,y:125},{x:550,y:100},{x:600,y:80}
+          ]; track $index) {
+            <circle [attr.cx]="dot.x" [attr.cy]="dot.y" r="4" class="line-dot"/>
+          }
+        </svg>
+        <!-- X Labels -->
+        <div class="chart-labels">
+          @for (month of months; track month) {
+            <span>{{ month }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Hiring Pipeline - Donut Chart -->
+    <div class="tc-card chart-card">
+      <div class="card-header">
+        <h3 class="card-title">Hiring Pipeline</h3>
+        <span class="card-badge">Current</span>
+      </div>
+      <div class="donut-wrapper">
+        <svg viewBox="0 0 200 200" class="donut-svg">
+          <!-- Applied -->
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="var(--color-primary)"
+            stroke-dasharray="110 329"
+            stroke-dashoffset="0"/>
+          <!-- Screening -->
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="var(--color-accent)"
+            stroke-dasharray="88 329"
+            stroke-dashoffset="-110"/>
+          <!-- Interview -->
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="#f59e0b"
+            stroke-dasharray="66 329"
+            stroke-dashoffset="-198"/>
+          <!-- Offer -->
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="#06b6d4"
+            stroke-dasharray="44 329"
+            stroke-dashoffset="-264"/>
+          <!-- Hired -->
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="var(--color-success)"
+            stroke-dasharray="22 329"
+            stroke-dashoffset="-308"/>
+          <!-- Center Text -->
+          <text x="100" y="95"  class="donut-center-label">Total</text>
+          <text x="100" y="115" class="donut-center-value">1,284</text>
+        </svg>
+
+        <!-- Legend -->
+        <div class="donut-legend">
+          @for (stage of pipelineStages; track stage.stage) {
+            <div class="legend-item">
+              <span class="legend-dot" [class]="'dot-' + stage.color"></span>
+              <span class="legend-label">{{ stage.stage }}</span>
+              <span class="legend-count">{{ stage.count }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Job Openings Table -->
+  <div class="tc-card table-card">
+    <div class="card-header">
+      <h3 class="card-title">Job Openings</h3>
+      <a href="#" class="card-link">View All</a>
+    </div>
+    <div class="table-wrapper">
+      <table class="tc-table">
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Department</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Applicants</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (job of jobOpenings; track job.title) {
+            <tr>
+              <td class="job-title">{{ job.title }}</td>
+              <td><span class="dept-badge">{{ job.department }}</span></td>
+              <td class="text-muted"><i class="bi bi-geo-alt"></i> {{ job.location }}</td>
+              <td class="text-muted">{{ job.type }}</td>
+              <td>
+                <span class="applicant-count">
+                  <i class="bi bi-people"></i> {{ job.applicants }}
+                </span>
+              </td>
+              <td>
+                <span class="status-badge" [class]="'status-' + job.status">
+                  {{ job.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bottom Row -->
+  <div class="bottom-grid">
+
+    <!-- Upcoming Interviews -->
+    <div class="tc-card">
+      <div class="card-header">
+        <h3 class="card-title">Upcoming Interviews</h3>
+        <a href="#" class="card-link">View All</a>
+      </div>
+      <div class="interview-list">
+        @for (interview of upcomingInterviews; track interview.candidate) {
+          <div class="interview-item">
+            <div class="interview-avatar">{{ interview.candidate[0] }}</div>
+            <div class="interview-info">
+              <p class="interview-candidate">{{ interview.candidate }}</p>
+              <p class="interview-position">{{ interview.position }}</p>
+            </div>
+            <div class="interview-meta">
+              <span class="interview-date"><i class="bi bi-calendar3"></i> {{ interview.date }}</span>
+              <span class="interview-time"><i class="bi bi-clock"></i> {{ interview.time }}</span>
+              <span class="interview-type" [class]="'type-' + interview.type">{{ interview.type }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Recent Applications -->
+    <div class="tc-card">
+      <div class="card-header">
+        <h3 class="card-title">Recent Applications</h3>
+        <a href="#" class="card-link">View All</a>
+      </div>
+      <div class="application-list">
+        @for (app of recentApplications; track app.candidate) {
+          <div class="application-item">
+            <div class="app-avatar">{{ app.candidate[0] }}</div>
+            <div class="app-info">
+              <p class="app-candidate">{{ app.candidate }}</p>
+              <p class="app-position">{{ app.position }}</p>
+            </div>
+            <div class="app-meta">
+              <span class="app-stage" [class]="'stage-' + app.stage">{{ app.stage }}</span>
+              <span class="app-time">{{ app.applied }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+
+</div>

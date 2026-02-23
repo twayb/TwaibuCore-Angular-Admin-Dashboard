@@ -1,0 +1,186 @@
+<div class="dashboard-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Admin Dashboard</h2>
+            <p class="page-subtitle">Welcome back, Twaibu! Here's what's happening.</p>
+        </div>
+        <div class="page-actions">
+            <button class="tc-btn-primary">
+                <i class="bi bi-download me-2"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-grid">
+        @for (card of statCards; track card.title) {
+        <div class="stat-card">
+            <div class="stat-icon-box" [class]="'stat-icon-' + card.color">
+                <i [class]="card.icon"></i>
+            </div>
+            <div class="stat-info">
+                <p class="stat-title">{{ card.title }}</p>
+                <h3 class="stat-value">{{ card.value }}</h3>
+                <span class="stat-change" [class]="'change-' + card.changeType">
+                    <i [class]="card.changeType === 'up' ? 'bi bi-arrow-up-short' : 'bi bi-arrow-down-short'"></i>
+                    {{ card.change }} this month
+                </span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-grid">
+
+        <!-- User Growth Chart -->
+        <div class="tc-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">User Growth</h3>
+                <span class="card-badge">This Year</span>
+            </div>
+            <div class="chart-placeholder">
+                <div class="chart-bars">
+                    @for (bar of [65, 80, 55, 90, 70, 85, 75, 95, 60, 88, 72, 100]; track $index) {
+                    <div class="chart-bar" [style.height.%]="bar">
+                        <div class="chart-bar-fill"></div>
+                    </div>
+                    }
+                </div>
+                <div class="chart-labels">
+                    @for (month of ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; track
+                    month) {
+                    <span>{{ month }}</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Traffic Overview -->
+        <div class="tc-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">Traffic Overview</h3>
+                <span class="card-badge">This Week</span>
+            </div>
+            <div class="traffic-list">
+                @for (item of [
+                { source: 'Direct', percent: 45, color: 'primary' },
+                { source: 'Organic Search', percent: 30, color: 'success' },
+                { source: 'Referral', percent: 15, color: 'accent' },
+                { source: 'Social Media', percent: 10, color: 'warning' }
+                ]; track item.source) {
+                <div class="traffic-item">
+                    <div class="traffic-info">
+                        <span class="traffic-dot" [class]="'dot-' + item.color"></span>
+                        <span class="traffic-source">{{ item.source }}</span>
+                        <span class="traffic-percent">{{ item.percent }}%</span>
+                    </div>
+                    <div class="traffic-bar-track">
+                        <div class="traffic-bar-fill" [class]="'fill-' + item.color" [style.width.%]="item.percent">
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tables Row -->
+    <div class="tables-grid">
+
+        <!-- Recent Users -->
+        <div class="tc-card table-card">
+            <div class="card-header">
+                <h3 class="card-title">Recent Users</h3>
+                <a href="#" class="card-link">View All</a>
+            </div>
+            <div class="table-wrapper">
+                <table class="tc-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (user of recentUsers; track user.email) {
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-initials">{{ user.name[0] }}</div>
+                                    <div>
+                                        <p class="user-name">{{ user.name }}</p>
+                                        <p class="user-email">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge">{{ user.role }}</span></td>
+                            <td>
+                                <span class="status-badge" [class]="'status-' + user.status">
+                                    {{ user.status }}
+                                </span>
+                            </td>
+                            <td class="text-muted">{{ user.joined }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-grid">
+
+        <!-- Recent Activities -->
+        <div class="tc-card">
+            <div class="card-header">
+                <h3 class="card-title">Recent Activities</h3>
+                <a href="#" class="card-link">View All</a>
+            </div>
+            <div class="activity-list">
+                @for (activity of activities; track activity.time) {
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i [class]="activity.icon"></i>
+                    </div>
+                    <div class="activity-info">
+                        <p class="activity-user">{{ activity.user }}</p>
+                        <p class="activity-action">{{ activity.action }}</p>
+                    </div>
+                    <span class="activity-time">{{ activity.time }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- System Logs -->
+        <div class="tc-card">
+            <div class="card-header">
+                <h3 class="card-title">System Logs</h3>
+                <a href="#" class="card-link">View All</a>
+            </div>
+            <div class="log-list">
+                @for (log of systemLogs; track log.time) {
+                <div class="log-item">
+                    <span class="log-badge" [class]="'log-' + log.level">
+                        <i
+                            [class]="log.level === 'info' ? 'bi bi-info-circle' : log.level === 'warning' ? 'bi bi-exclamation-triangle' : 'bi bi-x-circle'"></i>
+                        {{ log.level }}
+                    </span>
+                    <p class="log-message">{{ log.message }}</p>
+                    <span class="log-time">{{ log.time }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>

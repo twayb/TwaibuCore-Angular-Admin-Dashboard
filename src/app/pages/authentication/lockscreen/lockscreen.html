@@ -1,0 +1,63 @@
+<div class="lockscreen-overlay">
+
+    <!-- Blurred Background -->
+    <div class="lockscreen-blur"></div>
+
+    <!-- Card -->
+    <div class="lockscreen-card">
+
+        <!-- Avatar -->
+        <div class="flex flex-col items-center gap-3 mb-6">
+            <div class="lock-avatar">
+                <img src="assets/avatar/avatar_profile.jpg" alt="Admin" class="lock-avatar-img" />
+            </div>
+            <div class="text-center">
+                <p class="lock-name">Twaibu Songoro</p>
+                <p class="lock-role">Super Admin</p>
+            </div>
+            <div class="lock-icon">
+                <i class="bi bi-lock-fill"></i>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="text-center mb-6">
+            <h2 class="lock-title">Session Locked</h2>
+            <p class="lock-subtitle">Your session was locked due to inactivity. Enter your password to continue.</p>
+        </div>
+
+        <!-- Form -->
+        <form class="flex flex-col gap-4" (ngSubmit)="onUnlock()">
+
+            <div class="input-wrapper">
+                <i class="bi bi-lock input-icon"></i>
+                <input [type]="showPassword ? 'text' : 'password'" class="form-input" placeholder="Enter your password"
+                    [(ngModel)]="password" name="password" required />
+                <button type="button" class="eye-btn" (click)="showPassword = !showPassword">
+                    <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </button>
+            </div>
+
+            @if (errorMessage) {
+            <div class="error-alert">
+                <i class="bi bi-exclamation-circle"></i>
+                {{ errorMessage }}
+            </div>
+            }
+
+            <button type="submit" class="auth-btn">
+                <i class="bi bi-unlock"></i>
+                Unlock Session
+            </button>
+
+        </form>
+
+        <!-- Logout -->
+        <button class="logout-btn" (click)="onLogout()">
+            <i class="bi bi-box-arrow-right"></i>
+            Sign in as different user
+        </button>
+
+    </div>
+
+</div>

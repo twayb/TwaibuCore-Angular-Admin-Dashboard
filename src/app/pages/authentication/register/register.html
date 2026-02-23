@@ -1,0 +1,71 @@
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <img src="assets/icons/logo.png" alt="TwaibuCore" class="auth-logo-img" />
+    </div>
+
+    <div class="auth-header">
+      <h1 class="auth-title">Create Account</h1>
+      <p class="auth-subtitle">Join TwaibuCore and get started</p>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="onRegister()">
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <div class="input-wrapper">
+          <i class="bi bi-person input-icon"></i>
+          <input type="text" class="form-input" placeholder="Enter your full name"
+            [(ngModel)]="fullName" name="fullName" required />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <i class="bi bi-envelope input-icon"></i>
+          <input type="email" class="form-input" placeholder="Enter your email"
+            [(ngModel)]="email" name="email" required />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrapper">
+          <i class="bi bi-lock input-icon"></i>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-input"
+            placeholder="Create a password" [(ngModel)]="password" name="password" required />
+          <button type="button" class="eye-btn" (click)="showPassword = !showPassword">
+            <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="bi bi-lock-fill input-icon"></i>
+          <input type="password" class="form-input" placeholder="Confirm your password"
+            [(ngModel)]="confirmPassword" name="confirmPassword" required />
+        </div>
+      </div>
+
+      <button type="submit" class="auth-btn">
+        <i class="bi bi-person-plus"></i>
+        Create Account
+      </button>
+
+    </form>
+
+    <p class="auth-footer-text">
+      Already have an account?
+      <a routerLink="/pages/auth/login" class="auth-link">Sign in</a>
+    </p>
+
+  </div>
+</div>
