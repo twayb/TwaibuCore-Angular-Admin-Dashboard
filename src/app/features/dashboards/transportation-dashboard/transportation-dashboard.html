@@ -1,0 +1,289 @@
+<div class="dashboard-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Transportation Dashboard</h2>
+            <p class="page-subtitle">Monitor vehicles, routes, drivers and trips in real time.</p>
+        </div>
+        <div class="flex gap-2">
+            <button class="tc-btn-ghost">
+                <i class="bi bi-download"></i> Export
+            </button>
+            <button class="tc-btn-primary">
+                <i class="bi bi-plus-lg"></i> Add Vehicle
+            </button>
+        </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-grid">
+        @for (card of statCards; track card.title) {
+        <div class="stat-card">
+            <div class="stat-icon-box" [class]="'stat-icon-' + card.color">
+                <i [class]="card.icon"></i>
+            </div>
+            <div class="stat-info">
+                <p class="stat-title">{{ card.title }}</p>
+                <h3 class="stat-value">{{ card.value }}</h3>
+                <span class="stat-change" [class]="'change-' + card.changeType">
+                    <i [class]="card.changeType === 'up' ? 'bi bi-arrow-up-short' : 'bi bi-arrow-down-short'"></i>
+                    {{ card.change }} this month
+                </span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-grid">
+
+        <!-- Route Map Overview -->
+        <div class="tc-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">Route Overview</h3>
+                <span class="card-badge">Active</span>
+            </div>
+            <div class="route-list">
+                @for (route of routeData; track route.route) {
+                <div class="route-item">
+                    <div class="route-icon"
+                        [class]="route.status === 'active' ? 'route-icon-active' : 'route-icon-delayed'">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </div>
+                    <div class="route-info">
+                        <p class="route-name">{{ route.route }}</p>
+                        <p class="route-distance"><i class="bi bi-geo"></i> {{ route.distance }}</p>
+                    </div>
+                    <div class="route-meta">
+                        <span class="route-trips">{{ route.trips }} trips</span>
+                        <span class="route-status" [class]="'rstatus-' + route.status">{{ route.status }}</span>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Vehicle Status Chart - Donut -->
+        <div class="tc-card chart-card">
+            <div class="card-header">
+                <h3 class="card-title">Vehicle Status</h3>
+                <span class="card-badge">Fleet</span>
+            </div>
+
+            <!-- Donut -->
+            <div class="donut-wrapper">
+                <svg viewBox="0 0 200 200" class="donut-svg">
+                    <circle cx="100" cy="100" r="70" class="donut-ring" stroke="#22c55e" stroke-dasharray="128 329"
+                        stroke-dashoffset="0" />
+                    <circle cx="100" cy="100" r="70" class="donut-ring" stroke="#f59e0b" stroke-dasharray="55 329"
+                        stroke-dashoffset="-128" />
+                    <circle cx="100" cy="100" r="70" class="donut-ring" stroke="#ef4444" stroke-dasharray="37 329"
+                        stroke-dashoffset="-183" />
+                    <text x="100" y="95" class="donut-center-label">Total</text>
+                    <text x="100" y="115" class="donut-center-value">48</text>
+                </svg>
+            </div>
+
+            <!-- Legend with progress bars -->
+            <div class="vehicle-status-legend">
+                @for (item of vehicleStatusData; track item.status) {
+                <div class="vstatus-legend-item">
+                    <div class="vstatus-legend-header">
+                        <div class="flex items-center gap-2">
+                            <span class="legend-dot" [class]="'dot-' + item.color"></span>
+                            <span class="vstatus-label">{{ item.status }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="vstatus-count">{{ item.count }}</span>
+                            <span class="vstatus-percent">{{ item.percent }}%</span>
+                        </div>
+                    </div>
+                    <div class="vstatus-bar-track">
+                        <div class="vstatus-bar-fill" [class]="'vfill-' + item.color" [style.width.%]="item.percent">
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Summary Row -->
+            <div class="fleet-summary">
+                <div class="fleet-summary-item">
+                    <i class="bi bi-truck text-[var(--color-success)]"></i>
+                    <span class="fleet-summary-value">28</span>
+                    <span class="fleet-summary-label">On Road</span>
+                </div>
+                <div class="fleet-summary-divider"></div>
+                <div class="fleet-summary-item">
+                    <i class="bi bi-pause-circle text-[#f59e0b]"></i>
+                    <span class="fleet-summary-value">12</span>
+                    <span class="fleet-summary-label">Parked</span>
+                </div>
+                <div class="fleet-summary-divider"></div>
+                <div class="fleet-summary-item">
+                    <i class="bi bi-wrench text-[#ef4444]"></i>
+                    <span class="fleet-summary-value">8</span>
+                    <span class="fleet-summary-label">In Service</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Active Trips -->
+    <div class="tc-card table-card">
+        <div class="card-header">
+            <h3 class="card-title">Active Trips</h3>
+            <a href="#" class="card-link">View All</a>
+        </div>
+        <div class="table-wrapper">
+            <table class="tc-table">
+                <thead>
+                    <tr>
+                        <th>Trip ID</th>
+                        <th>Driver</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure</th>
+                        <th>ETA</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (trip of activeTrips; track trip.id) {
+                    <tr>
+                        <td class="font-semibold text-[var(--color-primary)]">{{ trip.id }}</td>
+                        <td>{{ trip.driver }}</td>
+                        <td class="text-muted">{{ trip.from }}</td>
+                        <td class="text-muted">{{ trip.to }}</td>
+                        <td class="text-muted">{{ trip.departure }}</td>
+                        <td class="text-muted">{{ trip.eta }}</td>
+                        <td>
+                            <span class="status-badge" [class]="'status-' + trip.status">
+                                {{ trip.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bottom Grid -->
+    <div class="bottom-grid">
+
+        <!-- Vehicle List -->
+        <div class="tc-card table-card">
+            <div class="card-header">
+                <h3 class="card-title">Vehicle List</h3>
+                <a href="#" class="card-link">View All</a>
+            </div>
+            <div class="table-wrapper">
+                <table class="tc-table">
+                    <thead>
+                        <tr>
+                            <th>Plate</th>
+                            <th>Type</th>
+                            <th>Driver</th>
+                            <th>Fuel</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (vehicle of vehicles; track vehicle.id) {
+                        <tr>
+                            <td class="font-semibold">{{ vehicle.plate }}</td>
+                            <td><span class="type-badge">{{ vehicle.type }}</span></td>
+                            <td>{{ vehicle.driver }}</td>
+                            <td>
+                                <div class="fuel-bar-track">
+                                    <div class="fuel-bar-fill" [style.width.%]="vehicle.fuel"
+                                        [class]="vehicle.fuel > 50 ? 'fuel-good' : vehicle.fuel > 25 ? 'fuel-medium' : 'fuel-low'">
+                                    </div>
+                                </div>
+                                <span class="fuel-label">{{ vehicle.fuel }}%</span>
+                            </td>
+                            <td>
+                                <span class="status-badge" [class]="'vstatus-' + vehicle.status">
+                                    {{ vehicle.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Driver List -->
+        <div class="tc-card">
+            <div class="card-header">
+                <h3 class="card-title">Driver List</h3>
+                <a href="#" class="card-link">View All</a>
+            </div>
+            <div class="driver-list">
+                @for (driver of drivers; track driver.id) {
+                <div class="driver-item">
+                    <div class="driver-avatar">{{ driver.name[0] }}</div>
+                    <div class="driver-info">
+                        <p class="driver-name">{{ driver.name }}</p>
+                        <p class="driver-vehicle"><i class="bi bi-truck"></i> {{ driver.vehicle }}</p>
+                    </div>
+                    <div class="driver-meta">
+                        <span class="driver-status" [class]="'dstatus-' + driver.status">{{ driver.status }}</span>
+                        <div class="driver-stars">
+                            @for (star of getStars(driver.rating); track $index) {
+                            <i class="bi bi-star-fill"></i>
+                            }
+                            <span class="driver-rating">{{ driver.rating }}</span>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Maintenance Schedule -->
+    <div class="tc-card table-card">
+        <div class="card-header">
+            <h3 class="card-title">Maintenance Schedule</h3>
+            <a href="#" class="card-link">View All</a>
+        </div>
+        <div class="table-wrapper">
+            <table class="tc-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Plate</th>
+                        <th>Service Type</th>
+                        <th>Date</th>
+                        <th>Cost</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (m of maintenance; track m.plate) {
+                    <tr>
+                        <td class="font-semibold">{{ m.vehicle }}</td>
+                        <td class="text-muted">{{ m.plate }}</td>
+                        <td>{{ m.type }}</td>
+                        <td class="text-muted">{{ m.date }}</td>
+                        <td class="font-semibold">{{ m.cost }}</td>
+                        <td>
+                            <span class="status-badge" [class]="'mstatus-' + m.status">
+                                {{ m.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

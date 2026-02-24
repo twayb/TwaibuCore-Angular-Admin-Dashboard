@@ -4,12 +4,18 @@ import { RecruitmentDashboardComponent } from './features/dashboards/recruitment
 import { ForgotPasswordComponent } from './pages/authentication/forgot-password/forgot-password';
 import { LoginComponent } from './pages/authentication/login/login';
 import { RegisterComponent } from './pages/authentication/register/register';
+import { LockscreenComponent } from './pages/authentication/lockscreen/lockscreen';
+import { TransportationDashboardComponent } from './features/dashboards/transportation-dashboard/transportation-dashboard';
+import { ComplaintsDashboardComponent } from './features/dashboards/complaints-dashboard/complaints-dashboard';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
     { path: 'pages/auth/register', component: RegisterComponent },
     { path: 'pages/auth/forgot-password', component: ForgotPasswordComponent },
+    { path: 'pages/auth/lockscreen', component: LockscreenComponent },
     { path: 'dashboard/admin', component: AdminDashboardComponent },
     { path: 'dashboard/recruitment', component: RecruitmentDashboardComponent },
+    { path: 'dashboard/transportation', component: TransportationDashboardComponent },
+    { path: 'dashboard/complaints', component: ComplaintsDashboardComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];

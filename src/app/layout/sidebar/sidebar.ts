@@ -1,6 +1,7 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LayoutService } from '../../core/services/layout-service';
+import { LockscreenService } from '../../core/services/lockscreen.service';
 
 interface NavItem {
   label: string;
@@ -30,6 +31,7 @@ interface NavSection {
 })
 export class SidebarComponent {
   layout = inject(LayoutService);
+    lockscreen = inject(LockscreenService);
   openGroupLabel: string | null = null;
   floatingDropdownTop: number = 0;
 
@@ -84,12 +86,12 @@ export class SidebarComponent {
           isOpen: false,
           items: [
             { label: 'Admin Dashboard', icon: 'bi bi-speedometer2', route: '/dashboard/admin' },
-            { label: 'HR Dashboard', icon: 'bi bi-people', route: '/dashboard/hr' },
+            // { label: 'HR Dashboard', icon: 'bi bi-people', route: '/dashboard/hr' },
             { label: 'Recruitment Dashboard', icon: 'bi bi-person-plus', route: '/dashboard/recruitment' },
             { label: 'Complaints Dashboard', icon: 'bi bi-chat-left-text', route: '/dashboard/complaints' },
             { label: 'Transportation Dashboard', icon: 'bi bi-truck', route: '/dashboard/transportation' },
-            { label: 'Asset Dashboard', icon: 'bi bi-box-seam', route: '/dashboard/assets' },
-            { label: 'HelpDesk Dashboard', icon: 'bi bi-headset', route: '/dashboard/helpdesk' },
+            // { label: 'Asset Dashboard', icon: 'bi bi-box-seam', route: '/dashboard/assets' },
+            // { label: 'HelpDesk Dashboard', icon: 'bi bi-headset', route: '/dashboard/helpdesk' },
           ]
         }
       ],
@@ -115,6 +117,7 @@ export class SidebarComponent {
             { label: 'Login', icon: '', route: '/pages/auth/login' },
             { label: 'Register', icon: '', route: '/pages/auth/register' },
             { label: 'Forgot Password', icon: '', route: '/pages/auth/forgot-password' },
+            { label: 'LockScreen', icon: '', route: '/pages/auth/lockscreen' },
           ]
         },
         {
@@ -142,17 +145,70 @@ export class SidebarComponent {
     },
     {
       section: 'General',
-      groups: [],
+      groups: [
+          {
+          label: 'Components',
+          icon: 'bi bi-grid',
+          isOpen: false,
+          items: [
+            { label: 'Alerts', icon: '', route: '/general/components' },
+            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
+            
+          ]
+        },
+
+        {
+          label: 'Widgets',
+          icon: 'bi bi-layout-wtf',
+          isOpen: false,
+          items: [
+            { label: 'Alerts', icon: '', route: '/general/components' },
+            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
+            
+          ]
+        },
+
+         {
+          label: 'Forms',
+          icon: 'bi bi-ui-checks',
+          isOpen: false,
+          items: [
+            { label: 'Alerts', icon: '', route: '/general/components' },
+            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
+            
+          ]
+        },
+
+         {
+          label: 'Icons',
+          icon: 'bi bi-emoji-smile',
+          isOpen: false,
+          items: [
+            { label: 'Alerts', icon: '', route: '/general/components' },
+            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
+            
+          ]
+        }, 
+
+         {
+          label: 'Tables',
+          icon: 'bi bi-table',
+          isOpen: false,
+          items: [
+            { label: 'Alerts', icon: '', route: '/general/components' },
+            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
+            
+          ]
+        },
+      ],
       items: [
-        { label: 'Components', icon: 'bi bi-grid', route: '/general/components' },
-        { label: 'Widgets', icon: 'bi bi-layout-wtf', route: '/general/widgets' },
-        { label: 'Extended UI', icon: 'bi bi-stars', route: '/general/extended-ui' },
-        { label: 'Icons', icon: 'bi bi-emoji-smile', route: '/general/icons' },
-        { label: 'Forms', icon: 'bi bi-ui-checks', route: '/general/forms' },
-        { label: 'Tables', icon: 'bi bi-table', route: '/general/tables' },
-        { label: 'Charts', icon: 'bi bi-bar-chart-line', route: '/general/charts' },
-        { label: 'Map', icon: 'bi bi-map', route: '/general/map' },
+     
       ]
     }
+
+    
   ];
 }
+
+
+ 

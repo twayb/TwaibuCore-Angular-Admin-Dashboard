@@ -1,0 +1,142 @@
+<!-- Overlay -->
+@if (theme.isSettingsOpen()) {
+  <div class="settings-overlay" (click)="theme.closeSettings()"></div>
+}
+
+<!-- Panel -->
+<div class="settings-panel" [class.open]="theme.isSettingsOpen()">
+
+  <!-- Header -->
+  <div class="settings-header">
+    <div>
+      <h3 class="settings-title">Theme Settings</h3>
+      <p class="settings-subtitle">Customize your dashboard appearance</p>
+    </div>
+    <button class="close-btn" (click)="theme.closeSettings()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="settings-body">
+
+    <!-- Primary Color -->
+    <div class="settings-section">
+      <h4 class="section-title">Theme Color</h4>
+      <div class="color-swatches">
+        @for (color of theme.presetColors; track color.value) {
+          <button
+            class="color-swatch"
+            [style.background-color]="color.value"
+            [class.active]="theme.settings().primaryColor === color.value"
+            (click)="theme.setPrimaryColor(color.value)"
+            [title]="color.label">
+            @if (theme.settings().primaryColor === color.value) {
+              <i class="bi bi-check2"></i>
+            }
+          </button>
+        }
+      </div>
+
+      <!-- Custom Color -->
+      <div class="custom-color">
+        <label class="section-label">Custom Color</label>
+        <div class="custom-color-input">
+          <input
+            type="color"
+            [(ngModel)]="customColor" 
+            (input)="onCustomColorChange(customColor)"
+            name="customColor"
+            class="color-picker" />
+          <span class="color-value">{{ customColor }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Color -->
+    <div class="settings-section">
+      <h4 class="section-title">Sidebar Color</h4>
+      <div class="option-group">
+        <button class="option-btn"
+          [class.active]="theme.settings().sidebarColor === 'light'"
+          (click)="theme.setSidebarColor('light')">
+          <div class="option-preview sidebar-preview-light"></div>
+          <span>Light</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().sidebarColor === 'dark'"
+          (click)="theme.setSidebarColor('dark')">
+          <div class="option-preview sidebar-preview-dark"></div>
+          <span>Dark</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().sidebarColor === 'colored'"
+          (click)="theme.setSidebarColor('colored')">
+          <div class="option-preview sidebar-preview-colored"
+            [style.background-color]="theme.settings().primaryColor"></div>
+          <span>Colored</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Topbar Color -->
+    <div class="settings-section">
+      <h4 class="section-title">Topbar Color</h4>
+      <div class="option-group">
+        <button class="option-btn"
+          [class.active]="theme.settings().topbarColor === 'light'"
+          (click)="theme.setTopbarColor('light')">
+          <div class="option-preview topbar-preview-light"></div>
+          <span>Light</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().topbarColor === 'dark'"
+          (click)="theme.setTopbarColor('dark')">
+          <div class="option-preview topbar-preview-dark"></div>
+          <span>Dark</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().topbarColor === 'colored'"
+          (click)="theme.setTopbarColor('colored')">
+          <div class="option-preview topbar-preview-colored"
+            [style.background-color]="theme.settings().primaryColor"></div>
+          <span>Colored</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Font Size -->
+    <div class="settings-section">
+      <h4 class="section-title">Font Size</h4>
+      <div class="option-group">
+        <button class="option-btn"
+          [class.active]="theme.settings().fontSize === 'small'"
+          (click)="theme.setFontSize('small')">
+          <span class="font-preview" style="font-size: 11px;">Aa</span>
+          <span>Small</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().fontSize === 'medium'"
+          (click)="theme.setFontSize('medium')">
+          <span class="font-preview" style="font-size: 14px;">Aa</span>
+          <span>Medium</span>
+        </button>
+        <button class="option-btn"
+          [class.active]="theme.settings().fontSize === 'large'"
+          (click)="theme.setFontSize('large')">
+          <span class="font-preview" style="font-size: 18px;">Aa</span>
+          <span>Large</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="settings-footer">
+    <button class="reset-btn" (click)="theme.resetSettings()">
+      <i class="bi bi-arrow-counterclockwise"></i>
+      Reset to Default
+    </button>
+  </div>
+
+</div>

@@ -148,3 +148,107 @@
   background-attachment: fixed;
 }
 
+/* Sidebar Colors */
+:root.sidebar-dark .tc-sidebar {
+  background-color: #1e293b;
+  border-right-color: #334155;
+}
+
+:root.sidebar-dark .nav-link,
+:root.sidebar-dark .nav-section-label,
+:root.sidebar-dark .user-name {
+  color: #94a3b8;
+}
+
+:root.sidebar-dark .sidebar-brand,
+:root.sidebar-dark .sidebar-footer {
+  border-color: #334155;
+}
+
+:root.sidebar-colored .tc-sidebar {
+  background-color: var(--color-primary);
+  border-right-color: var(--color-primary);
+}
+
+:root.sidebar-colored .nav-link {
+  color: rgba(255,255,255,0.7);
+}
+
+:root.sidebar-colored .nav-link:hover,
+:root.sidebar-colored .nav-link.active {
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+}
+
+:root.sidebar-colored .nav-section-label {
+  color: rgba(255,255,255,0.5);
+}
+
+:root.sidebar-colored .sidebar-brand,
+:root.sidebar-colored .sidebar-footer {
+  border-color: rgba(255,255,255,0.15);
+}
+
+:root.sidebar-colored .user-name,
+:root.sidebar-colored .user-role {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Topbar Colors */
+:root.topbar-dark .tc-header {
+  background-color: #1e293b;
+  border-bottom-color: #334155;
+}
+
+:root.topbar-dark .header-title,
+:root.topbar-dark .toggle-btn,
+:root.topbar-dark .icon-btn {
+  color: #94a3b8;
+}
+
+:root.topbar-colored .tc-header {
+  background-color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+:root.topbar-colored .header-title {
+  color: white;
+}
+
+:root.topbar-colored .toggle-btn,
+:root.topbar-colored .icon-btn {
+  color: rgba(255,255,255,0.8);
+}
+
+:root.topbar-colored .search-box {
+  background-color: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.2);
+}
+
+:root.topbar-colored .search-box input {
+  color: white;
+}
+
+:root.topbar-colored .search-box input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* Font Size Base */
+:root {
+  --font-size-base: 14px;
+}
+
+body {
+  font-size: var(--font-size-base);
+}
+
+/* Make all text scale with base font size */
+p, span, a, td, th, li, input, button, label {
+  font-size: var(--font-size-base);
+}
+
+/* Scale headings relatively */
+h1 { font-size: calc(var(--font-size-base) * 1.8); }
+h2 { font-size: calc(var(--font-size-base) * 1.5); }
+h3 { font-size: calc(var(--font-size-base) * 1.25); }
+h4 { font-size: calc(var(--font-size-base) * 1.1); }

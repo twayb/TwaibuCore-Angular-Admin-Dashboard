@@ -1,4 +1,4 @@
-<aside class="tc-sidebar flex flex-col" [class.collapsed]="isCollapsed"   [class.mobile-open]="layout.isOverlay()">
+<aside class="tc-sidebar flex flex-col" [class.collapsed]="isCollapsed" [class.mobile-open]="layout.isOverlay()">
 
   <!-- Brand -->
   <div class="sidebar-brand">
@@ -36,14 +36,22 @@
         </button>
 
         <!-- Floating dropdown when collapsed -->
+        
         @if (isGroupOpen(group) && isCollapsed) {
         <div class="nav-floating-dropdown" [style.top.px]="floatingDropdownTop">
           <p class="nav-floating-label">{{ group.label }}</p>
           @for (item of group.items; track item.route) {
+          @if (item.label === 'Lockscreen') {
+          <button class="nav-floating-item w-full text-left" (click)="lockscreen.lock()">
+            <span class="nav-sub-dot"></span>
+            <span>{{ item.label }}</span>
+          </button>
+          } @else {
           <a [routerLink]="item.route" routerLinkActive="active" class="nav-floating-item" [title]="item.label">
             <span class="nav-sub-dot"></span>
             <span>{{ item.label }}</span>
           </a>
+          }
           }
         </div>
         }
@@ -51,14 +59,22 @@
     </ul>
 
     <!-- Expanded dropdown when not collapsed -->
+
     @if (isGroupOpen(group) && !isCollapsed) {
     <ul class="nav-sub">
       @for (item of group.items; track item.route) {
       <li>
+        @if (item.label === 'Lockscreen') {
+        <button class="nav-link nav-sub-link w-full text-left" (click)="lockscreen.lock()">
+          <span class="nav-sub-dot"></span>
+          <span>{{ item.label }}</span>
+        </button>
+        } @else {
         <a [routerLink]="item.route" routerLinkActive="active" class="nav-link nav-sub-link" [title]="item.label">
           <span class="nav-sub-dot"></span>
           <span>{{ item.label }}</span>
         </a>
+        }
       </li>
       }
     </ul>

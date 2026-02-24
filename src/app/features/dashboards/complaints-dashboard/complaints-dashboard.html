@@ -1,0 +1,205 @@
+<div class="dashboard-wrapper">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Complaints Dashboard</h2>
+      <p class="page-subtitle">Monitor, track and manage all complaints and cases.</p>
+    </div>
+    <div class="flex gap-2">
+      <button class="tc-btn-ghost">
+        <i class="bi bi-download"></i> Export
+      </button>
+      <button class="tc-btn-primary">
+        <i class="bi bi-plus-lg"></i> New Complaint
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stat-grid">
+    @for (card of statCards; track card.title) {
+      <div class="stat-card">
+        <div class="stat-icon-box" [class]="'stat-icon-' + card.color">
+          <i [class]="card.icon"></i>
+        </div>
+        <div class="stat-info">
+          <p class="stat-title">{{ card.title }}</p>
+          <h3 class="stat-value">{{ card.value }}</h3>
+          <span class="stat-change" [class]="'change-' + card.changeType">
+            <i [class]="card.changeType === 'up' ? 'bi bi-arrow-up-short' : 'bi bi-arrow-down-short'"></i>
+            {{ card.change }} this month
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Case Stages -->
+  <div class="stages-grid">
+    @for (stage of caseStages; track stage.stage) {
+      <div class="stage-card">
+        <div class="stage-icon" [class]="'stage-icon-' + stage.color">
+          <i [class]="stage.icon"></i>
+        </div>
+        <div class="stage-info">
+          <p class="stage-name">{{ stage.stage }}</p>
+          <h3 class="stage-count">{{ stage.count }}</h3>
+        </div>
+        <div class="stage-arrow">
+          <i class="bi bi-arrow-right"></i>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Charts Row -->
+  <div class="charts-grid">
+
+    <!-- Complaints by Category -->
+    <div class="tc-card chart-card">
+      <div class="card-header">
+        <h3 class="card-title">Complaints by Category</h3>
+        <span class="card-badge">This Year</span>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="donut-wrapper">
+        <svg viewBox="0 0 200 200" class="donut-svg">
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="var(--color-primary)"
+            stroke-dasharray="95 329" stroke-dashoffset="0"/>
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="#ef4444"
+            stroke-dasharray="76 329" stroke-dashoffset="-95"/>
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="#f59e0b"
+            stroke-dasharray="69 329" stroke-dashoffset="-171"/>
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="var(--color-accent)"
+            stroke-dasharray="56 329" stroke-dashoffset="-240"/>
+          <circle cx="100" cy="100" r="70" class="donut-ring"
+            stroke="#06b6d4"
+            stroke-dasharray="33 329" stroke-dashoffset="-296"/>
+          <text x="100" y="95"  class="donut-center-label">Total</text>
+          <text x="100" y="115" class="donut-center-value">1,842</text>
+        </svg>
+
+        <div class="donut-legend">
+          @for (item of categoryData; track item.category) {
+            <div class="legend-item">
+              <span class="legend-dot" [class]="'dot-' + item.color"></span>
+              <span class="legend-label">{{ item.category }}</span>
+              <span class="legend-percent">{{ item.percent }}%</span>
+              <span class="legend-count">{{ item.count }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Category Bars -->
+      <div class="category-bars">
+        @for (item of categoryData; track item.category) {
+          <div class="category-bar-item">
+            <div class="category-bar-track">
+              <div class="category-bar-fill"
+                [class]="'cfill-' + item.color"
+                [style.width.%]="item.percent">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Complaints by Source -->
+    <div class="tc-card chart-card">
+      <div class="card-header">
+        <h3 class="card-title">Complaints by Source</h3>
+        <span class="card-badge">This Year</span>
+      </div>
+
+      <!-- Source Bars -->
+      <div class="source-list">
+        @for (item of sourceData; track item.source) {
+          <div class="source-item">
+            <div class="source-header">
+              <div class="flex items-center gap-2">
+                <span class="source-dot" [class]="'dot-' + item.color"></span>
+                <span class="source-name">{{ item.source }}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="source-count">{{ item.count }}</span>
+                <span class="source-percent">{{ item.percent }}%</span>
+              </div>
+            </div>
+            <div class="source-bar-track">
+              <div class="source-bar-fill"
+                [class]="'sfill-' + item.color"
+                [style.width.%]="item.percent">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Source Summary -->
+      <div class="source-summary">
+        @for (item of sourceData; track item.source) {
+          <div class="source-summary-item">
+            <div class="source-summary-icon" [class]="'ssicon-' + item.color">
+              <i [class]="item.source === 'Public' ? 'bi bi-people' :
+                          item.source === 'State Attorney' ? 'bi bi-building' :
+                          item.source === 'Organization' ? 'bi bi-diagram-3' : 'bi bi-three-dots'">
+              </i>
+            </div>
+            <p class="source-summary-value">{{ item.count }}</p>
+            <p class="source-summary-label">{{ item.source }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Recent Complaints Table -->
+  <div class="tc-card table-card">
+    <div class="card-header">
+      <h3 class="card-title">Recent Complaints</h3>
+      <a href="#" class="card-link">View All</a>
+    </div>
+    <div class="table-wrapper">
+      <table class="tc-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Subject</th>
+            <th>Category</th>
+            <th>Source</th>
+            <th>Stage</th>
+            <th>Priority</th>
+            <th>Assignee</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (complaint of recentComplaints; track complaint.id) {
+            <tr>
+              <td class="complaint-id">{{ complaint.id }}</td>
+              <td class="complaint-subject">{{ complaint.subject }}</td>
+              <td><span class="category-badge">{{ complaint.category }}</span></td>
+              <td><span class="source-badge" [class]="'sbadge-' + complaint.source.toLowerCase().replace(' ', '-')">{{ complaint.source }}</span></td>
+              <td><span class="stage-badge" [class]="'stage-' + complaint.stage">{{ complaint.stage }}</span></td>
+              <td><span class="priority-badge" [class]="'priority-' + complaint.priority">{{ complaint.priority }}</span></td>
+              <td class="text-muted">{{ complaint.assignee }}</td>
+              <td class="text-muted">{{ complaint.date }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
