@@ -1,1 +1,45 @@
-<p>cards works!</p>
+<div [class]="getClasses()">
+
+  <!-- Image -->
+  @if (image) {
+    <div class="card-image-wrap">
+      <img [src]="image" [alt]="imageAlt" class="card-image" />
+      @if (badge) {
+        <span class="card-image-badge" [class]="'card-badge-' + badgeType">{{ badge }}</span>
+      }
+    </div>
+  }
+
+  <!-- Body -->
+  <div class="card-body">
+
+    <!-- Icon -->
+    @if (icon) {
+      <div class="card-icon-wrap" [class]="'card-icon-' + iconColor">
+        <i [class]="icon"></i>
+      </div>
+    }
+
+    <!-- Title -->
+    @if (title) {
+      <h4 class="card-title">{{ title }}</h4>
+    }
+
+    <!-- Subtitle -->
+    @if (subtitle) {
+      <p class="card-subtitle">{{ subtitle }}</p>
+    }
+
+    <!-- Content slot -->
+    <ng-content></ng-content>
+
+  </div>
+
+  <!-- Footer -->
+  @if (footer) {
+    <div class="card-footer">
+      <ng-content select="[card-footer]"></ng-content>
+    </div>
+  }
+
+</div>

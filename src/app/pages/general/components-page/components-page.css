@@ -1,0 +1,5 @@
+/* Fix dropdown overflow */
+.components-right-panel,
+.flex-1.min-w-0 {
+  overflow: visible !important;
+}

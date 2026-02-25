@@ -1,1 +1,110 @@
-<p>inputs works!</p>
+<div [class]="getWrapperClass()">
+
+  <!-- Label -->
+  @if (label) {
+    <label [class]="getLabelClass()">
+      {{ label }}
+      @if (required) { <span class="inp-required">*</span> }
+    </label>
+  }
+
+  <!-- Input Container -->
+  <div class="inp-container" [class.inp-container-focused]="isFocused" [class.inp-container-disabled]="disabled">
+
+    <!-- Prefix Icon -->
+    @if (prefixIcon) {
+      <span class="inp-prefix-icon">
+        <i [class]="prefixIcon"></i>
+      </span>
+    }
+
+    <!-- Prefix Text -->
+    @if (prefixText) {
+      <span class="inp-prefix-text" #prefixRef>{{ prefixText }}</span>
+    }
+
+    <!-- Textarea -->
+    @if (type === 'textarea') {
+      <textarea
+        [class]="getFieldClass()"
+        [ngStyle]="getPaddingStyle()"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [readonly]="readonly"
+        [rows]="rows"
+        [maxlength]="maxLength || null"
+        [(ngModel)]="value"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (input)="onInput($event)">
+      </textarea>
+    } @else {
+      <!-- Input -->
+      <input
+        [type]="getEffectiveType()"
+        [class]="getFieldClass()"
+        [ngStyle]="getPaddingStyle()"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [readonly]="readonly"
+        [maxlength]="maxLength || null"
+        [(ngModel)]="value"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (input)="onInput($event)" />
+    }
+
+    <!-- Suffix Icon -->
+    @if (suffixIcon && type !== 'password' && !clearable) {
+      <span class="inp-suffix-icon">
+        <i [class]="suffixIcon"></i>
+      </span>
+    }
+
+    <!-- Suffix Text -->
+    @if (suffixText) {
+      <span class="inp-suffix-text" #suffixRef>{{ suffixText }}</span>
+    }
+
+    <!-- Password Toggle -->
+    @if (type === 'password') {
+      <button class="inp-suffix-btn" type="button" (click)="togglePassword()">
+        <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+      </button>
+    }
+
+    <!-- Clear Button -->
+    @if (clearable && value) {
+      <button class="inp-suffix-btn" type="button" (click)="clear()">
+        <i class="bi bi-x-circle-fill"></i>
+      </button>
+    }
+
+    <!-- State Icon -->
+    @if (state === 'success') {
+      <span class="inp-state-icon inp-state-success"><i class="bi bi-check-circle-fill"></i></span>
+    } @else if (state === 'error') {
+      <span class="inp-state-icon inp-state-error"><i class="bi bi-x-circle-fill"></i></span>
+    } @else if (state === 'warning') {
+      <span class="inp-state-icon inp-state-warning"><i class="bi bi-exclamation-circle-fill"></i></span>
+    }
+
+  </div>
+
+  <!-- Bottom Row -->
+  <div class="inp-bottom">
+    @if (state === 'error' && errorMessage) {
+      <span class="inp-message inp-message-error"><i class="bi bi-x-circle"></i> {{ errorMessage }}</span>
+    } @else if (state === 'success' && successMessage) {
+      <span class="inp-message inp-message-success"><i class="bi bi-check-circle"></i> {{ successMessage }}</span>
+    } @else if (hint) {
+      <span class="inp-hint">{{ hint }}</span>
+    } @else {
+      <span></span>
+    }
+    @if (counter && maxLength) {
+      <span class="inp-counter">{{ value.length }} / {{ maxLength }}</span>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,129 @@
+/* Wrapper */
+.breadcrumb-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Link */
+.breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.breadcrumb-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+/* Active */
+.breadcrumb-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 3px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Separator */
+.breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  color: var(--color-border);
+  font-size: 12px;
+  padding: 0 2px;
+}
+
+.breadcrumb-separator .bi-circle-fill {
+  font-size: 5px;
+}
+
+/* ── PLAIN style ── */
+.breadcrumb-style-plain .breadcrumb-link   { background: transparent; }
+.breadcrumb-style-plain .breadcrumb-active { background: transparent; }
+
+/* ── PILLS style ── */
+.breadcrumb-style-pills {
+  background-color: var(--color-bg-1);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+.breadcrumb-style-pills .breadcrumb-link {
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.breadcrumb-style-pills .breadcrumb-active {
+  border-radius: 999px;
+  padding: 3px 10px;
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ── OUTLINED style ── */
+.breadcrumb-style-outlined {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px 12px;
+  background-color: var(--color-card);
+}
+
+.breadcrumb-style-outlined .breadcrumb-active {
+  color: var(--color-primary);
+}
+
+/* ── FILLED style ── */
+.breadcrumb-style-filled {
+  background-color: var(--color-primary-soft);
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+
+.breadcrumb-style-filled .breadcrumb-link {
+  color: var(--color-primary);
+  opacity: 0.7;
+}
+
+.breadcrumb-style-filled .breadcrumb-link:hover {
+  opacity: 1;
+  background-color: rgba(255,255,255,0.3);
+}
+
+.breadcrumb-style-filled .breadcrumb-active {
+  color: var(--color-primary);
+}
+
+.breadcrumb-style-filled .breadcrumb-separator {
+  color: var(--color-primary);
+  opacity: 0.5;
+}

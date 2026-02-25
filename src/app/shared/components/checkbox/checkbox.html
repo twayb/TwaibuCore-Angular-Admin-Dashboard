@@ -1,1 +1,24 @@
-<p>checkbox works!</p>
+<div class="cb-wrapper" [class.cb-wrapper-disabled]="disabled" (click)="toggle()">
+
+  <!-- Box -->
+  <div [class]="getBoxClass()">
+    @if (indeterminate && !checked) {
+      <i class="bi bi-dash cb-icon"></i>
+    } @else if (checked) {
+      <i class="bi bi-check cb-icon"></i>
+    }
+  </div>
+
+  <!-- Label -->
+  @if (label || description) {
+    <div class="cb-text">
+      @if (label) {
+        <span [class]="getLabelClass()">{{ label }}</span>
+      }
+      @if (description) {
+        <span class="cb-description">{{ description }}</span>
+      }
+    </div>
+  }
+
+</div>

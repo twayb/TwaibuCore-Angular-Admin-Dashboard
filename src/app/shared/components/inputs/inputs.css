@@ -1,0 +1,276 @@
+/* Wrapper */
+.inp-wrapper { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+
+/* Label */
+.inp-label { font-weight: 600; color: var(--color-text); display: block; }
+.inp-label-sm { font-size: 11px; }
+.inp-label-md { font-size: 13px; }
+.inp-label-lg { font-size: 14px; }
+.inp-label-error   { color: #dc2626; }
+.inp-label-success { color: #16a34a; }
+.inp-label-warning { color: #d97706; }
+.inp-required { color: #ef4444; margin-left: 2px; }
+
+/* Container */
+.inp-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Field Base */
+.inp-field {
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.inp-field::placeholder { color: var(--color-muted); opacity: 0.7; }
+
+/* Field Sizes */
+.inp-field-sm { font-size: 12px; padding: 7px 10px; border-radius: 7px; }
+.inp-field-md { font-size: 13px; padding: 9px 12px; border-radius: 8px; }
+.inp-field-lg { font-size: 14px; padding: 11px 14px; border-radius: 10px; }
+
+/* Prefix/Suffix spacing */
+.inp-has-prefix { padding-left: 36px !important; }
+.inp-has-prefix.inp-field-lg { padding-left: 42px !important; }
+.inp-has-suffix { padding-right: 36px !important; }
+.inp-has-suffix.inp-field-lg { padding-right: 42px !important; }
+
+/* ── DEFAULT variant ── */
+.inp-field-default {
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-card);
+}
+.inp-field-default.inp-focused,
+.inp-field-default:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79,110,247,0.12);
+}
+
+/* ── FILLED variant ── */
+.inp-field-filled {
+  border: 1.5px solid transparent;
+  background-color: var(--color-bg-1);
+}
+.inp-field-filled.inp-focused,
+.inp-field-filled:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-card);
+  box-shadow: 0 0 0 3px rgba(79,110,247,0.12);
+}
+
+/* ── OUTLINED variant ── */
+.inp-field-outlined {
+  border: 2px solid var(--color-border);
+  background-color: transparent;
+}
+.inp-field-outlined.inp-focused,
+.inp-field-outlined:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79,110,247,0.1);
+}
+
+/* ── UNDERLINE variant ── */
+.inp-field-underline {
+  border: none;
+  border-bottom: 2px solid var(--color-border);
+  border-radius: 0 !important;
+  background-color: transparent;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.inp-field-underline.inp-focused,
+.inp-field-underline:focus {
+  border-bottom-color: var(--color-primary);
+  box-shadow: none;
+}
+
+/* States */
+.inp-field-error   { border-color: #ef4444 !important; }
+.inp-field-error.inp-focused   { box-shadow: 0 0 0 3px rgba(239,68,68,0.12) !important; }
+.inp-field-success { border-color: #22c55e !important; }
+.inp-field-success.inp-focused { box-shadow: 0 0 0 3px rgba(34,197,94,0.12) !important; }
+.inp-field-warning { border-color: #f59e0b !important; }
+.inp-field-warning.inp-focused { box-shadow: 0 0 0 3px rgba(245,158,11,0.12) !important; }
+
+/* Disabled */
+.inp-field.inp-disabled,
+.inp-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-1);
+}
+
+/* Prefix / Suffix */
+.inp-prefix-icon,
+.inp-suffix-icon,
+.inp-state-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+.inp-prefix-icon { left: 10px; }
+.inp-suffix-icon { right: 10px; }
+
+.inp-prefix-text {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  background-color: var(--color-bg-1);
+  border-right: 1.5px solid var(--color-border);
+  border-radius: 8px 0 0 8px;
+  white-space: nowrap;
+}
+
+.inp-suffix-text {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  background-color: var(--color-bg-1);
+  border-left: 1.5px solid var(--color-border);
+  border-radius: 0 8px 8px 0;
+  white-space: nowrap;
+}
+
+.inp-has-prefix-text { padding-left: 80px !important; }
+.inp-has-suffix-text { padding-right: 80px !important; }
+
+/* Password / Clear btn */
+.inp-suffix-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-muted);
+  font-size: 15px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.inp-suffix-btn:hover { color: var(--color-primary); }
+
+/* State Icons */
+.inp-state-icon { right: 10px; font-size: 14px; }
+.inp-state-success { color: #22c55e; }
+.inp-state-error   { color: #ef4444; }
+.inp-state-warning { color: #f59e0b; }
+
+/* Bottom */
+.inp-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 16px;
+}
+
+.inp-hint { font-size: 11px; color: var(--color-muted); }
+.inp-counter { font-size: 11px; color: var(--color-muted); }
+
+.inp-message {
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.inp-message-error   { color: #dc2626; }
+.inp-message-success { color: #16a34a; }
+
+/* Textarea */
+textarea.inp-field {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Range input */
+input[type="range"].inp-field {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none !important;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+/* Color input */
+input[type="color"].inp-field {
+  padding: 4px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Date/Time inputs */
+input[type="date"].inp-field,
+input[type="time"].inp-field,
+input[type="datetime-local"].inp-field,
+input[type="month"].inp-field,
+input[type="week"].inp-field {
+  color-scheme: light;
+}
+
+
+/* Prefix/Suffix text spacing - override defaults */
+.inp-has-prefix-text { padding-left: 72px !important; }
+.inp-has-suffix-text { padding-right: 60px !important; }
+
+/* For longer prefix texts like +255, TZS, https:// */
+.inp-prefix-text {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  background-color: var(--color-bg-1);
+  border-right: 1.5px solid var(--color-border);
+  border-radius: 8px 0 0 8px;
+  white-space: nowrap;
+  z-index: 1;
+  min-width: fit-content;
+}
+
+.inp-suffix-text {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-muted);
+  background-color: var(--color-bg-1);
+  border-left: 1.5px solid var(--color-border);
+  border-radius: 0 8px 8px 0;
+  white-space: nowrap;
+  z-index: 1;
+  min-width: fit-content;
+}

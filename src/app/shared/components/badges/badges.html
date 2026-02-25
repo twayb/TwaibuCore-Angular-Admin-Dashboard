@@ -1,1 +1,12 @@
-<p>badges works!</p>
+<span [class]="getClasses()" style="border: 1px solid red; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+  @if (dot) {
+    <span [class]="getDotClass()"></span>
+  }
+  @if (icon) {
+    <i [class]="icon"></i>
+  }
+  @if (label) {
+    {{ label }}
+  }
+  <ng-content></ng-content>
+</span>

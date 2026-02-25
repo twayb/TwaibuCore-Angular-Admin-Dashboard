@@ -1,1 +1,29 @@
-<p>dropdowns works!</p>
+<div class="dd-wrapper">
+
+  <!-- Trigger -->
+  <button [class]="getTriggerClass()" (click)="toggle()">
+    @if (iconOnly) {
+      <i [class]="iconOnly"></i>
+    } @else {
+      <span>{{ label }}</span>
+      <i [class]="icon + ' dd-chevron'" [class.dd-chevron-open]="isOpen"></i>
+    }
+  </button>
+
+  <!-- Menu -->
+  <div [class]="getMenuClass()">
+    @for (item of items; track $index) {
+      @if (item.divider) {
+        <div class="dd-divider"></div>
+      } @else {
+        <button [class]="getItemClass(item)" (click)="selectItem(item)">
+          @if (item.icon) {
+            <i [class]="item.icon + ' dd-item-icon'"></i>
+          }
+          <span>{{ item.label }}</span>
+        </button>
+      }
+    }
+  </div>
+
+</div>

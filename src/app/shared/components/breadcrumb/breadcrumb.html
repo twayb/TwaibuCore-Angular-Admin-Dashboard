@@ -1,1 +1,28 @@
-<p>breadcrumb works!</p>
+<nav [class]="getWrapperClass()">
+  <ol class="breadcrumb-list">
+    @for (item of items; track $index) {
+      <li class="breadcrumb-item" [class.active]="isLast($index)">
+
+        @if (!isLast($index)) {
+          <a class="breadcrumb-link">
+            @if (item.icon) {
+              <i [class]="item.icon"></i>
+            }
+            {{ item.label }}
+          </a>
+          <span class="breadcrumb-separator">
+            <i [class]="getSeparatorIcon()"></i>
+          </span>
+        } @else {
+          <span class="breadcrumb-active">
+            @if (item.icon) {
+              <i [class]="item.icon"></i>
+            }
+            {{ item.label }}
+          </span>
+        }
+
+      </li>
+    }
+  </ol>
+</nav>

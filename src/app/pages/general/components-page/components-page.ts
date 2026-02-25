@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { AccordionComponent, AccordionItem } from '../../../shared/components/accordion/accordion';
 import { AlertsComponent } from '../../../shared/components/alerts/alerts';
+import { BadgesComponent } from '../../../shared/components/badges/badges';
+import { ButtonsComponent } from '../../../shared/components/buttons/buttons';
+import { CardsComponent } from '../../../shared/components/cards/cards';
+import { BreadcrumbComponent, BreadcrumbItem } from '../../../shared/components/breadcrumb/breadcrumb';
+import { FormsModule } from '@angular/forms';
+import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox';
+import { DropdownItem, DropdownsComponent } from '../../../shared/components/dropdowns/dropdowns';
+import { InputsComponent } from '../../../shared/components/inputs/inputs';
 
 interface ComponentNav {
   label: string;
@@ -11,17 +19,18 @@ interface ComponentNav {
 @Component({
   selector: 'app-components-page',
   standalone: true,
-  imports: [AccordionComponent, AlertsComponent],
+  imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, CardsComponent, BreadcrumbComponent, CheckboxComponent, FormsModule, DropdownsComponent,InputsComponent],
   templateUrl: './components-page.html',
   styleUrl: './components-page.css'
 })
 export class ComponentsPageComponent {
   activeComponent = 'accordion';
+  loadingBtn = false;
 
   navItems: ComponentNav[] = [
     { label: 'Accordion',    icon: 'bi bi-chevron-down',         key: 'accordion' },
     { label: 'Alerts',       icon: 'bi bi-exclamation-triangle', key: 'alerts' },
-    { label: 'Badges',       icon: 'bi bi-patch-check',          key: 'badges' },
+    // { label: 'Badges',       icon: 'bi bi-patch-check',          key: 'badges' },
     { label: 'Buttons',      icon: 'bi bi-hand-index',           key: 'buttons' },
     { label: 'Cards',        icon: 'bi bi-card-text',            key: 'cards' },
     { label: 'Breadcrumb',   icon: 'bi bi-signpost-split',       key: 'breadcrumb' },
@@ -48,6 +57,10 @@ export class ComponentsPageComponent {
     this.activeComponent = key;
   }
 
+  ngOnInit() {
+  console.log('badges test:', new BadgesComponent().getClasses());
+}
+
   // Accordion data
   defaultItems: AccordionItem[] = [
     { title: 'What is TwaibuCore?',           icon: 'bi bi-info-circle', content: 'TwaibuCore is a powerful Angular 20 admin dashboard built with Tailwind CSS and Bootstrap Icons. It provides a clean, modern interface for managing your application data.' },
@@ -72,4 +85,77 @@ export class ComponentsPageComponent {
     { title: 'Flush borderless style', content: 'The flush variant has no outer border or background, just simple dividers between items. Great for embedding inside other cards.' },
     { title: 'Clean minimal look',     content: 'Perfect for FAQ sections or inside settings panels where you want a clean minimal appearance without card borders.' },
   ];
+
+  toggleLoading() {
+  this.loadingBtn = true;
+  setTimeout(() => this.loadingBtn = false, 2000);
+}
+
+// Add breadcrumb data
+basicItems: BreadcrumbItem[] = [
+  { label: 'Home',       icon: 'bi bi-house-fill' },
+  { label: 'Dashboard' },
+  { label: 'Analytics' },
+];
+
+iconItems: BreadcrumbItem[] = [
+  { label: 'Home',       icon: 'bi bi-house-fill' },
+  { label: 'Settings',   icon: 'bi bi-gear-fill' },
+  { label: 'Profile',    icon: 'bi bi-person-fill' },
+];
+
+deepItems: BreadcrumbItem[] = [
+  { label: 'Home',       icon: 'bi bi-house-fill' },
+  { label: 'Admin' },
+  { label: 'Users' },
+  { label: 'John Doe' },
+  { label: 'Edit Profile' },
+];
+
+// Checkbox state
+cb1 = true;
+cb2 = false;
+cb3 = true;
+cb4 = false;
+cb5 = true;
+
+
+// Dropdown data
+basicDropdownItems: DropdownItem[] = [
+  { label: 'View Profile',  icon: 'bi bi-person' },
+  { label: 'Edit Profile',  icon: 'bi bi-pencil' },
+  { label: 'Settings',      icon: 'bi bi-gear' },
+  { divider: true, label: '' },
+  { label: 'Logout',        icon: 'bi bi-box-arrow-right', color: 'danger' },
+];
+
+actionDropdownItems: DropdownItem[] = [
+  { label: 'Download',  icon: 'bi bi-download' },
+  { label: 'Share',     icon: 'bi bi-share' },
+  { label: 'Duplicate', icon: 'bi bi-copy' },
+  { divider: true, label: '' },
+  { label: 'Archive',   icon: 'bi bi-archive',    color: 'warning' },
+  { label: 'Delete',    icon: 'bi bi-trash',       color: 'danger' },
+];
+
+statusDropdownItems: DropdownItem[] = [
+  { label: 'Mark Active',   icon: 'bi bi-check-circle',  color: 'success' },
+  { label: 'Mark Pending',  icon: 'bi bi-clock',         color: 'warning' },
+  { label: 'Mark Inactive', icon: 'bi bi-x-circle',      color: 'danger' },
+];
+
+disabledDropdownItems: DropdownItem[] = [
+  { label: 'Edit',     icon: 'bi bi-pencil' },
+  { label: 'Export',   icon: 'bi bi-download', disabled: true },
+  { label: 'Share',    icon: 'bi bi-share',    disabled: true },
+  { divider: true, label: '' },
+  { label: 'Delete',   icon: 'bi bi-trash', color: 'danger' },
+];
+
+// Input state
+inputValue = '';
+phoneValue = '';
+searchValue = '';
+textareaValue = '';
+rangeValue = '50';
 }

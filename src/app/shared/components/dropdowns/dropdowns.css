@@ -1,0 +1,175 @@
+/* Wrapper */
+.dd-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Trigger */
+.dd-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Trigger Solid */
+.dd-trigger-solid-primary { background: linear-gradient(135deg, #4F6EF7, #3d5ce6); color: white; box-shadow: 0 4px 12px rgba(79,110,247,0.35); }
+.dd-trigger-solid-primary:hover { box-shadow: 0 6px 18px rgba(79,110,247,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-success { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; box-shadow: 0 4px 12px rgba(34,197,94,0.35); }
+.dd-trigger-solid-success:hover { box-shadow: 0 6px 18px rgba(34,197,94,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-danger  { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; box-shadow: 0 4px 12px rgba(239,68,68,0.35); }
+.dd-trigger-solid-danger:hover  { box-shadow: 0 6px 18px rgba(239,68,68,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; box-shadow: 0 4px 12px rgba(245,158,11,0.35); }
+.dd-trigger-solid-warning:hover { box-shadow: 0 6px 18px rgba(245,158,11,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-info    { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; box-shadow: 0 4px 12px rgba(6,182,212,0.35); }
+.dd-trigger-solid-info:hover    { box-shadow: 0 6px 18px rgba(6,182,212,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-dark    { background: linear-gradient(135deg, #334155, #1e293b); color: white; box-shadow: 0 4px 12px rgba(30,41,59,0.35); }
+.dd-trigger-solid-dark:hover    { box-shadow: 0 6px 18px rgba(30,41,59,0.45); transform: translateY(-1px); }
+
+.dd-trigger-solid-light   { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); color: #475569; }
+.dd-trigger-solid-light:hover   { transform: translateY(-1px); }
+
+/* Trigger Soft */
+.dd-trigger-soft-primary { background: rgba(79,110,247,0.12); color: var(--color-primary); box-shadow: inset 0 0 0 1px rgba(79,110,247,0.2); }
+.dd-trigger-soft-primary:hover { background: rgba(79,110,247,0.2); transform: translateY(-1px); }
+
+.dd-trigger-soft-success { background: rgba(34,197,94,0.12); color: #16a34a; box-shadow: inset 0 0 0 1px rgba(34,197,94,0.2); }
+.dd-trigger-soft-success:hover { background: rgba(34,197,94,0.2); transform: translateY(-1px); }
+
+.dd-trigger-soft-danger  { background: rgba(239,68,68,0.12); color: #dc2626; box-shadow: inset 0 0 0 1px rgba(239,68,68,0.2); }
+.dd-trigger-soft-danger:hover  { background: rgba(239,68,68,0.2); transform: translateY(-1px); }
+
+.dd-trigger-soft-warning { background: rgba(245,158,11,0.12); color: #d97706; box-shadow: inset 0 0 0 1px rgba(245,158,11,0.2); }
+.dd-trigger-soft-warning:hover { background: rgba(245,158,11,0.2); transform: translateY(-1px); }
+
+.dd-trigger-soft-dark    { background: rgba(30,41,59,0.1); color: #334155; box-shadow: inset 0 0 0 1px rgba(30,41,59,0.15); }
+.dd-trigger-soft-dark:hover    { background: rgba(30,41,59,0.18); transform: translateY(-1px); }
+
+/* Trigger Outline */
+.dd-trigger-outline-primary { background: transparent; border: 1.5px solid var(--color-primary); color: var(--color-primary); }
+.dd-trigger-outline-primary:hover { background: var(--color-primary); color: white; transform: translateY(-1px); }
+
+.dd-trigger-outline-dark { background: transparent; border: 1.5px solid #334155; color: #334155; }
+.dd-trigger-outline-dark:hover { background: #334155; color: white; transform: translateY(-1px); }
+
+/* Trigger Ghost */
+.dd-trigger-ghost-primary { background: transparent; color: var(--color-primary); }
+.dd-trigger-ghost-primary:hover { background: var(--color-primary-soft); }
+
+.dd-trigger-ghost-dark { background: transparent; color: #334155; }
+.dd-trigger-ghost-dark:hover { background: rgba(30,41,59,0.08); }
+
+/* Chevron animation */
+.dd-chevron {
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+
+.dd-chevron-open {
+  transform: rotate(180deg);
+}
+
+/* Menu */
+.dd-menu {
+  position: absolute;
+  min-width: 180px;
+  border-radius: 12px;
+  padding: 6px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.dd-menu-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* Placement */
+.dd-placement-bottom-start { top: calc(100% + 6px); left: 0; }
+.dd-placement-bottom-end   { top: calc(100% + 6px); right: 0; }
+.dd-placement-top-start    { bottom: calc(100% + 6px); left: 0; }
+.dd-placement-top-end      { bottom: calc(100% + 6px); right: 0; }
+
+/* Menu Variants */
+.dd-menu-default {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.dd-menu-soft {
+  background-color: var(--color-bg-1);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.dd-menu-outlined {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 8px 24px rgba(79,110,247,0.15);
+}
+
+/* Items */
+.dd-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.dd-item:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.dd-item-icon { font-size: 14px; }
+
+.dd-item-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dd-item-danger  { color: #dc2626; }
+.dd-item-danger:hover  { background-color: rgba(239,68,68,0.1); color: #dc2626; }
+
+.dd-item-success { color: #16a34a; }
+.dd-item-success:hover { background-color: rgba(34,197,94,0.1); color: #16a34a; }
+
+.dd-item-warning { color: #d97706; }
+.dd-item-warning:hover { background-color: rgba(245,158,11,0.1); color: #d97706; }
+
+/* Divider */
+.dd-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 4px 0;
+}

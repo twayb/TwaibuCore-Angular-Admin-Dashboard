@@ -163,26 +163,768 @@
 
       </div>
       }
+
       @case ('badges') {
-      <p class="text-sm text-[var(--color-muted)]">Badges — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Soft -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Soft</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="primary" variant="soft" label="Primary"></app-badges>
+            <app-badges type="success" variant="soft" label="Success"></app-badges>
+            <app-badges type="danger" variant="soft" label="Danger"></app-badges>
+            <app-badges type="warning" variant="soft" label="Warning"></app-badges>
+            <app-badges type="info" variant="soft" label="Info"></app-badges>
+            <app-badges type="dark" variant="soft" label="Dark"></app-badges>
+            <app-badges type="light" variant="soft" label="Light"></app-badges>
+          </div>
+        </div>
+
+        <!-- Solid -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Solid</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="primary" variant="solid" label="Primary"></app-badges>
+            <app-badges type="success" variant="solid" label="Success"></app-badges>
+            <app-badges type="danger" variant="solid" label="Danger"></app-badges>
+            <app-badges type="warning" variant="solid" label="Warning"></app-badges>
+            <app-badges type="info" variant="solid" label="Info"></app-badges>
+            <app-badges type="dark" variant="solid" label="Dark"></app-badges>
+            <app-badges type="light" variant="solid" label="Light"></app-badges>
+          </div>
+        </div>
+
+        <!-- Outline -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Outline</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="primary" variant="outline" label="Primary"></app-badges>
+            <app-badges type="success" variant="outline" label="Success"></app-badges>
+            <app-badges type="danger" variant="outline" label="Danger"></app-badges>
+            <app-badges type="warning" variant="outline" label="Warning"></app-badges>
+            <app-badges type="info" variant="outline" label="Info"></app-badges>
+            <app-badges type="dark" variant="outline" label="Dark"></app-badges>
+            <app-badges type="light" variant="outline" label="Light"></app-badges>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Sizes</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap items-center gap-3">
+            <app-badges type="primary" variant="solid" size="sm" label="Small"></app-badges>
+            <app-badges type="primary" variant="solid" size="md" label="Medium"></app-badges>
+            <app-badges type="primary" variant="solid" size="lg" label="Large"></app-badges>
+            <app-badges type="success" variant="soft" size="sm" label="Small"></app-badges>
+            <app-badges type="success" variant="soft" size="md" label="Medium"></app-badges>
+            <app-badges type="success" variant="soft" size="lg" label="Large"></app-badges>
+          </div>
+        </div>
+
+        <!-- Shape -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Shapes</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="primary" variant="soft" shape="pill" label="Pill Shape"></app-badges>
+            <app-badges type="primary" variant="soft" shape="rounded" label="Rounded Shape"></app-badges>
+            <app-badges type="success" variant="solid" shape="pill" label="Pill Shape"></app-badges>
+            <app-badges type="success" variant="solid" shape="rounded" label="Rounded Shape"></app-badges>
+            <app-badges type="danger" variant="outline" shape="pill" label="Pill Shape"></app-badges>
+            <app-badges type="danger" variant="outline" shape="rounded" label="Rounded Shape"></app-badges>
+          </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">With Icons</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="success" variant="soft" icon="bi bi-check-circle-fill" label="Approved"></app-badges>
+            <app-badges type="danger" variant="soft" icon="bi bi-x-circle-fill" label="Rejected"></app-badges>
+            <app-badges type="warning" variant="soft" icon="bi bi-clock-fill" label="Pending"></app-badges>
+            <app-badges type="info" variant="soft" icon="bi bi-info-circle-fill" label="Review"></app-badges>
+            <app-badges type="primary" variant="solid" icon="bi bi-star-fill" label="Featured"></app-badges>
+            <app-badges type="dark" variant="solid" icon="bi bi-lock-fill" label="Locked"></app-badges>
+            <app-badges type="success" variant="outline" icon="bi bi-shield-check" label="Verified"></app-badges>
+          </div>
+        </div>
+
+        <!-- With Status Dot -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+            <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Status Dot</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-badges type="success" variant="soft" [dot]="true" label="Online"></app-badges>
+            <app-badges type="danger" variant="soft" [dot]="true" label="Offline"></app-badges>
+            <app-badges type="warning" variant="soft" [dot]="true" label="Away"></app-badges>
+            <app-badges type="info" variant="soft" [dot]="true" label="Busy"></app-badges>
+            <app-badges type="dark" variant="soft" [dot]="true" label="Idle"></app-badges>
+            <app-badges type="primary" variant="solid" [dot]="true" label="Active"></app-badges>
+          </div>
+        </div>
+
+      </div>
       }
+
       @case ('buttons') {
-      <p class="text-sm text-[var(--color-muted)]">Buttons — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Solid -->
+        <div class="flex flex-col gap-3">
+          <!-- <div class="flex items-center gap-2">
+        <div class="w-1 h-4 rounded-full bg-[var(--color-primary)]"></div>
+        <p class="text-xs font-semibold text-[var(--color-text)] uppercase tracking-wider">Solid</p>
+      </div> -->
+
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Solid</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" label="Primary"></app-buttons>
+            <app-buttons type="success" variant="solid" label="Success"></app-buttons>
+            <app-buttons type="danger" variant="solid" label="Danger"></app-buttons>
+            <app-buttons type="warning" variant="solid" label="Warning"></app-buttons>
+            <app-buttons type="info" variant="solid" label="Info"></app-buttons>
+            <app-buttons type="dark" variant="solid" label="Dark"></app-buttons>
+            <app-buttons type="light" variant="solid" label="Light"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Soft -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Soft</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="soft" label="Primary"></app-buttons>
+            <app-buttons type="success" variant="soft" label="Success"></app-buttons>
+            <app-buttons type="danger" variant="soft" label="Danger"></app-buttons>
+            <app-buttons type="warning" variant="soft" label="Warning"></app-buttons>
+            <app-buttons type="info" variant="soft" label="Info"></app-buttons>
+            <app-buttons type="dark" variant="soft" label="Dark"></app-buttons>
+            <app-buttons type="light" variant="soft" label="Light"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Outline -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Outline</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="outline" label="Primary"></app-buttons>
+            <app-buttons type="success" variant="outline" label="Success"></app-buttons>
+            <app-buttons type="danger" variant="outline" label="Danger"></app-buttons>
+            <app-buttons type="warning" variant="outline" label="Warning"></app-buttons>
+            <app-buttons type="info" variant="outline" label="Info"></app-buttons>
+            <app-buttons type="dark" variant="outline" label="Dark"></app-buttons>
+            <app-buttons type="light" variant="outline" label="Light"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Ghost -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Ghost</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="ghost" label="Primary"></app-buttons>
+            <app-buttons type="success" variant="ghost" label="Success"></app-buttons>
+            <app-buttons type="danger" variant="ghost" label="Danger"></app-buttons>
+            <app-buttons type="warning" variant="ghost" label="Warning"></app-buttons>
+            <app-buttons type="info" variant="ghost" label="Info"></app-buttons>
+            <app-buttons type="dark" variant="ghost" label="Dark"></app-buttons>
+            <app-buttons type="light" variant="ghost" label="Light"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap items-center gap-3">
+            <app-buttons type="primary" variant="solid" size="sm" label="Small"></app-buttons>
+            <app-buttons type="primary" variant="solid" size="md" label="Medium"></app-buttons>
+            <app-buttons type="primary" variant="solid" size="lg" label="Large"></app-buttons>
+            <app-buttons type="primary" variant="solid" size="xl" label="Extra Large"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Shapes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Shapes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" shape="rounded" label="Rounded"></app-buttons>
+            <app-buttons type="primary" variant="solid" shape="pill" label="Pill"></app-buttons>
+            <app-buttons type="primary" variant="solid" shape="square" label="Square"></app-buttons>
+            <app-buttons type="success" variant="soft" shape="rounded" label="Rounded"></app-buttons>
+            <app-buttons type="success" variant="soft" shape="pill" label="Pill"></app-buttons>
+          </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Icons</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" iconLeft="bi bi-plus-lg" label="Add New"></app-buttons>
+            <app-buttons type="success" variant="solid" iconLeft="bi bi-check-lg" label="Approve"></app-buttons>
+            <app-buttons type="danger" variant="soft" iconLeft="bi bi-trash" label="Delete"></app-buttons>
+            <app-buttons type="info" variant="outline" iconLeft="bi bi-download" label="Download"></app-buttons>
+            <app-buttons type="dark" variant="solid" iconRight="bi bi-arrow-right" label="Continue"></app-buttons>
+            <app-buttons type="warning" variant="soft" iconRight="bi bi-chevron-right" label="Next"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Icon Only -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Icon Only</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap items-center gap-3">
+            <app-buttons type="primary" variant="solid" iconOnly="bi bi-plus-lg"></app-buttons>
+            <app-buttons type="success" variant="solid" iconOnly="bi bi-check-lg"></app-buttons>
+            <app-buttons type="danger" variant="solid" iconOnly="bi bi-trash"></app-buttons>
+            <app-buttons type="warning" variant="soft" iconOnly="bi bi-pencil"></app-buttons>
+            <app-buttons type="info" variant="outline" iconOnly="bi bi-download"></app-buttons>
+            <app-buttons type="dark" variant="ghost" iconOnly="bi bi-three-dots-vertical"></app-buttons>
+            <app-buttons type="primary" variant="solid" iconOnly="bi bi-plus-lg" shape="pill"></app-buttons>
+            <app-buttons type="success" variant="soft" iconOnly="bi bi-check-lg" shape="pill"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Loading State</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" [loading]="true" label="Loading..."></app-buttons>
+            <app-buttons type="success" variant="solid" [loading]="true" label="Saving..."></app-buttons>
+            <app-buttons type="danger" variant="outline" [loading]="true" label="Deleting..."></app-buttons>
+            <app-buttons type="primary" variant="solid" [loading]="loadingBtn" label="Click Me"
+              (clicked)="toggleLoading()"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Disabled State -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Disabled State</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" [disabled]="true" label="Disabled"></app-buttons>
+            <app-buttons type="success" variant="soft" [disabled]="true" label="Disabled"></app-buttons>
+            <app-buttons type="danger" variant="outline" [disabled]="true" label="Disabled"></app-buttons>
+            <app-buttons type="dark" variant="ghost" [disabled]="true" label="Disabled"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Block Button -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Blocked Buttons</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-3">
+            <app-buttons type="primary" variant="solid" [block]="true" label="Block Button"
+              iconLeft="bi bi-box-arrow-in-right"></app-buttons>
+            <app-buttons type="success" variant="soft" [block]="true" label="Block Button"
+              iconLeft="bi bi-check-lg"></app-buttons>
+          </div>
+        </div>
+
+      </div>
       }
       @case ('cards') {
-      <p class="text-sm text-[var(--color-muted)]">Cards — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+            <app-card variant="default" title="Default Card"
+              subtitle="This is the default card variant with a subtle border and soft shadow.">
+              <p class="text-sm text-[var(--color-muted)] mt-2">Additional content goes here inside the card body slot.
+              </p>
+            </app-card>
+
+            <app-card variant="bordered" title="Bordered Card"
+              subtitle="This card has a more prominent border with no shadow.">
+              <p class="text-sm text-[var(--color-muted)] mt-2">Additional content goes here inside the card body slot.
+              </p>
+            </app-card>
+
+            <app-card variant="shadow" title="Shadow Card"
+              subtitle="This card uses a deeper shadow for elevated appearance.">
+              <p class="text-sm text-[var(--color-muted)] mt-2">Additional content goes here inside the card body slot.
+              </p>
+            </app-card>
+
+            <app-card variant="flat" title="Flat Card"
+              subtitle="This card has no border or shadow, blending with the background.">
+              <p class="text-sm text-[var(--color-muted)] mt-2">Additional content goes here inside the card body slot.
+              </p>
+            </app-card>
+
+            <app-card variant="gradient" title="Gradient Card"
+              subtitle="This card uses a beautiful gradient background with white text.">
+              <p class="text-sm text-white/70 mt-2">Additional content goes here inside the card body slot.</p>
+            </app-card>
+
+          </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Icons</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <app-card variant="default" icon="bi bi-people-fill" iconColor="primary" title="Total Users"
+              subtitle="Track all registered users.">
+            </app-card>
+
+            <app-card variant="default" icon="bi bi-check-circle-fill" iconColor="success" title="Completed Tasks"
+              subtitle="Tasks finished this month.">
+            </app-card>
+
+            <app-card variant="default" icon="bi bi-exclamation-triangle-fill" iconColor="warning"
+              title="Pending Issues" subtitle="Issues awaiting resolution.">
+            </app-card>
+
+            <app-card variant="default" icon="bi bi-x-circle-fill" iconColor="danger" title="Failed Items"
+              subtitle="Items that need attention.">
+            </app-card>
+
+          </div>
+        </div>
+
+        <!-- Hoverable -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Hoverable</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <app-card variant="default" [hoverable]="true" icon="bi bi-graph-up-arrow" iconColor="primary"
+              title="Revenue Growth" subtitle="Monthly revenue increased by 18.5% compared to last month.">
+            </app-card>
+
+            <app-card variant="shadow" [hoverable]="true" icon="bi bi-shield-check" iconColor="success"
+              title="Security Status" subtitle="All systems are secure and running normally.">
+            </app-card>
+
+            <app-card variant="bordered" [hoverable]="true" icon="bi bi-bell-fill" iconColor="warning"
+              title="Notifications" subtitle="You have 5 unread notifications pending review.">
+            </app-card>
+
+          </div>
+        </div>
+
+        <!-- With Footer -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Footer</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <app-card variant="default" [footer]="true" title="Project Alpha"
+              subtitle="A full-stack web application built with Angular and Node.js.">
+              <div card-footer>
+                <span class="text-xs text-[var(--color-muted)]">Updated 2 hours ago</span>
+                <div class="flex gap-2">
+                  <app-buttons type="primary" variant="soft" size="sm" label="View"></app-buttons>
+                  <app-buttons type="danger" variant="ghost" size="sm" label="Delete"></app-buttons>
+                </div>
+              </div>
+            </app-card>
+
+            <app-card variant="default" [footer]="true" title="Design System"
+              subtitle="TwaibuCore component library with reusable UI elements.">
+              <div card-footer>
+                <span class="text-xs text-[var(--color-muted)]">Updated 5 hours ago</span>
+                <div class="flex gap-2">
+                  <app-buttons type="success" variant="soft" size="sm" label="View"></app-buttons>
+                  <app-buttons type="dark" variant="ghost" size="sm" label="Edit"></app-buttons>
+                </div>
+              </div>
+            </app-card>
+
+          </div>
+        </div>
+
+      </div>
       }
       @case ('breadcrumb') {
-      <p class="text-sm text-[var(--color-muted)]">Breadcrumb — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Separators -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Separators</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-breadcrumb [items]="basicItems" variant="chevron" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="slash" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="dot" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="arrow" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="default" style="plain"></app-breadcrumb>
+          </div>
+        </div>
+
+        <!-- Styles -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Styles</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-breadcrumb [items]="basicItems" variant="chevron" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="chevron" style="pills"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="chevron" style="outlined"></app-breadcrumb>
+            <app-breadcrumb [items]="basicItems" variant="chevron" style="filled"></app-breadcrumb>
+          </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Icons</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-breadcrumb [items]="iconItems" variant="chevron" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="iconItems" variant="chevron" style="pills"></app-breadcrumb>
+            <app-breadcrumb [items]="iconItems" variant="arrow" style="outlined"></app-breadcrumb>
+            <app-breadcrumb [items]="iconItems" variant="slash" style="filled"></app-breadcrumb>
+          </div>
+        </div>
+
+        <!-- Deep Navigation -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Deep Navigation</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-breadcrumb [items]="deepItems" variant="chevron" style="plain"></app-breadcrumb>
+            <app-breadcrumb [items]="deepItems" variant="slash" style="outlined"></app-breadcrumb>
+            <app-breadcrumb [items]="deepItems" variant="arrow" style="pills"></app-breadcrumb>
+          </div>
+        </div>
+
+      </div>
       }
       @case ('checkbox') {
-      <p class="text-sm text-[var(--color-muted)]">Checkbox — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Filled Variant -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Filled</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-6">
+            <app-checkbox variant="filled" color="primary" label="Primary" [(ngModel)]="cb1"></app-checkbox>
+            <app-checkbox variant="filled" color="success" label="Success" [(ngModel)]="cb2"></app-checkbox>
+            <app-checkbox variant="filled" color="danger" label="Danger" [(ngModel)]="cb3"></app-checkbox>
+            <app-checkbox variant="filled" color="warning" label="Warning" [(ngModel)]="cb4"></app-checkbox>
+            <app-checkbox variant="filled" color="info" label="Info" [(ngModel)]="cb5"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- Outlined Variant -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Outlined</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-6">
+            <app-checkbox variant="outlined" color="primary" label="Primary" [checked]="true"></app-checkbox>
+            <app-checkbox variant="outlined" color="success" label="Success" [checked]="true"></app-checkbox>
+            <app-checkbox variant="outlined" color="danger" label="Danger" [checked]="true"></app-checkbox>
+            <app-checkbox variant="outlined" color="warning" label="Warning" [checked]="true"></app-checkbox>
+            <app-checkbox variant="outlined" color="info" label="Info" [checked]="true"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- Default Variant -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Default</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-6">
+            <app-checkbox variant="default" color="primary" label="Primary" [checked]="true"></app-checkbox>
+            <app-checkbox variant="default" color="success" label="Success" [checked]="true"></app-checkbox>
+            <app-checkbox variant="default" color="danger" label="Danger" [checked]="true"></app-checkbox>
+            <app-checkbox variant="default" color="warning" label="Warning" [checked]="true"></app-checkbox>
+            <app-checkbox variant="default" color="info" label="Info" [checked]="true"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap items-center gap-6">
+            <app-checkbox variant="filled" color="primary" size="sm" label="Small" [checked]="true"></app-checkbox>
+            <app-checkbox variant="filled" color="primary" size="md" label="Medium" [checked]="true"></app-checkbox>
+            <app-checkbox variant="filled" color="primary" size="lg" label="Large" [checked]="true"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- With Description -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Description</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-checkbox variant="filled" color="primary" label="Enable Notifications"
+              description="Receive email alerts for important system events." [checked]="true"></app-checkbox>
+            <app-checkbox variant="filled" color="success" label="Auto Backup"
+              description="Automatically backup your data every 24 hours." [checked]="false"></app-checkbox>
+            <app-checkbox variant="filled" color="danger" label="Delete on Archive"
+              description="Permanently delete records when they are archived." [checked]="false"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- Indeterminate -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Indeterminate</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-6">
+            <app-checkbox variant="filled" color="primary" label="Indeterminate" [indeterminate]="true"></app-checkbox>
+            <app-checkbox variant="outlined" color="warning" label="Indeterminate"
+              [indeterminate]="true"></app-checkbox>
+            <app-checkbox variant="default" color="danger" label="Indeterminate" [indeterminate]="true"></app-checkbox>
+          </div>
+        </div>
+
+        <!-- Disabled -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Disabled</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-6">
+            <app-checkbox variant="filled" color="primary" label="Unchecked Disabled" [disabled]="true"></app-checkbox>
+            <app-checkbox variant="filled" color="primary" label="Checked Disabled" [disabled]="true"
+              [checked]="true"></app-checkbox>
+          </div>
+        </div>
+
+      </div>
       }
       @case ('dropdowns') {
-      <p class="text-sm text-[var(--color-muted)]">Dropdowns — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Trigger Styles -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Trigger Styles</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-dropdowns [items]="basicDropdownItems" label="Solid" triggerStyle="solid"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Soft" triggerStyle="soft"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Outline" triggerStyle="outline"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Ghost" triggerStyle="ghost"
+              triggerType="primary"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- Trigger Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Trigger Colors</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-dropdowns [items]="basicDropdownItems" label="Primary" triggerStyle="solid"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Success" triggerStyle="solid"
+              triggerType="success"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Danger" triggerStyle="solid"
+              triggerType="danger"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Warning" triggerStyle="solid"
+              triggerType="warning"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Info" triggerStyle="solid"
+              triggerType="info"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Dark" triggerStyle="solid"
+              triggerType="dark"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- Menu Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Menu Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3" style="min-height: 200px;">
+            <app-dropdowns [items]="actionDropdownItems" label="Default" triggerStyle="solid" triggerType="primary"
+              variant="default"></app-dropdowns>
+            <app-dropdowns [items]="actionDropdownItems" label="Soft" triggerStyle="solid" triggerType="dark"
+              variant="soft"></app-dropdowns>
+            <app-dropdowns [items]="actionDropdownItems" label="Outlined" triggerStyle="solid" triggerType="primary"
+              variant="outlined"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- Placement -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Placement</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3" style="min-height: 200px;">
+            <app-dropdowns [items]="basicDropdownItems" label="Bottom Start" placement="bottom-start"
+              triggerStyle="soft" triggerType="dark"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" label="Bottom End" placement="bottom-end" triggerStyle="soft"
+              triggerType="dark"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- With Status Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Colored Items</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3" style="min-height: 180px;">
+            <app-dropdowns [items]="statusDropdownItems" label="Set Status" triggerStyle="soft"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="actionDropdownItems" label="Actions" triggerStyle="solid"
+              triggerType="dark"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- With Disabled Items -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Disabled Items</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3" style="min-height: 180px;">
+            <app-dropdowns [items]="disabledDropdownItems" label="With Disabled" triggerStyle="solid"
+              triggerType="primary"></app-dropdowns>
+          </div>
+        </div>
+
+        <!-- Icon Only Trigger -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Icon Only Trigger</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3" style="min-height: 180px;">
+            <app-dropdowns [items]="basicDropdownItems" iconOnly="bi bi-three-dots-vertical" triggerStyle="ghost"
+              triggerType="dark"></app-dropdowns>
+            <app-dropdowns [items]="actionDropdownItems" iconOnly="bi bi-three-dots" triggerStyle="soft"
+              triggerType="primary"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" iconOnly="bi bi-gear" triggerStyle="outline"
+              triggerType="dark"></app-dropdowns>
+            <app-dropdowns [items]="basicDropdownItems" iconOnly="bi bi-sliders" triggerStyle="solid"
+              triggerType="primary"></app-dropdowns>
+          </div>
+        </div>
+
+      </div>
       }
       @case ('inputs') {
-      <p class="text-sm text-[var(--color-muted)]">Inputs — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input variant="default" label="Default" placeholder="Enter text..."
+              hint="This is the default input style"></app-input>
+            <app-input variant="filled" label="Filled" placeholder="Enter text..."
+              hint="This is the filled input style"></app-input>
+            <app-input variant="outlined" label="Outlined" placeholder="Enter text..."
+              hint="This is the outlined input style"></app-input>
+            <app-input variant="underline" label="Underline" placeholder="Enter text..."
+              hint="This is the underline input style"></app-input>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-input size="sm" label="Small" placeholder="Small input..."></app-input>
+            <app-input size="md" label="Medium" placeholder="Medium input..."></app-input>
+            <app-input size="lg" label="Large" placeholder="Large input..."></app-input>
+          </div>
+        </div>
+
+        <!-- Prefix & Suffix Icons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Prefix & Suffix Icons</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input label="Search" placeholder="Search anything..." prefixIcon="bi bi-search"></app-input>
+            <app-input label="Email" placeholder="Enter email..." prefixIcon="bi bi-envelope"></app-input>
+            <app-input label="Password" placeholder="Enter password..." prefixIcon="bi bi-lock"
+              type="password"></app-input>
+            <app-input label="Website" placeholder="Enter URL..." prefixIcon="bi bi-globe"
+              suffixIcon="bi bi-arrow-right-circle"></app-input>
+            <app-input label="Location" placeholder="Enter location..." prefixIcon="bi bi-geo-alt"></app-input>
+            <app-input label="Amount" placeholder="0.00" suffixIcon="bi bi-currency-dollar"></app-input>
+          </div>
+        </div>
+
+        <!-- Prefix & Suffix Text -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Prefix & Suffix Text</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input label="Website URL" placeholder="yoursite.com" prefixText="https://"></app-input>
+            <app-input label="Price" placeholder="0.00" prefixText="TZS"></app-input>
+            <app-input label="Weight" placeholder="Enter weight" suffixText="kg"></app-input>
+            <app-input label="Percentage" placeholder="Enter value" suffixText="%"></app-input>
+            <app-input label="Email" placeholder="username" suffixText="@gmail.com"></app-input>
+            <app-input label="Phone" placeholder="Phone number" prefixText="+255"></app-input>
+          </div>
+        </div>
+
+        <!-- Input Types -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Input Types</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input type="text" label="Text" placeholder="Enter text..."></app-input>
+            <app-input type="email" label="Email" placeholder="Enter email..." prefixIcon="bi bi-envelope"></app-input>
+            <app-input type="password" label="Password" placeholder="Enter password..."
+              prefixIcon="bi bi-lock"></app-input>
+            <app-input type="number" label="Number" placeholder="Enter number..."></app-input>
+            <app-input type="tel" label="Phone" placeholder="+255 700 000 000" prefixIcon="bi bi-telephone"></app-input>
+            <app-input type="url" label="URL" placeholder="https://example.com" prefixIcon="bi bi-globe"></app-input>
+            <app-input type="search" label="Search" placeholder="Search..." prefixIcon="bi bi-search"
+              [clearable]="true"></app-input>
+            <app-input type="date" label="Date" prefixIcon="bi bi-calendar"></app-input>
+            <app-input type="time" label="Time" prefixIcon="bi bi-clock"></app-input>
+            <app-input type="datetime-local" label="Date & Time" prefixIcon="bi bi-calendar-event"></app-input>
+            <app-input type="month" label="Month" prefixIcon="bi bi-calendar-month"></app-input>
+            <app-input type="week" label="Week" prefixIcon="bi bi-calendar-week"></app-input>
+          </div>
+        </div>
+
+        <!-- States -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">States</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input state="default" label="Default" placeholder="Default state..."
+              hint="This is a hint message"></app-input>
+            <app-input state="success" label="Success" placeholder="Success state..." successMessage="Looks great!"
+              value="john@example.com"></app-input>
+            <app-input state="error" label="Error" placeholder="Error state..."
+              errorMessage="This field is required"></app-input>
+            <app-input state="warning" label="Warning" placeholder="Warning state..."
+              hint="Please double check this value"></app-input>
+          </div>
+        </div>
+
+        <!-- Special Inputs -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Special Inputs</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Clearable -->
+            <app-input label="Clearable Input" placeholder="Type something..." [clearable]="true"
+              hint="Click X to clear"></app-input>
+
+            <!-- Counter -->
+            <app-input label="Character Counter" placeholder="Type something..." [counter]="true" [maxLength]="50"
+              hint="Max 50 characters"></app-input>
+
+            <!-- Required -->
+            <app-input label="Required Field" placeholder="This field is required" [required]="true"></app-input>
+
+            <!-- Disabled -->
+            <app-input label="Disabled Input" placeholder="Cannot edit this" [disabled]="true"
+              value="Disabled value"></app-input>
+
+            <!-- Readonly -->
+            <app-input label="Readonly Input" [readonly]="true" value="Cannot modify this"></app-input>
+
+            <!-- Color Picker -->
+            <app-input type="color" label="Color Picker" hint="Pick a color"></app-input>
+
+            <!-- Range Slider -->
+            <app-input type="range" label="Range Slider" hint="Drag to select value"></app-input>
+
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Textarea</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-input type="textarea" label="Default Textarea" placeholder="Enter your message..."
+              hint="Resize vertically"></app-input>
+            <app-input type="textarea" label="With Counter" placeholder="Enter your message..." [counter]="true"
+              [maxLength]="200" [rows]="4"></app-input>
+            <app-input type="textarea" label="Error State" placeholder="Enter your message..." state="error"
+              errorMessage="Message is required"></app-input>
+            <app-input type="textarea" label="Filled Variant" placeholder="Enter your message..." variant="filled"
+              [rows]="4"></app-input>
+          </div>
+        </div>
+
+      </div>
       }
       @case ('listgroup') {
       <p class="text-sm text-[var(--color-muted)]">List Group — coming soon</p>

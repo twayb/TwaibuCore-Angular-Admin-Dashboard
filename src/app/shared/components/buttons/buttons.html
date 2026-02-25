@@ -1,1 +1,23 @@
-<p>buttons works!</p>
+<button
+  [class]="getClasses()"
+  [disabled]="disabled || loading"
+  (click)="onClick()">
+
+  @if (loading) {
+    <span class="btn-spinner"></span>
+  } @else if (iconLeft) {
+    <i [class]="iconLeft"></i>
+  }
+
+  @if (iconOnly && !loading) {
+    <i [class]="iconOnly"></i>
+  } @else if (label) {
+    <span>{{ label }}</span>
+  }
+  <ng-content></ng-content>
+
+  @if (iconRight && !loading && !iconOnly) {
+    <i [class]="iconRight"></i>
+  }
+
+</button>
