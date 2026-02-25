@@ -1,0 +1,198 @@
+/* Container */
+.pgn-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pgn-info {
+  font-size: 12px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* Wrapper */
+.pgn-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Button Base */
+.pgn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+/* Sizes */
+.pgn-sm .pgn-btn { width: 28px; height: 28px; font-size: 12px; border-radius: 6px; }
+.pgn-md .pgn-btn { width: 36px; height: 36px; font-size: 13px; border-radius: 8px; }
+.pgn-lg .pgn-btn { width: 44px; height: 44px; font-size: 14px; border-radius: 10px; }
+
+/* ── DEFAULT variant ── */
+.pgn-default .pgn-btn:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.pgn-default .pgn-btn-active {
+  background: linear-gradient(135deg, #4F6EF7, #3d5ce6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79,110,247,0.35);
+}
+
+/* ── ROUNDED variant ── */
+.pgn-rounded .pgn-btn { border-radius: 10px; }
+
+.pgn-rounded .pgn-btn:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.pgn-rounded .pgn-btn-active {
+  background: linear-gradient(135deg, #4F6EF7, #3d5ce6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79,110,247,0.35);
+}
+
+/* ── PILL variant ── */
+.pgn-pill .pgn-btn { border-radius: 999px; }
+
+.pgn-pill .pgn-btn:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.pgn-pill .pgn-btn-active {
+  background: linear-gradient(135deg, #4F6EF7, #3d5ce6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79,110,247,0.35);
+}
+
+/* ── BORDERED variant ── */
+.pgn-bordered .pgn-btn {
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-card);
+}
+
+.pgn-bordered .pgn-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.pgn-bordered .pgn-btn-active {
+  background: linear-gradient(135deg, #4F6EF7, #3d5ce6);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(79,110,247,0.35);
+}
+
+/* ── MINIMAL variant ── */
+.pgn-minimal .pgn-btn {
+  background: transparent;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.pgn-minimal .pgn-btn:hover {
+  color: var(--color-primary);
+}
+
+.pgn-minimal .pgn-btn-active {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Nav buttons */
+.pgn-nav {
+  color: var(--color-muted);
+}
+
+.pgn-nav:hover {
+  color: var(--color-primary) !important;
+  background-color: var(--color-primary-soft) !important;
+}
+
+.pgn-nav-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Ellipsis */
+.pgn-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  color: var(--color-muted);
+  cursor: default;
+  user-select: none;
+}
+
+/* Table Bar Style */
+.pgn-table-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.pgn-page-size {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pgn-page-size-label {
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.pgn-page-size-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 6px 32px 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  background-color: var(--color-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%2394a3b8' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 80px;
+}
+
+.pgn-page-size-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79,110,247,0.12);
+}
+
+.pgn-range-info {
+  font-size: 13px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.pgn-sm .pgn-ellipsis { width: 28px; height: 28px; font-size: 12px; }
+.pgn-lg .pgn-ellipsis { width: 44px; height: 44px; font-size: 14px; }

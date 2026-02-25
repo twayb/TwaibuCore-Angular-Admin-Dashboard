@@ -1109,8 +1109,114 @@
         </div>
       </app-modal>
       }
+
       @case ('pagination') {
-      <p class="text-sm text-[var(--color-muted)]">Pagination — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+          <!-- Table Style -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Table Style</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="bordered"
+              [showPageSizeSelector]="true" [showRangeInfo]="true" [showFirstLast]="false"
+              (pageChanged)="page1 = $event">
+            </app-pagination>
+          </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Default</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="default"
+                (pageChanged)="page1 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Rounded</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="rounded"
+                (pageChanged)="page1 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Pill</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="pill"
+                (pageChanged)="page1 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Bordered</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="bordered"
+                (pageChanged)="page1 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Minimal</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page1" variant="minimal"
+                (pageChanged)="page1 = $event"></app-pagination>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Small</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page2" variant="bordered" size="sm"
+                (pageChanged)="page2 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Medium</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page2" variant="bordered" size="md"
+                (pageChanged)="page2 = $event"></app-pagination>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Large</p>
+              <app-pagination [total]="100" [pageSize]="10" [currentPage]="page2" variant="bordered" size="lg"
+                (pageChanged)="page2 = $event"></app-pagination>
+            </div>
+          </div>
+        </div>
+
+        <!-- With Page Info -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Page Info</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-pagination [total]="100" [pageSize]="10" [currentPage]="page3" variant="default" [showPageInfo]="true"
+              (pageChanged)="page3 = $event"></app-pagination>
+            <app-pagination [total]="100" [pageSize]="10" [currentPage]="page3" variant="pill" [showPageInfo]="true"
+              (pageChanged)="page3 = $event"></app-pagination>
+          </div>
+        </div>
+
+        <!-- Without First/Last -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Without First / Last</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-pagination [total]="100" [pageSize]="10" [currentPage]="page4" variant="default"
+              [showFirstLast]="false" (pageChanged)="page4 = $event"></app-pagination>
+            <app-pagination [total]="100" [pageSize]="10" [currentPage]="page4" variant="bordered"
+              [showFirstLast]="false" (pageChanged)="page4 = $event"></app-pagination>
+          </div>
+        </div>
+
+        <!-- Many Pages -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Many Pages with Ellipsis
+          </p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-pagination [total]="500" [pageSize]="10" [currentPage]="page5" variant="default"
+              (pageChanged)="page5 = $event"></app-pagination>
+            <app-pagination [total]="500" [pageSize]="10" [currentPage]="page5" variant="pill"
+              (pageChanged)="page5 = $event"></app-pagination>
+            <app-pagination [total]="500" [pageSize]="10" [currentPage]="page5" variant="bordered"
+              (pageChanged)="page5 = $event"></app-pagination>
+          </div>
+        </div>
+
+      
+
+      </div>
       }
       @case ('popover') {
       <p class="text-sm text-[var(--color-muted)]">Popover — coming soon</p>

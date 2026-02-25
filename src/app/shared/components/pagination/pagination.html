@@ -1,1 +1,75 @@
-<p>pagination works!</p>
+<div class="pgn-container">
+
+  <!-- Table Style Layout -->
+  @if (showPageSizeSelector || showRangeInfo) {
+    <div class="pgn-table-bar">
+
+      @if (showPageSizeSelector) {
+        <div class="pgn-page-size">
+          <span class="pgn-page-size-label">Items per page:</span>
+          <select class="pgn-page-size-select" (change)="onPageSizeChange($event)">
+            @for (option of pageSizeOptions; track option) {
+              <option [value]="option" [selected]="option === pageSize">{{ option }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      @if (showRangeInfo) {
+        <span class="pgn-range-info">{{ getRangeInfo() }}</span>
+      }
+
+      <nav [class]="getWrapperClass()">
+        <button [class]="getNavClass(currentPage === 1)" (click)="prev()" [disabled]="currentPage === 1">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <button [class]="getNavClass(currentPage === totalPages)" (click)="next()" [disabled]="currentPage === totalPages">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </nav>
+
+    </div>
+  } @else {
+
+    @if (showPageInfo) {
+      <span class="pgn-info">Page {{ currentPage }} of {{ totalPages }}</span>
+    }
+
+    <nav [class]="getWrapperClass()">
+
+      @if (showFirstLast) {
+        <button [class]="getNavClass(currentPage === 1)" (click)="first()" [disabled]="currentPage === 1">
+          <i class="bi bi-chevron-double-left"></i>
+        </button>
+      }
+
+      @if (showPrevNext) {
+        <button [class]="getNavClass(currentPage === 1)" (click)="prev()" [disabled]="currentPage === 1">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+      }
+
+      @for (page of pages; track $index) {
+        @if (isEllipsis(page)) {
+          <span class="pgn-ellipsis">...</span>
+        } @else {
+          <button [class]="getPageClass(page)" (click)="goToPage(page)">{{ page }}</button>
+        }
+      }
+
+      @if (showPrevNext) {
+        <button [class]="getNavClass(currentPage === totalPages)" (click)="next()" [disabled]="currentPage === totalPages">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      }
+
+      @if (showFirstLast) {
+        <button [class]="getNavClass(currentPage === totalPages)" (click)="last()" [disabled]="currentPage === totalPages">
+          <i class="bi bi-chevron-double-right"></i>
+        </button>
+      }
+
+    </nav>
+  }
+
+</div>

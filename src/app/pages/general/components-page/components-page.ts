@@ -11,6 +11,7 @@ import { DropdownItem, DropdownsComponent } from '../../../shared/components/dro
 import { InputsComponent } from '../../../shared/components/inputs/inputs';
 import { ListgroupComponent, ListGroupItem } from '../../../shared/components/listgroup/listgroup';
 import { ModalComponent } from '../../../shared/components/modal/modal';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination';
 
 interface ComponentNav {
   label: string;
@@ -23,7 +24,7 @@ interface ComponentNav {
   standalone: true,
   imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, 
     CardsComponent, BreadcrumbComponent, CheckboxComponent, 
-    FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent],
+    FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent,PaginationComponent ],
   templateUrl: './components-page.html',
   styleUrl: './components-page.css'
 })
@@ -46,6 +47,8 @@ export class ComponentsPageComponent {
     { label: 'Pagination',   icon: 'bi bi-123',                  key: 'pagination' },
     { label: 'Popover',      icon: 'bi bi-chat-square-text',     key: 'popover' },
     { label: 'Progress Bar', icon: 'bi bi-bar-chart-steps',      key: 'progressbar' },
+    { label: 'Select',       icon: 'bi bi-caret-down-square',     key: 'select' },
+    { label: 'Stepper',      icon: 'bi bi-diagram-3',            key: 'stepper' },
     { label: 'Tabs',         icon: 'bi bi-folder-symlink',       key: 'tabs' },
   ];
 
@@ -212,4 +215,11 @@ modal3Open = false;
 modal4Open = false;
 modal5Open = false;
 modal6Open = false;
+
+// Pagination state
+page1 = 1;
+page2 = 3;
+page3 = 5;
+page4 = 1;
+page5 = 1;
 }
