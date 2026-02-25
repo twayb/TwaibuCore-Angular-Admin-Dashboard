@@ -1,0 +1,212 @@
+<div class="p-6 flex flex-col gap-6">
+
+  <!-- Page Header -->
+  <div>
+    <h2 class="text-xl font-bold text-[var(--color-text)]">Components</h2>
+    <p class="text-sm text-[var(--color-muted)] mt-1">Browse and preview all reusable UI components</p>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="flex gap-6 items-start">
+
+    <!-- Left Nav -->
+    <div
+      class="w-52 flex-shrink-0 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-2 sticky top-6">
+      @for (item of navItems; track item.key) {
+      <button (click)="setActive(item.key)"
+        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 mb-0.5"
+        [class]="activeComponent === item.key
+            ? 'bg-[var(--color-primary-soft)] text-[var(--color-primary)]'
+            : 'text-[var(--color-muted)] hover:bg-[var(--color-bg-1)] hover:text-[var(--color-text)]'">
+        <i [class]="item.icon + ' text-base w-4'"></i>
+        {{ item.label }}
+      </button>
+      }
+    </div>
+
+    <!-- Right Content -->
+    <div class="flex-1 min-w-0 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-6">
+
+      <!-- Section Title -->
+      <div class="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--color-border)]">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-[var(--color-primary-soft)]">
+          <i [class]="activeIcon + ' text-sm text-[var(--color-primary)]'"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-[var(--color-text)]">{{ activeLabel }}</h3>
+          <p class="text-xs text-[var(--color-muted)]">Preview and usage examples</p>
+        </div>
+      </div>
+
+      <!-- Showcase -->
+      @switch (activeComponent) {
+
+      @case ('accordion') {
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Default -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Default</p>
+          <app-accordion [items]="defaultItems" variant="default"></app-accordion>
+        </div>
+
+        <!-- Bordered -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Bordered</p>
+          <app-accordion [items]="borderedItems" variant="bordered"></app-accordion>
+        </div>
+
+        <!-- Separated -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Separated</p>
+          <app-accordion [items]="separatedItems" variant="separated"></app-accordion>
+        </div>
+
+        <!-- Flush -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Flush</p>
+          <div class="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-4">
+            <app-accordion [items]="flushItems" variant="flush"></app-accordion>
+          </div>
+        </div>
+
+        <!-- Allow Multiple -->
+        <div class="flex flex-col gap-3 lg:col-span-2">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Allow Multiple Open</p>
+          <app-accordion [items]="separatedItems" variant="separated" [allowMultiple]="true"></app-accordion>
+        </div>
+
+      </div>
+      }
+
+      @case ('alerts') {
+      <div class="flex flex-col gap-8">
+
+        <!-- Soft -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Soft</p>
+          <div class="flex flex-col gap-3">
+            <app-alerts type="success" variant="soft" title="Success!"
+              message="Your changes have been saved successfully." [dismissible]="true"></app-alerts>
+            <app-alerts type="danger" variant="soft" title="Error!" message="Something went wrong. Please try again."
+              [dismissible]="true"></app-alerts>
+            <app-alerts type="warning" variant="soft" title="Warning!" message="Your session will expire in 15 seconds."
+              [dismissible]="true"></app-alerts>
+            <app-alerts type="info" variant="soft" title="Info" message="A new version of TwaibuCore is available."
+              [dismissible]="true"></app-alerts>
+            <app-alerts type="primary" variant="soft" title="Notice" message="You have 3 pending tasks to complete."
+              [dismissible]="true"></app-alerts>
+          </div>
+        </div>
+
+        <!-- Solid -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Solid</p>
+          <div class="flex flex-col gap-3">
+            <app-alerts type="success" variant="solid" title="Success!"
+              message="Your changes have been saved successfully."></app-alerts>
+            <app-alerts type="danger" variant="solid" title="Error!"
+              message="Something went wrong. Please try again."></app-alerts>
+            <app-alerts type="warning" variant="solid" title="Warning!"
+              message="Your session will expire in 15 seconds."></app-alerts>
+            <app-alerts type="info" variant="solid" title="Info"
+              message="A new version of TwaibuCore is available."></app-alerts>
+            <app-alerts type="primary" variant="solid" title="Notice"
+              message="You have 3 pending tasks to complete."></app-alerts>
+          </div>
+        </div>
+
+        <!-- Outline -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Outline</p>
+          <div class="flex flex-col gap-3">
+            <app-alerts type="success" variant="outline" title="Success!"
+              message="Your changes have been saved successfully."></app-alerts>
+            <app-alerts type="danger" variant="outline" title="Error!"
+              message="Something went wrong. Please try again."></app-alerts>
+            <app-alerts type="warning" variant="outline" title="Warning!"
+              message="Your session will expire in 15 seconds."></app-alerts>
+            <app-alerts type="info" variant="outline" title="Info"
+              message="A new version of TwaibuCore is available."></app-alerts>
+            <app-alerts type="primary" variant="outline" title="Notice"
+              message="You have 3 pending tasks to complete."></app-alerts>
+          </div>
+        </div>
+
+        <!-- Left Border -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Left Border</p>
+          <div class="flex flex-col gap-3">
+            <app-alerts type="success" variant="left-border" title="Success!"
+              message="Your changes have been saved successfully."></app-alerts>
+            <app-alerts type="danger" variant="left-border" title="Error!"
+              message="Something went wrong. Please try again."></app-alerts>
+            <app-alerts type="warning" variant="left-border" title="Warning!"
+              message="Your session will expire in 15 seconds."></app-alerts>
+            <app-alerts type="info" variant="left-border" title="Info"
+              message="A new version of TwaibuCore is available."></app-alerts>
+            <app-alerts type="primary" variant="left-border" title="Notice"
+              message="You have 3 pending tasks to complete."></app-alerts>
+          </div>
+        </div>
+
+        <!-- Without Title -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Without Title</p>
+          <div class="flex flex-col gap-3">
+            <app-alerts type="success" variant="soft" message="Your changes have been saved successfully."
+              [dismissible]="true"></app-alerts>
+            <app-alerts type="danger" variant="left-border" message="Something went wrong. Please try again."
+              [dismissible]="true"></app-alerts>
+          </div>
+        </div>
+
+      </div>
+      }
+      @case ('badges') {
+      <p class="text-sm text-[var(--color-muted)]">Badges — coming soon</p>
+      }
+      @case ('buttons') {
+      <p class="text-sm text-[var(--color-muted)]">Buttons — coming soon</p>
+      }
+      @case ('cards') {
+      <p class="text-sm text-[var(--color-muted)]">Cards — coming soon</p>
+      }
+      @case ('breadcrumb') {
+      <p class="text-sm text-[var(--color-muted)]">Breadcrumb — coming soon</p>
+      }
+      @case ('checkbox') {
+      <p class="text-sm text-[var(--color-muted)]">Checkbox — coming soon</p>
+      }
+      @case ('dropdowns') {
+      <p class="text-sm text-[var(--color-muted)]">Dropdowns — coming soon</p>
+      }
+      @case ('inputs') {
+      <p class="text-sm text-[var(--color-muted)]">Inputs — coming soon</p>
+      }
+      @case ('listgroup') {
+      <p class="text-sm text-[var(--color-muted)]">List Group — coming soon</p>
+      }
+      @case ('modal') {
+      <p class="text-sm text-[var(--color-muted)]">Modal — coming soon</p>
+      }
+      @case ('pagination') {
+      <p class="text-sm text-[var(--color-muted)]">Pagination — coming soon</p>
+      }
+      @case ('popover') {
+      <p class="text-sm text-[var(--color-muted)]">Popover — coming soon</p>
+      }
+      @case ('progressbar') {
+      <p class="text-sm text-[var(--color-muted)]">Progress Bar — coming soon</p>
+      }
+      @case ('tabs') {
+      <p class="text-sm text-[var(--color-muted)]">Tabs — coming soon</p>
+      }
+
+      }
+
+    </div>
+
+  </div>
+
+</div>

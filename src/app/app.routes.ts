@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/authentication/register/register';
 import { LockscreenComponent } from './pages/authentication/lockscreen/lockscreen';
 import { TransportationDashboardComponent } from './features/dashboards/transportation-dashboard/transportation-dashboard';
 import { ComplaintsDashboardComponent } from './features/dashboards/complaints-dashboard/complaints-dashboard';
+import { ComponentsPageComponent } from './pages/general/components-page/components-page';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'dashboard/recruitment', component: RecruitmentDashboardComponent },
     { path: 'dashboard/transportation', component: TransportationDashboardComponent },
     { path: 'dashboard/complaints', component: ComplaintsDashboardComponent },
+    { path: 'general/components', component: ComponentsPageComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];

@@ -1,1 +1,25 @@
-<p>accordion works!</p>
+<div [class]="'accordion accordion-' + variant">
+  @for (item of items; track $index) {
+    <div class="accordion-item" [class.expanded]="item.expanded">
+
+      <button [class]="getHeaderClass()" (click)="toggle($index)">
+        <div class="flex items-center gap-3">
+          @if (item.icon) {
+            <i [class]="item.icon + ' text-[var(--color-primary)] text-base'"></i>
+          }
+          <span class="font-semibold text-sm text-[var(--color-text)]">{{ item.title }}</span>
+        </div>
+        <i class="bi bi-chevron-down text-[var(--color-muted)] text-sm transition-transform duration-300"
+           [class.rotate-180]="item.expanded">
+        </i>
+      </button>
+
+      <div class="accordion-content" [class.open]="item.expanded">
+        <div [class]="getContentClass()">
+          <p class="text-sm text-[var(--color-muted)] leading-relaxed">{{ item.content }}</p>
+        </div>
+      </div>
+
+    </div>
+  }
+</div>

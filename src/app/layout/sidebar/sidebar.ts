@@ -145,70 +145,19 @@ export class SidebarComponent {
     },
     {
       section: 'General',
-      groups: [
-          {
-          label: 'Components',
-          icon: 'bi bi-grid',
-          isOpen: false,
-          items: [
-            { label: 'Alerts', icon: '', route: '/general/components' },
-            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
-            
-          ]
-        },
-
-        {
-          label: 'Widgets',
-          icon: 'bi bi-layout-wtf',
-          isOpen: false,
-          items: [
-            { label: 'Alerts', icon: '', route: '/general/components' },
-            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
-            
-          ]
-        },
-
-         {
-          label: 'Forms',
-          icon: 'bi bi-ui-checks',
-          isOpen: false,
-          items: [
-            { label: 'Alerts', icon: '', route: '/general/components' },
-            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
-            
-          ]
-        },
-
-         {
-          label: 'Icons',
-          icon: 'bi bi-emoji-smile',
-          isOpen: false,
-          items: [
-            { label: 'Alerts', icon: '', route: '/general/components' },
-            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
-            
-          ]
-        }, 
-
-         {
-          label: 'Tables',
-          icon: 'bi bi-table',
-          isOpen: false,
-          items: [
-            { label: 'Alerts', icon: '', route: '/general/components' },
-            { label: 'Accordion', icon: '', route: '/general/components/accordion' },
-            
-          ]
-        },
-      ],
+      groups: [],
       items: [
-     
+        { label: 'Components', icon: 'bi bi-grid', route: '/general/components' },
+        { label: 'Widgets', icon: 'bi bi-layout-wtf', route: '/general/widgets' },
+        { label: 'Extended UI', icon: 'bi bi-stars', route: '/general/extended-ui' },
+        { label: 'Icons', icon: 'bi bi-emoji-smile', route: '/general/icons' },
+        { label: 'Forms', icon: 'bi bi-ui-checks', route: '/general/forms' },
+        { label: 'Tables', icon: 'bi bi-table', route: '/general/tables' },
+        { label: 'Charts', icon: 'bi bi-bar-chart-line', route: '/general/charts' },
+        { label: 'Map', icon: 'bi bi-map', route: '/general/map' },
       ]
     }
 
     
   ];
 }
-
-
- 

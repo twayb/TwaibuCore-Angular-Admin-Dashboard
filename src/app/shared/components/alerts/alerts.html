@@ -1,1 +1,28 @@
-<p>alerts works!</p>
+@if (visible) {
+  <div [class]="getClasses()" role="alert">
+
+    <!-- Icon -->
+    <div class="alert-icon-wrap">
+      <i [class]="getIcon()"></i>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 min-w-0">
+      @if (title) {
+        <p class="alert-title">{{ title }}</p>
+      }
+      @if (message) {
+        <p class="alert-message">{{ message }}</p>
+      }
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Dismiss -->
+    @if (dismissible) {
+      <button class="alert-dismiss-btn" (click)="dismiss()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    }
+
+  </div>
+}
