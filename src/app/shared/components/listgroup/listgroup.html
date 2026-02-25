@@ -1,1 +1,51 @@
-<p>listgroup works!</p>
+<ul [class]="getWrapperClass()">
+  @for (item of items; track $index) {
+    <li [class]="getItemClass(item)">
+
+      <!-- Avatar Image -->
+      @if (item.avatar) {
+        <div class="lg-avatar">
+          <img [src]="item.avatar" [alt]="item.label" />
+        </div>
+      }
+
+      <!-- Avatar Text -->
+      @if (!item.avatar && item.avatarText) {
+        <div class="lg-avatar-text">{{ item.avatarText }}</div>
+      }
+
+      <!-- Icon -->
+      @if (item.icon && !item.avatar && !item.avatarText) {
+        <div class="lg-icon-wrap">
+          <i [class]="item.icon"></i>
+        </div>
+      }
+
+      <!-- Content -->
+      <div class="lg-content">
+        <span class="lg-label">{{ item.label }}</span>
+        @if (item.description) {
+          <span class="lg-description">{{ item.description }}</span>
+        }
+      </div>
+
+      <!-- Meta -->
+      @if (item.meta) {
+        <span class="lg-meta">{{ item.meta }}</span>
+      }
+
+      <!-- Badge -->
+      @if (item.badge) {
+        <span [class]="getBadgeClass(item.badgeType)">{{ item.badge }}</span>
+      }
+
+      <!-- Clickable Arrow -->
+      @if (item.active) {
+        <i class="bi bi-check2 lg-active-icon"></i>
+      } @else if (this.clickable && !item.disabled) {
+        <i class="bi bi-chevron-right lg-arrow-icon"></i>
+      }
+
+    </li>
+  }
+</ul>

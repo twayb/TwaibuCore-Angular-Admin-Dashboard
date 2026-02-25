@@ -1,0 +1,215 @@
+/* Wrapper */
+.lg-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Default */
+.lg-wrapper-default {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lg-wrapper-default .lg-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lg-wrapper-default .lg-item:last-child {
+  border-bottom: none;
+}
+
+/* Bordered */
+.lg-wrapper-bordered {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lg-wrapper-bordered .lg-item {
+  border-bottom: 2px solid var(--color-border);
+}
+
+.lg-wrapper-bordered .lg-item:last-child {
+  border-bottom: none;
+}
+
+/* Flush */
+.lg-wrapper-flush .lg-item {
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+.lg-wrapper-flush .lg-item:last-child {
+  border-bottom: none;
+}
+
+/* Separated */
+.lg-wrapper-separated {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lg-wrapper-separated .lg-item {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.lg-wrapper-separated .lg-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* Item Base */
+.lg-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  transition: background 0.15s ease;
+}
+
+/* Hoverable */
+.lg-hoverable .lg-item:hover {
+  background-color: var(--color-primary-soft);
+}
+
+/* Clickable */
+.lg-item-clickable {
+  cursor: pointer;
+}
+
+/* Active */
+.lg-item-active {
+  background-color: var(--color-primary-soft) !important;
+  color: var(--color-primary);
+}
+
+.lg-item-active .lg-label {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Disabled */
+.lg-item-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Avatar */
+.lg-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.lg-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lg-avatar-text {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), #7c3aed);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Icon */
+.lg-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.lg-item-active .lg-icon-wrap {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Content */
+.lg-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lg-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lg-description {
+  font-size: 11px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Meta */
+.lg-meta {
+  font-size: 11px;
+  color: var(--color-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Badge */
+.lg-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.lg-badge-primary { background-color: var(--color-primary-soft); color: var(--color-primary); }
+.lg-badge-success { background-color: rgba(34,197,94,0.12);      color: #16a34a; }
+.lg-badge-danger  { background-color: rgba(239,68,68,0.12);      color: #dc2626; }
+.lg-badge-warning { background-color: rgba(245,158,11,0.12);     color: #d97706; }
+.lg-badge-info    { background-color: rgba(6,182,212,0.12);      color: #0891b2; }
+
+/* Icons */
+.lg-active-icon {
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.lg-arrow-icon {
+  color: var(--color-muted);
+  font-size: 12px;
+  flex-shrink: 0;
+}

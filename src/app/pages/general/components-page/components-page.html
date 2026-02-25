@@ -927,10 +927,187 @@
       </div>
       }
       @case ('listgroup') {
-      <p class="text-sm text-[var(--color-muted)]">List Group — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Default</p>
+              <app-listgroup [items]="basicListItems" variant="default" [hoverable]="true"></app-listgroup>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Bordered</p>
+              <app-listgroup [items]="basicListItems" variant="bordered" [hoverable]="true"></app-listgroup>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Flush</p>
+              <app-listgroup [items]="basicListItems" variant="flush" [hoverable]="true"></app-listgroup>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Separated</p>
+              <app-listgroup [items]="basicListItems" variant="separated" [hoverable]="true"></app-listgroup>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- With Active & Disabled -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Active & Disabled</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <app-listgroup [items]="activeListItems" variant="default" [clickable]="true"></app-listgroup>
+            <app-listgroup [items]="activeListItems" variant="separated" [clickable]="true"></app-listgroup>
+          </div>
+        </div>
+
+        <!-- With Badges -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Badges</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <app-listgroup [items]="badgeListItems" variant="default" [hoverable]="true"></app-listgroup>
+            <app-listgroup [items]="badgeListItems" variant="separated" [hoverable]="true"></app-listgroup>
+          </div>
+        </div>
+
+        <!-- With Avatars -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Avatars</p>
+          <app-listgroup [items]="avatarListItems" variant="default" [hoverable]="true"></app-listgroup>
+        </div>
+
+        <!-- With Meta -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Meta & Badges</p>
+          <app-listgroup [items]="metaListItems" variant="separated" [hoverable]="true"
+            [clickable]="true"></app-listgroup>
+        </div>
+
+      </div>
       }
       @case ('modal') {
-      <p class="text-sm text-[var(--color-muted)]">Modal — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Basic Modals -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Basic</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" label="Open Modal" (clicked)="modal1Open = true"></app-buttons>
+            <app-buttons type="success" variant="soft" label="With Icon" (clicked)="modal2Open = true"></app-buttons>
+            <app-buttons type="dark" variant="soft" label="Scrollable" (clicked)="modal3Open = true"></app-buttons>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3">
+            <app-buttons type="primary" variant="solid" size="sm" label="Small"
+              (clicked)="modal4Open = true"></app-buttons>
+            <app-buttons type="primary" variant="solid" size="sm" label="Large"
+              (clicked)="modal5Open = true"></app-buttons>
+            <app-buttons type="danger" variant="outline" size="sm" label="Confirm Delete"
+              (clicked)="modal6Open = true"></app-buttons>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal 1 - Basic -->
+      <app-modal [isOpen]="modal1Open" title="Basic Modal" size="md" (closed)="modal1Open = false">
+        <div modal-body>
+          <p class="text-[var(--color-muted)]">This is a basic modal dialog. You can put any content here including
+            forms, tables, images and more.</p>
+          <p class="text-[var(--color-muted)] mt-3">Click the backdrop or the X button to close this modal.</p>
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="dark" variant="soft" label="Cancel" (clicked)="modal1Open = false"></app-buttons>
+          <app-buttons type="primary" variant="solid" label="Confirm" (clicked)="modal1Open = false"></app-buttons>
+        </div>
+      </app-modal>
+
+      <!-- Modal 2 - With Icon -->
+      <app-modal [isOpen]="modal2Open" title="Success Action" size="md" icon="bi bi-check-circle-fill"
+        iconColor="success" (closed)="modal2Open = false">
+        <div modal-body>
+          <p class="text-[var(--color-muted)]">Your action was completed successfully. The changes have been saved and
+            are now live.</p>
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="success" variant="solid" label="Done" (clicked)="modal2Open = false"></app-buttons>
+        </div>
+      </app-modal>
+
+      <!-- Modal 3 - Scrollable -->
+      <app-modal [isOpen]="modal3Open" title="Scrollable Content" size="md" [scrollable]="true"
+        (closed)="modal3Open = false">
+        <div modal-body>
+          @for (i of [1,2,3,4,5,6,7,8]; track i) {
+          <div class="p-3 mb-3 rounded-lg bg-[var(--color-bg-1)] border border-[var(--color-border)]">
+            <p class="text-sm font-semibold text-[var(--color-text)]">Item {{ i }}</p>
+            <p class="text-xs text-[var(--color-muted)] mt-1">This is item number {{ i }} in the scrollable list. The
+              body scrolls while the header and footer remain fixed.</p>
+          </div>
+          }
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="dark" variant="soft" label="Close" (clicked)="modal3Open = false"></app-buttons>
+        </div>
+      </app-modal>
+
+      <!-- Modal 4 - Small -->
+      <app-modal [isOpen]="modal4Open" title="Small Modal" size="sm" (closed)="modal4Open = false">
+        <div modal-body>
+          <p class="text-[var(--color-muted)]">This is a small modal, perfect for quick confirmations or alerts.</p>
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="dark" variant="soft" size="sm" label="Cancel" (clicked)="modal4Open = false"></app-buttons>
+          <app-buttons type="primary" variant="solid" size="sm" label="Confirm"
+            (clicked)="modal4Open = false"></app-buttons>
+        </div>
+      </app-modal>
+
+      <!-- Modal 5 - Large -->
+      <app-modal [isOpen]="modal5Open" title="Large Modal" size="lg" icon="bi bi-info-circle" iconColor="info"
+        (closed)="modal5Open = false">
+        <div modal-body>
+          <div class="grid grid-cols-2 gap-4">
+            @for (i of [1,2,3,4]; track i) {
+            <div class="p-4 rounded-xl bg-[var(--color-bg-1)] border border-[var(--color-border)]">
+              <div class="w-10 h-10 rounded-xl bg-[var(--color-primary-soft)] flex items-center justify-center mb-3">
+                <i class="bi bi-star text-[var(--color-primary)] text-lg"></i>
+              </div>
+              <p class="text-sm font-semibold text-[var(--color-text)]">Feature {{ i }}</p>
+              <p class="text-xs text-[var(--color-muted)] mt-1">Description for feature {{ i }} goes here with some
+                extra detail.</p>
+            </div>
+            }
+          </div>
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="dark" variant="soft" label="Cancel" (clicked)="modal5Open = false"></app-buttons>
+          <app-buttons type="primary" variant="solid" label="Continue" (clicked)="modal5Open = false"></app-buttons>
+        </div>
+      </app-modal>
+
+      <!-- Modal 6 - Confirm Delete -->
+      <app-modal [isOpen]="modal6Open" title="Delete Confirm" size="sm" icon="bi bi-trash" iconColor="danger"
+        (closed)="modal6Open = false">
+        <div modal-body>
+          <p class="text-[var(--color-muted)]">Are you sure you want to delete this item? This action <strong>cannot be
+              undone</strong>.</p>
+        </div>
+        <div modal-footer class="flex items-center justify-end gap-3 p-5 border-t border-[var(--color-border)]">
+          <app-buttons type="dark" variant="soft" size="sm" label="Cancel" (clicked)="modal6Open = false"></app-buttons>
+          <app-buttons type="danger" variant="solid" size="sm" label="Delete" iconLeft="bi bi-trash"
+            (clicked)="modal6Open = false"></app-buttons>
+        </div>
+      </app-modal>
       }
       @case ('pagination') {
       <p class="text-sm text-[var(--color-muted)]">Pagination — coming soon</p>

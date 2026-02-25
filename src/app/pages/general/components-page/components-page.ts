@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox';
 import { DropdownItem, DropdownsComponent } from '../../../shared/components/dropdowns/dropdowns';
 import { InputsComponent } from '../../../shared/components/inputs/inputs';
+import { ListgroupComponent, ListGroupItem } from '../../../shared/components/listgroup/listgroup';
+import { ModalComponent } from '../../../shared/components/modal/modal';
 
 interface ComponentNav {
   label: string;
@@ -19,7 +21,9 @@ interface ComponentNav {
 @Component({
   selector: 'app-components-page',
   standalone: true,
-  imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, CardsComponent, BreadcrumbComponent, CheckboxComponent, FormsModule, DropdownsComponent,InputsComponent],
+  imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, 
+    CardsComponent, BreadcrumbComponent, CheckboxComponent, 
+    FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent],
   templateUrl: './components-page.html',
   styleUrl: './components-page.css'
 })
@@ -158,4 +162,54 @@ phoneValue = '';
 searchValue = '';
 textareaValue = '';
 rangeValue = '50';
+
+
+
+// List Group data
+basicListItems: ListGroupItem[] = [
+  { label: 'Dashboard',   icon: 'bi bi-speedometer2' },
+  { label: 'Users',       icon: 'bi bi-people' },
+  { label: 'Settings',    icon: 'bi bi-gear' },
+  { label: 'Reports',     icon: 'bi bi-bar-chart' },
+  { label: 'Help',        icon: 'bi bi-question-circle' },
+];
+
+activeListItems: ListGroupItem[] = [
+  { label: 'Dashboard',   icon: 'bi bi-speedometer2', active: true },
+  { label: 'Users',       icon: 'bi bi-people' },
+  { label: 'Settings',    icon: 'bi bi-gear', disabled: true },
+  { label: 'Reports',     icon: 'bi bi-bar-chart' },
+  { label: 'Help',        icon: 'bi bi-question-circle' },
+];
+
+badgeListItems: ListGroupItem[] = [
+  { label: 'Inbox',        icon: 'bi bi-inbox',         badge: '12',  badgeType: 'primary' },
+  { label: 'Sent',         icon: 'bi bi-send',          badge: '3',   badgeType: 'success' },
+  { label: 'Spam',         icon: 'bi bi-exclamation-triangle', badge: '5', badgeType: 'danger' },
+  { label: 'Drafts',       icon: 'bi bi-file-earmark',  badge: '2',   badgeType: 'warning' },
+  { label: 'Archived',     icon: 'bi bi-archive' },
+];
+
+avatarListItems: ListGroupItem[] = [
+  { label: 'James Okafor',  description: 'Senior Developer',     avatarText: 'JO', meta: '2 min ago',   badge: 'Active',  badgeType: 'success' },
+  { label: 'Amina Hassan',  description: 'UI/UX Designer',       avatarText: 'AH', meta: '15 min ago',  badge: 'Away',    badgeType: 'warning' },
+  { label: 'Peter Njoroge', description: 'Project Manager',      avatarText: 'PN', meta: '1 hr ago',    badge: 'Offline', badgeType: 'danger' },
+  { label: 'Grace Mwamba',  description: 'Data Analyst',         avatarText: 'GM', meta: '3 hr ago',    badge: 'Active',  badgeType: 'success' },
+  { label: 'Hassan Omar',   description: 'Backend Developer',    avatarText: 'HO', meta: 'Yesterday' },
+];
+
+metaListItems: ListGroupItem[] = [
+  { label: 'Project Alpha',   description: 'Angular dashboard project',  icon: 'bi bi-kanban',      meta: 'Feb 23',  badge: 'Active',     badgeType: 'success' },
+  { label: 'Design System',   description: 'Component library',          icon: 'bi bi-palette',     meta: 'Feb 20',  badge: 'In Review',  badgeType: 'warning' },
+  { label: 'API Integration', description: 'REST API setup',             icon: 'bi bi-plug',        meta: 'Feb 18',  badge: 'Pending',    badgeType: 'primary' },
+  { label: 'Database Setup',  description: 'PostgreSQL configuration',   icon: 'bi bi-database',    meta: 'Feb 15',  badge: 'Done',       badgeType: 'success' },
+];
+
+// Modal states
+modal1Open = false;
+modal2Open = false;
+modal3Open = false;
+modal4Open = false;
+modal5Open = false;
+modal6Open = false;
 }
