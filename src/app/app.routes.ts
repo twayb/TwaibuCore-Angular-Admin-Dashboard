@@ -10,6 +10,7 @@ import { ComplaintsDashboardComponent } from './features/dashboards/complaints-d
 import { ComponentsPageComponent } from './pages/general/components-page/components-page';
 import { WidgetsComponent } from './shared/widgets/widgets';
 import { TablesComponent } from './shared/tables/tables';
+import { FormsComponent } from './shared/forms/forms';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
@@ -23,5 +24,6 @@ export const routes: Routes = [
     { path: 'general/components', component: ComponentsPageComponent },
     {path: 'general/widgets', component: WidgetsComponent},
     { path: 'general/tables', component: TablesComponent },
+    { path: 'general/forms', component: FormsComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];

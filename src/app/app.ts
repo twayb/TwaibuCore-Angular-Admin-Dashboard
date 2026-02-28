@@ -8,12 +8,13 @@ import { LockscreenComponent } from './pages/authentication/lockscreen/lockscree
 import { LockscreenService } from './core/services/lockscreen.service';
 import { ThemeService } from './core/services/theme.service';
 import { ThemeSettingsComponent } from './layout/theme-settings/theme-settings';
+import { ToastComponent } from './shared/components/toast/toast';
 
 
 @Component({
   selector: 'app-root',
     standalone: true, // ✅ REQUIRED
-  imports: [RouterOutlet, SidebarComponent, HeaderComponent, FooterComponent, LockscreenComponent, ThemeSettingsComponent],
+  imports: [RouterOutlet, SidebarComponent, HeaderComponent, FooterComponent, LockscreenComponent, ThemeSettingsComponent, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

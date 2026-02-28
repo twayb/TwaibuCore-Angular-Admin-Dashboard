@@ -1,1 +1,925 @@
-<p>forms works!</p>
+<div class="frm-page">
+
+  <!-- Header -->
+  <div class="frm-header">
+    <div>
+      <h1 class="frm-title">Forms</h1>
+      <p class="frm-subtitle">Form layouts, validation, and advanced input examples</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="frm-tabs">
+    @for (tab of tabs; track tab.key) {
+      <button class="frm-tab" [class.frm-tab-active]="activeTab === tab.key" (click)="activeTab = $any(tab.key)">
+        <i [class]="tab.icon"></i>
+        <span>{{ tab.label }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="frm-content">
+
+    @switch (activeTab) {
+
+      <!-- ── BASIC FORMS ── -->
+      @case ('basic') {
+        <div class="frm-grid-2">
+
+          <!-- Basic Input Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Basic Form</h3>
+              <p class="frm-card-subtitle">Simple form with common input types</p>
+            </div>
+            <form class="frm-body" (ngSubmit)="submitBasic()">
+              <div class="frm-row-2">
+                <div class="frm-field">
+                  <label class="frm-label">First Name <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(basicForm,'firstName')" [class.frm-input-success]="isValid(basicForm,'firstName')" type="text" placeholder="John" formControlName="firstName" [formControl]="$any(basicForm.get('firstName'))">
+                  @if (hasError(basicForm,'firstName')) {
+                    <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(basicForm,'firstName') }}</span>
+                  }
+                </div>
+                <div class="frm-field">
+                  <label class="frm-label">Last Name <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(basicForm,'lastName')" [class.frm-input-success]="isValid(basicForm,'lastName')" type="text" placeholder="Doe" [formControl]="$any(basicForm.get('lastName'))">
+                  @if (hasError(basicForm,'lastName')) {
+                    <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(basicForm,'lastName') }}</span>
+                  }
+                </div>
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Email Address <span class="frm-req">*</span></label>
+                <div class="frm-input-wrap">
+                  <i class="bi bi-envelope frm-input-icon"></i>
+                  <input class="frm-input frm-input-padded" [class.frm-input-error]="hasError(basicForm,'email')" [class.frm-input-success]="isValid(basicForm,'email')" type="email" placeholder="john@example.com" [formControl]="$any(basicForm.get('email'))">
+                </div>
+                @if (hasError(basicForm,'email')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(basicForm,'email') }}</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Phone Number</label>
+                <div class="frm-input-wrap">
+                  <span class="frm-prefix">+255</span>
+                  <input class="frm-input frm-input-prefix" type="tel" placeholder="712 345 678" [formControl]="$any(basicForm.get('phone'))">
+                </div>
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Password <span class="frm-req">*</span></label>
+                <div class="frm-input-wrap">
+                  <i class="bi bi-lock frm-input-icon"></i>
+                  <input class="frm-input frm-input-padded" [class.frm-input-error]="hasError(basicForm,'password')" [class.frm-input-success]="isValid(basicForm,'password')" [type]="showPassword ? 'text' : 'password'" placeholder="Min 8 characters" [formControl]="$any(basicForm.get('password'))">
+                  <i [class]="(showPassword ? 'bi bi-eye-slash' : 'bi bi-eye') + ' frm-input-icon-right'" (click)="showPassword = !showPassword"></i>
+                </div>
+                @if (hasError(basicForm,'password')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(basicForm,'password') }}</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Bio</label>
+                <textarea class="frm-textarea" rows="3" placeholder="Tell us about yourself..." [formControl]="$any(basicForm.get('bio'))"></textarea>
+              </div>
+
+              <div class="frm-footer">
+                <button type="button" class="frm-btn frm-btn-ghost" (click)="basicForm.reset()">Reset</button>
+                <button type="submit" class="frm-btn frm-btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Contact Form</h3>
+              <p class="frm-card-subtitle">Simple contact form example</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-field">
+                <label class="frm-label">Full Name</label>
+                <input class="frm-input" type="text" placeholder="Your full name">
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Email</label>
+                <input class="frm-input" type="email" placeholder="your@email.com">
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Subject</label>
+                <select class="frm-select">
+                  <option value="">Select subject...</option>
+                  <option>General Inquiry</option>
+                  <option>Technical Support</option>
+                  <option>Billing</option>
+                  <option>Partnership</option>
+                </select>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Priority</label>
+                <div class="frm-radio-group">
+                  <label class="frm-radio-label">
+                    <input type="radio" name="priority" value="low" class="frm-radio"> Low
+                  </label>
+                  <label class="frm-radio-label">
+                    <input type="radio" name="priority" value="medium" class="frm-radio" checked> Medium
+                  </label>
+                  <label class="frm-radio-label">
+                    <input type="radio" name="priority" value="high" class="frm-radio"> High
+                  </label>
+                </div>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Message</label>
+                <textarea class="frm-textarea" rows="4" placeholder="Your message here..."></textarea>
+              </div>
+              <div class="frm-field">
+                <label class="frm-checkbox-label">
+                  <input type="checkbox" class="frm-checkbox"> I agree to the <a class="frm-link">Terms & Conditions</a>
+                </label>
+              </div>
+              <div class="frm-footer">
+                <button class="frm-btn frm-btn-primary" (click)="toast.success('Message sent!', 'Contact Form')">Send Message</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- ── FORM LAYOUTS ── -->
+      @case ('layout') {
+        <div class="flex flex-col gap-6">
+
+          <!-- Horizontal Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Horizontal Layout</h3>
+              <p class="frm-card-subtitle">Labels and inputs side by side</p>
+            </div>
+            <form class="frm-body" (ngSubmit)="submitHorizontal()">
+              <div class="frm-horizontal">
+                <div class="frm-h-field">
+                  <label class="frm-h-label">Username <span class="frm-req">*</span></label>
+                  <div class="frm-h-input-wrap">
+                    <input class="frm-input" [class.frm-input-error]="hasError(horizontalForm,'username')" type="text" placeholder="johndoe" [formControl]="$any(horizontalForm.get('username'))">
+                    @if (hasError(horizontalForm,'username')) {
+                      <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(horizontalForm,'username') }}</span>
+                    }
+                  </div>
+                </div>
+                <div class="frm-h-field">
+                  <label class="frm-h-label">Email <span class="frm-req">*</span></label>
+                  <div class="frm-h-input-wrap">
+                    <input class="frm-input" [class.frm-input-error]="hasError(horizontalForm,'email')" type="email" placeholder="john@example.com" [formControl]="$any(horizontalForm.get('email'))">
+                    @if (hasError(horizontalForm,'email')) {
+                      <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(horizontalForm,'email') }}</span>
+                    }
+                  </div>
+                </div>
+                <div class="frm-h-field">
+                  <label class="frm-h-label">Role <span class="frm-req">*</span></label>
+                  <div class="frm-h-input-wrap">
+                    <select class="frm-select" [formControl]="$any(horizontalForm.get('role'))">
+                      <option value="">Select role...</option>
+                      <option value="admin">Administrator</option>
+                      <option value="manager">Manager</option>
+                      <option value="developer">Developer</option>
+                      <option value="viewer">Viewer</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="frm-h-field">
+                  <label class="frm-h-label">Status</label>
+                  <div class="frm-h-input-wrap">
+                    <div class="frm-toggle-group">
+                      <label class="frm-toggle-label" [class.frm-toggle-active]="horizontalForm.get('status')?.value === 'active'">
+                        <input type="radio" [formControl]="$any(horizontalForm.get('status'))" value="active"> Active
+                      </label>
+                      <label class="frm-toggle-label" [class.frm-toggle-active]="horizontalForm.get('status')?.value === 'inactive'">
+                        <input type="radio" [formControl]="$any(horizontalForm.get('status'))" value="inactive"> Inactive
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="frm-footer frm-footer-right">
+                <button type="button" class="frm-btn frm-btn-ghost" (click)="horizontalForm.reset()">Cancel</button>
+                <button type="submit" class="frm-btn frm-btn-primary">Save User</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Inline Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Inline Form</h3>
+              <p class="frm-card-subtitle">All fields in a single row</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-inline">
+                <div class="frm-input-wrap frm-inline-search">
+                  <i class="bi bi-search frm-input-icon"></i>
+                  <input class="frm-input frm-input-padded" type="text" placeholder="Search..." [(ngModel)]="inlineSearch">
+                </div>
+                <select class="frm-select frm-inline-select" [(ngModel)]="inlineCategory">
+                  <option value="">All Categories</option>
+                  <option value="users">Users</option>
+                  <option value="orders">Orders</option>
+                  <option value="products">Products</option>
+                </select>
+                <button class="frm-btn frm-btn-primary" (click)="submitInline()">
+                  <i class="bi bi-search"></i> Search
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Grid Layout</h3>
+              <p class="frm-card-subtitle">Multi-column grid layout for complex forms</p>
+            </div>
+            <form class="frm-body" (ngSubmit)="submitGrid()">
+              <div class="frm-row-2">
+                <div class="frm-field">
+                  <label class="frm-label">First Name <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(gridForm,'firstName')" type="text" placeholder="First name" [formControl]="$any(gridForm.get('firstName'))">
+                  @if (hasError(gridForm,'firstName')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                </div>
+                <div class="frm-field">
+                  <label class="frm-label">Last Name <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(gridForm,'lastName')" type="text" placeholder="Last name" [formControl]="$any(gridForm.get('lastName'))">
+                  @if (hasError(gridForm,'lastName')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                </div>
+              </div>
+              <div class="frm-row-2">
+                <div class="frm-field">
+                  <label class="frm-label">Email <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(gridForm,'email')" type="email" placeholder="email@example.com" [formControl]="$any(gridForm.get('email'))">
+                  @if (hasError(gridForm,'email')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(gridForm,'email') }}</span> }
+                </div>
+                <div class="frm-field">
+                  <label class="frm-label">Phone</label>
+                  <input class="frm-input" type="tel" placeholder="+255 7XX XXX XXX" [formControl]="$any(gridForm.get('phone'))">
+                </div>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Address <span class="frm-req">*</span></label>
+                <input class="frm-input" [class.frm-input-error]="hasError(gridForm,'address')" type="text" placeholder="Street address" [formControl]="$any(gridForm.get('address'))">
+                @if (hasError(gridForm,'address')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+              </div>
+              <div class="frm-row-3">
+                <div class="frm-field">
+                  <label class="frm-label">City <span class="frm-req">*</span></label>
+                  <input class="frm-input" [class.frm-input-error]="hasError(gridForm,'city')" type="text" placeholder="City" [formControl]="$any(gridForm.get('city'))">
+                  @if (hasError(gridForm,'city')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                </div>
+                <div class="frm-field">
+                  <label class="frm-label">Country <span class="frm-req">*</span></label>
+                  <select class="frm-select" [class.frm-input-error]="hasError(gridForm,'country')" [formControl]="$any(gridForm.get('country'))">
+                    <option value="">Select...</option>
+                    <option value="tz">Tanzania</option>
+                    <option value="ke">Kenya</option>
+                    <option value="ug">Uganda</option>
+                    <option value="rw">Rwanda</option>
+                  </select>
+                  @if (hasError(gridForm,'country')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                </div>
+                <div class="frm-field">
+                  <label class="frm-label">ZIP Code</label>
+                  <input class="frm-input" type="text" placeholder="00000" [formControl]="$any(gridForm.get('zip'))">
+                </div>
+              </div>
+              <div class="frm-footer frm-footer-right">
+                <button type="button" class="frm-btn frm-btn-ghost">Cancel</button>
+                <button type="submit" class="frm-btn frm-btn-primary">Save Profile</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      }
+
+      <!-- ── VALIDATION ── -->
+      @case ('validation') {
+        <div class="frm-grid-2">
+
+          <!-- Validation Form -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Form Validation</h3>
+              <p class="frm-card-subtitle">Real-time validation with error messages</p>
+            </div>
+            <form class="frm-body" (ngSubmit)="submitValidation()">
+
+              <div class="frm-field">
+                <label class="frm-label">Username <span class="frm-req">*</span></label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'username')"
+                  [class.frm-input-success]="isValid(validationForm,'username')"
+                  type="text" placeholder="3–20 characters"
+                  [formControl]="$any(validationForm.get('username'))">
+                @if (hasError(validationForm,'username')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'username') }}</span>
+                } @else if (isValid(validationForm,'username')) {
+                  <span class="frm-success-msg"><i class="bi bi-check-circle"></i> Looks good!</span>
+                } @else {
+                  <span class="frm-hint">Between 3 and 20 characters.</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Email <span class="frm-req">*</span></label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'email')"
+                  [class.frm-input-success]="isValid(validationForm,'email')"
+                  type="email" placeholder="you@example.com"
+                  [formControl]="$any(validationForm.get('email'))">
+                @if (hasError(validationForm,'email')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'email') }}</span>
+                } @else if (isValid(validationForm,'email')) {
+                  <span class="frm-success-msg"><i class="bi bi-check-circle"></i> Valid email!</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Password <span class="frm-req">*</span></label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'password')"
+                  [class.frm-input-success]="isValid(validationForm,'password')"
+                  type="password" placeholder="Min 8 chars, 1 uppercase, 1 number"
+                  [formControl]="$any(validationForm.get('password'))">
+                @if (hasError(validationForm,'password')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'password') }}</span>
+                }
+                <!-- Password strength -->
+                @if (validationForm.get('password')?.value) {
+                  <div class="frm-strength">
+                    <div class="frm-strength-bars">
+                      @for (i of [1,2,3,4]; track i) {
+                        <div class="frm-strength-bar"
+                          [class.frm-str-weak]="validationForm.get('password')!.value.length >= 1"
+                          [class.frm-str-fair]="validationForm.get('password')!.value.length >= 6 && i <= 2"
+                          [class.frm-str-good]="validationForm.get('password')!.value.length >= 8 && i <= 3"
+                          [class.frm-str-strong]="validationForm.get('password')!.value.length >= 10 && i <= 4">
+                        </div>
+                      }
+                    </div>
+                    <span class="frm-strength-label">
+                      {{ validationForm.get('password')!.value.length < 6 ? 'Weak' : validationForm.get('password')!.value.length < 8 ? 'Fair' : validationForm.get('password')!.value.length < 10 ? 'Good' : 'Strong' }}
+                    </span>
+                  </div>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Confirm Password <span class="frm-req">*</span></label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'confirmPassword')"
+                  [class.frm-input-success]="isValid(validationForm,'confirmPassword')"
+                  type="password" placeholder="Repeat password"
+                  [formControl]="$any(validationForm.get('confirmPassword'))">
+                @if (hasError(validationForm,'confirmPassword')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'confirmPassword') }}</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Age <span class="frm-req">*</span></label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'age')"
+                  [class.frm-input-success]="isValid(validationForm,'age')"
+                  type="number" placeholder="Must be 18+"
+                  [formControl]="$any(validationForm.get('age'))">
+                @if (hasError(validationForm,'age')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'age') }}</span>
+                }
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Website</label>
+                <input class="frm-input"
+                  [class.frm-input-error]="hasError(validationForm,'website')"
+                  [class.frm-input-success]="isValid(validationForm,'website')"
+                  type="url" placeholder="https://yoursite.com"
+                  [formControl]="$any(validationForm.get('website'))">
+                @if (hasError(validationForm,'website')) {
+                  <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(validationForm,'website') }}</span>
+                }
+              </div>
+
+              <div class="frm-footer">
+                <button type="button" class="frm-btn frm-btn-ghost" (click)="validationForm.reset()">Reset</button>
+                <button type="submit" class="frm-btn frm-btn-primary">Create Account</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Input States -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Input States</h3>
+              <p class="frm-card-subtitle">Visual states for form inputs</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-field">
+                <label class="frm-label">Default</label>
+                <input class="frm-input" type="text" placeholder="Default input">
+                <span class="frm-hint">This is a hint message.</span>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Success State</label>
+                <input class="frm-input frm-input-success" type="text" value="valid@email.com">
+                <span class="frm-success-msg"><i class="bi bi-check-circle"></i> Email is valid!</span>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Error State</label>
+                <input class="frm-input frm-input-error" type="text" value="invalid-email">
+                <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Please enter a valid email.</span>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Warning State</label>
+                <input class="frm-input frm-input-warning" type="text" value="short">
+                <span class="frm-warning-msg"><i class="bi bi-exclamation-triangle"></i> Password is too short.</span>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Disabled</label>
+                <input class="frm-input" type="text" value="Cannot edit this" disabled>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Read Only</label>
+                <input class="frm-input" type="text" value="Read only value" readonly>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">With Icon</label>
+                <div class="frm-input-wrap">
+                  <i class="bi bi-person frm-input-icon"></i>
+                  <input class="frm-input frm-input-padded" type="text" placeholder="Username">
+                </div>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">With Prefix & Suffix</label>
+                <div class="frm-input-wrap">
+                  <span class="frm-prefix">TZS</span>
+                  <input class="frm-input frm-input-prefix frm-input-suffix" type="number" placeholder="0.00">
+                  <span class="frm-suffix">.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- ── ADVANCED INPUTS ── -->
+      @case ('advanced') {
+        <div class="frm-grid-2">
+
+          <!-- File Upload -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">File Upload</h3>
+              <p class="frm-card-subtitle">Drag and drop or browse files</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-field">
+                <label class="frm-label">Single File</label>
+                <label class="frm-file-zone">
+                  <input type="file" class="frm-file-input" (change)="onFileChange($event)">
+                  <i class="bi bi-cloud-upload frm-file-icon"></i>
+                  <p class="frm-file-text">Click to upload or drag & drop</p>
+                  <p class="frm-file-hint">PNG, JPG, PDF up to 10MB</p>
+                  @if (fileNames.length > 0) {
+                    <div class="frm-file-list">
+                      @for (name of fileNames; track name) {
+                        <span class="frm-file-tag"><i class="bi bi-file-earmark"></i> {{ name }}</span>
+                      }
+                    </div>
+                  }
+                </label>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Multiple Files</label>
+                <label class="frm-file-zone">
+                  <input type="file" class="frm-file-input" multiple>
+                  <i class="bi bi-files frm-file-icon"></i>
+                  <p class="frm-file-text">Upload multiple files</p>
+                  <p class="frm-file-hint">Select multiple files at once</p>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Range, Color, Rating -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Special Inputs</h3>
+              <p class="frm-card-subtitle">Range sliders, color pickers, and star ratings</p>
+            </div>
+            <div class="frm-body">
+
+              <div class="frm-field">
+                <label class="frm-label">Range Slider <span class="frm-value-badge">{{ rangeValue }}%</span></label>
+                <input class="frm-range" type="range" min="0" max="100" [(ngModel)]="rangeValue">
+                <div class="frm-range-labels">
+                  <span>0%</span><span>50%</span><span>100%</span>
+                </div>
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Color Picker <span class="frm-value-badge" [style.background]="colorValue" style="color:white">{{ colorValue }}</span></label>
+                <div class="frm-color-wrap">
+                  <input class="frm-color" type="color" [(ngModel)]="colorValue">
+                  <div class="frm-color-swatches">
+                    @for (c of ['#4F6EF7','#22c55e','#ef4444','#f59e0b','#06b6d4','#8b5cf6']; track c) {
+                      <div class="frm-swatch" [style.background]="c" (click)="colorValue = c" [class.frm-swatch-active]="colorValue === c"></div>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Star Rating <span class="frm-value-badge">{{ rating > 0 ? rating + ' / 5' : 'Not rated' }}</span></label>
+                <div class="frm-stars">
+                  @for (star of [1,2,3,4,5]; track star) {
+                    <i class="bi frm-star"
+                      [class.bi-star-fill]="star <= (hoverRating || rating)"
+                      [class.bi-star]="star > (hoverRating || rating)"
+                      (mouseenter)="hoverRating = star"
+                      (mouseleave)="hoverRating = 0"
+                      (click)="rating = star">
+                    </i>
+                  }
+                </div>
+              </div>
+
+              <div class="frm-field">
+                <label class="frm-label">Tag Input</label>
+                <div class="frm-tags-wrap">
+                  @for (tag of availableTags; track tag) {
+                    <button class="frm-tag-btn" [class.frm-tag-active]="selectedTags.includes(tag)" (click)="toggleTag(tag)">
+                      {{ tag }}
+                      @if (selectedTags.includes(tag)) { <i class="bi bi-check-lg"></i> }
+                    </button>
+                  }
+                </div>
+                @if (selectedTags.length > 0) {
+                  <p class="frm-hint">Selected: {{ selectedTags.join(', ') }}</p>
+                }
+              </div>
+
+              <div class="frm-footer frm-footer-right">
+                <button class="frm-btn frm-btn-primary" (click)="submitAdvanced()">Save Preferences</button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Checkboxes & Radios -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Checkboxes & Radios</h3>
+              <p class="frm-card-subtitle">Custom styled checkboxes and radio buttons</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-row-2">
+                <div>
+                  <p class="frm-label mb-3">Checkboxes</p>
+                  <div class="frm-check-list">
+                    <label class="frm-check-item"><input type="checkbox" class="frm-checkbox" checked> Angular</label>
+                    <label class="frm-check-item"><input type="checkbox" class="frm-checkbox" checked> TypeScript</label>
+                    <label class="frm-check-item"><input type="checkbox" class="frm-checkbox"> React</label>
+                    <label class="frm-check-item"><input type="checkbox" class="frm-checkbox"> Vue.js</label>
+                    <label class="frm-check-item frm-check-disabled"><input type="checkbox" class="frm-checkbox" disabled> Disabled</label>
+                  </div>
+                </div>
+                <div>
+                  <p class="frm-label mb-3">Radio Buttons</p>
+                  <div class="frm-check-list">
+                    <label class="frm-check-item"><input type="radio" name="plan" class="frm-radio" value="free"> Free Plan</label>
+                    <label class="frm-check-item"><input type="radio" name="plan" class="frm-radio" value="pro" checked> Pro Plan</label>
+                    <label class="frm-check-item"><input type="radio" name="plan" class="frm-radio" value="enterprise"> Enterprise</label>
+                    <label class="frm-check-item frm-check-disabled"><input type="radio" name="plan2" class="frm-radio" disabled> Disabled</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="frm-field mt-4">
+                <p class="frm-label">Toggle Switches</p>
+                <div class="frm-toggle-list">
+                  <div class="frm-toggle-item">
+                    <div class="frm-toggle-info">
+                      <span class="frm-toggle-name">Email Notifications</span>
+                      <span class="frm-toggle-desc">Receive email updates</span>
+                    </div>
+                    <label class="frm-switch">
+                      <input type="checkbox" checked>
+                      <span class="frm-switch-thumb"></span>
+                    </label>
+                  </div>
+                  <div class="frm-toggle-item">
+                    <div class="frm-toggle-info">
+                      <span class="frm-toggle-name">SMS Alerts</span>
+                      <span class="frm-toggle-desc">Receive SMS notifications</span>
+                    </div>
+                    <label class="frm-switch">
+                      <input type="checkbox">
+                      <span class="frm-switch-thumb"></span>
+                    </label>
+                  </div>
+                  <div class="frm-toggle-item">
+                    <div class="frm-toggle-info">
+                      <span class="frm-toggle-name">Dark Mode</span>
+                      <span class="frm-toggle-desc">Switch to dark theme</span>
+                    </div>
+                    <label class="frm-switch">
+                      <input type="checkbox" checked>
+                      <span class="frm-switch-thumb"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Select Variations -->
+          <div class="frm-card">
+            <div class="frm-card-header">
+              <h3 class="frm-card-title">Select Inputs</h3>
+              <p class="frm-card-subtitle">Various select input styles</p>
+            </div>
+            <div class="frm-body">
+              <div class="frm-field">
+                <label class="frm-label">Basic Select</label>
+                <select class="frm-select">
+                  <option value="">Choose option...</option>
+                  <option>Option 1</option>
+                  <option>Option 2</option>
+                  <option>Option 3</option>
+                </select>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">With Icon</label>
+                <div class="frm-input-wrap">
+                  <i class="bi bi-globe frm-input-icon"></i>
+                  <select class="frm-select frm-select-padded">
+                    <option value="">Select country...</option>
+                    <option>Tanzania</option>
+                    <option>Kenya</option>
+                    <option>Uganda</option>
+                    <option>Rwanda</option>
+                  </select>
+                </div>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Size - Small</label>
+                <select class="frm-select frm-select-sm">
+                  <option>Small select</option>
+                </select>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Size - Large</label>
+                <select class="frm-select frm-select-lg">
+                  <option>Large select</option>
+                </select>
+              </div>
+              <div class="frm-field">
+                <label class="frm-label">Disabled</label>
+                <select class="frm-select" disabled>
+                  <option>Cannot select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- ── WIZARD ── -->
+      @case ('wizard') {
+        <div class="frm-wizard-wrap">
+          <div class="frm-card">
+
+            <!-- Stepper -->
+            <div class="frm-wizard-stepper">
+              @for (step of wizardSteps; track $index) {
+                <div class="frm-wiz-step" [class.frm-wiz-active]="wizardStep === $index" [class.frm-wiz-done]="wizardStep > $index">
+                  <div class="frm-wiz-indicator">
+                    @if (wizardStep > $index) {
+                      <i class="bi bi-check-lg"></i>
+                    } @else {
+                      <span>{{ $index + 1 }}</span>
+                    }
+                  </div>
+                  <span class="frm-wiz-label">{{ step }}</span>
+                  @if ($index < wizardSteps.length - 1) {
+                    <div class="frm-wiz-connector" [class.frm-wiz-connector-done]="wizardStep > $index"></div>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Step Content -->
+            <div class="frm-wizard-body">
+
+              @switch (wizardStep) {
+
+                @case (0) {
+                  <div class="frm-wiz-content">
+                    <h3 class="frm-wiz-title">Personal Information</h3>
+                    <p class="frm-wiz-subtitle">Tell us a bit about yourself</p>
+                    <div class="frm-row-2">
+                      <div class="frm-field">
+                        <label class="frm-label">First Name <span class="frm-req">*</span></label>
+                        <input class="frm-input" [class.frm-input-error]="hasError(wizardForm,'firstName')" type="text" placeholder="First name" [formControl]="$any(wizardForm.get('firstName'))">
+                        @if (hasError(wizardForm,'firstName')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                      </div>
+                      <div class="frm-field">
+                        <label class="frm-label">Last Name <span class="frm-req">*</span></label>
+                        <input class="frm-input" [class.frm-input-error]="hasError(wizardForm,'lastName')" type="text" placeholder="Last name" [formControl]="$any(wizardForm.get('lastName'))">
+                        @if (hasError(wizardForm,'lastName')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> Required</span> }
+                      </div>
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-label">Email Address <span class="frm-req">*</span></label>
+                      <input class="frm-input" [class.frm-input-error]="hasError(wizardForm,'email')" type="email" placeholder="you@example.com" [formControl]="$any(wizardForm.get('email'))">
+                      @if (hasError(wizardForm,'email')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(wizardForm,'email') }}</span> }
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-label">Phone Number</label>
+                      <input class="frm-input" type="tel" placeholder="+255 7XX XXX XXX" [formControl]="$any(wizardForm.get('phone'))">
+                    </div>
+                  </div>
+                }
+
+                @case (1) {
+                  <div class="frm-wiz-content">
+                    <h3 class="frm-wiz-title">Account Setup</h3>
+                    <p class="frm-wiz-subtitle">Create your login credentials</p>
+                    <div class="frm-field">
+                      <label class="frm-label">Username <span class="frm-req">*</span></label>
+                      <div class="frm-input-wrap">
+                        <i class="bi bi-at frm-input-icon"></i>
+                        <input class="frm-input frm-input-padded" [class.frm-input-error]="hasError(wizardForm,'username')" type="text" placeholder="Min 3 characters" [formControl]="$any(wizardForm.get('username'))">
+                      </div>
+                      @if (hasError(wizardForm,'username')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(wizardForm,'username') }}</span> }
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-label">Password <span class="frm-req">*</span></label>
+                      <div class="frm-input-wrap">
+                        <i class="bi bi-lock frm-input-icon"></i>
+                        <input class="frm-input frm-input-padded" [class.frm-input-error]="hasError(wizardForm,'password')" type="password" placeholder="Min 8 characters" [formControl]="$any(wizardForm.get('password'))">
+                      </div>
+                      @if (hasError(wizardForm,'password')) { <span class="frm-error-msg"><i class="bi bi-x-circle"></i> {{ getError(wizardForm,'password') }}</span> }
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-label">Role</label>
+                      <select class="frm-select" [formControl]="$any(wizardForm.get('role'))">
+                        <option value="viewer">Viewer</option>
+                        <option value="developer">Developer</option>
+                        <option value="manager">Manager</option>
+                        <option value="admin">Administrator</option>
+                      </select>
+                    </div>
+                  </div>
+                }
+
+                @case (2) {
+                  <div class="frm-wiz-content">
+                    <h3 class="frm-wiz-title">Preferences</h3>
+                    <p class="frm-wiz-subtitle">Customize your experience</p>
+                    <div class="frm-field">
+                      <label class="frm-label">Theme</label>
+                      <div class="frm-card-radio-group">
+                        <label class="frm-card-radio" [class.frm-card-radio-active]="wizardForm.get('theme')?.value === 'light'">
+                          <input type="radio" [formControl]="$any(wizardForm.get('theme'))" value="light">
+                          <i class="bi bi-sun"></i>
+                          <span>Light</span>
+                        </label>
+                        <label class="frm-card-radio" [class.frm-card-radio-active]="wizardForm.get('theme')?.value === 'dark'">
+                          <input type="radio" [formControl]="$any(wizardForm.get('theme'))" value="dark">
+                          <i class="bi bi-moon"></i>
+                          <span>Dark</span>
+                        </label>
+                        <label class="frm-card-radio" [class.frm-card-radio-active]="wizardForm.get('theme')?.value === 'system'">
+                          <input type="radio" [formControl]="$any(wizardForm.get('theme'))" value="system">
+                          <i class="bi bi-laptop"></i>
+                          <span>System</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-label">Language</label>
+                      <select class="frm-select" [formControl]="$any(wizardForm.get('language'))">
+                        <option value="en">English</option>
+                        <option value="sw">Swahili</option>
+                        <option value="fr">French</option>
+                        <option value="ar">Arabic</option>
+                      </select>
+                    </div>
+                    <div class="frm-field">
+                      <label class="frm-checkbox-label">
+                        <input type="checkbox" class="frm-checkbox" [formControl]="$any(wizardForm.get('newsletter'))">
+                        Subscribe to newsletter and updates
+                      </label>
+                    </div>
+                  </div>
+                }
+
+                @case (3) {
+                  <div class="frm-wiz-content">
+                    <h3 class="frm-wiz-title">Review & Confirm</h3>
+                    <p class="frm-wiz-subtitle">Please verify your information before submitting</p>
+                    <div class="frm-review">
+                      <div class="frm-review-section">
+                        <p class="frm-review-heading"><i class="bi bi-person"></i> Personal Info</p>
+                        <div class="frm-review-grid">
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Name</span>
+                            <span class="frm-review-value">{{ getWizardValue('firstName') }} {{ getWizardValue('lastName') }}</span>
+                          </div>
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Email</span>
+                            <span class="frm-review-value">{{ getWizardValue('email') }}</span>
+                          </div>
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Phone</span>
+                            <span class="frm-review-value">{{ getWizardValue('phone') || '—' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="frm-review-section">
+                        <p class="frm-review-heading"><i class="bi bi-shield-lock"></i> Account</p>
+                        <div class="frm-review-grid">
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Username</span>
+                            <span class="frm-review-value">{{ getWizardValue('username') }}</span>
+                          </div>
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Role</span>
+                            <span class="frm-review-value">{{ getWizardValue('role') }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="frm-review-section">
+                        <p class="frm-review-heading"><i class="bi bi-gear"></i> Preferences</p>
+                        <div class="frm-review-grid">
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Theme</span>
+                            <span class="frm-review-value">{{ getWizardValue('theme') }}</span>
+                          </div>
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Language</span>
+                            <span class="frm-review-value">{{ getWizardValue('language') }}</span>
+                          </div>
+                          <div class="frm-review-item">
+                            <span class="frm-review-label">Newsletter</span>
+                            <span class="frm-review-value">{{ getWizardValue('newsletter') ? 'Yes' : 'No' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+
+              }
+
+            </div>
+
+            <!-- Wizard Footer -->
+            <div class="frm-wizard-footer">
+              <button class="frm-btn frm-btn-ghost" [disabled]="wizardStep === 0" (click)="prevStep()">
+                <i class="bi bi-chevron-left"></i> Previous
+              </button>
+              <div class="frm-wiz-dots">
+                @for (step of wizardSteps; track $index) {
+                  <div class="frm-wiz-dot" [class.frm-wiz-dot-active]="wizardStep === $index" [class.frm-wiz-dot-done]="wizardStep > $index"></div>
+                }
+              </div>
+              @if (wizardStep < wizardSteps.length - 1) {
+                <button class="frm-btn frm-btn-primary" (click)="nextStep()">
+                  Next <i class="bi bi-chevron-right"></i>
+                </button>
+              } @else {
+                <button class="frm-btn frm-btn-success" (click)="submitWizard()">
+                  <i class="bi bi-check-lg"></i> Complete
+                </button>
+              }
+            </div>
+
+          </div>
+        </div>
+      }
+
+    }
+
+  </div>
+
+</div>
