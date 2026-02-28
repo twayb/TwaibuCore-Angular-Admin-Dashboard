@@ -153,7 +153,7 @@ export class SidebarComponent {
         { label: 'Icons', icon: 'bi bi-emoji-smile', route: '/general/icons' },
         { label: 'Forms', icon: 'bi bi-ui-checks', route: '/general/forms' },
         { label: 'Tables', icon: 'bi bi-table', route: '/general/tables' },
-        { label: 'Charts', icon: 'bi bi-bar-chart-line', route: '/general/charts' },
+        // { label: 'Charts', icon: 'bi bi-bar-chart-line', route: '/general/charts' },
         { label: 'Map', icon: 'bi bi-map', route: '/general/map' },
       ]
     }

@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
 import { LayoutService } from '../../core/services/layout-service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -10,6 +12,7 @@ import { LayoutService } from '../../core/services/layout-service';
 })
 export class HeaderComponent {
 
+  private router = inject(Router);
   layout = inject(LayoutService);
   avatarUrl = 'assets/avatar/avatar_profile.jpg';
   isDropdownOpen = false;
@@ -33,6 +36,17 @@ export class HeaderComponent {
     if (!target.closest('.avatar-wrapper')) {
       this.isDropdownOpen = false;
     }
+  }
+
+  logout() {
+    // Clear any authentication tokens or user data here
+    // For example, if you are using localStorage:
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    // Redirect to the login page
+    this.router.navigate(['/pages/auth/login']);
+   
   }
 
 }
