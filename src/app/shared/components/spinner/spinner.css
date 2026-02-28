@@ -1,0 +1,155 @@
+/* Wrapper */
+.sp-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Label */
+.sp-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+/* ── Sizes ── */
+.sp-xs  { --sp-size: 16px; --sp-border: 2px; }
+.sp-sm  { --sp-size: 22px; --sp-border: 2px; }
+.sp-md  { --sp-size: 32px; --sp-border: 3px; }
+.sp-lg  { --sp-size: 44px; --sp-border: 4px; }
+.sp-xl  { --sp-size: 56px; --sp-border: 4px; }
+
+/* ── Colors ── */
+.sp-color-primary { --sp-color: #4F6EF7; }
+.sp-color-success { --sp-color: #22c55e; }
+.sp-color-danger  { --sp-color: #ef4444; }
+.sp-color-warning { --sp-color: #f59e0b; }
+.sp-color-info    { --sp-color: #06b6d4; }
+.sp-color-dark    { --sp-color: #1e293b; }
+.sp-color-light   { --sp-color: #94a3b8; }
+.sp-color-white   { --sp-color: #ffffff; }
+
+/* ── BORDER variant ── */
+.sp-border {
+  width: var(--sp-size);
+  height: var(--sp-size);
+  border-radius: 50%;
+  border: var(--sp-border) solid rgba(0,0,0,0.08);
+  border-top-color: var(--sp-color);
+  animation: spSpin 0.7s linear infinite;
+}
+
+@keyframes spSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── RING variant ── */
+.sp-ring {
+  width: var(--sp-size);
+  height: var(--sp-size);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: var(--sp-border) solid transparent;
+  border-top-color: var(--sp-color);
+  border-bottom-color: var(--sp-color);
+  animation: spSpin 0.8s linear infinite;
+  display: block;
+}
+
+/* ── DUAL variant ── */
+.sp-dual {
+  width: var(--sp-size);
+  height: var(--sp-size);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-dual-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: var(--sp-border) solid rgba(0,0,0,0.08);
+  border-top-color: var(--sp-color);
+  border-left-color: var(--sp-color);
+  animation: spSpin 0.7s linear infinite;
+  display: block;
+}
+
+/* ── PULSE variant ── */
+.sp-pulse {
+  width: var(--sp-size);
+  height: var(--sp-size);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-pulse-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--sp-color);
+  display: block;
+  animation: spPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes spPulse {
+  0%, 100% { transform: scale(0.6); opacity: 0.4; }
+  50%       { transform: scale(1);   opacity: 1;   }
+}
+
+/* ── DOTS variant ── */
+.sp-dots {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sp-size) * 0.2);
+}
+
+.sp-dot {
+  width: calc(var(--sp-size) * 0.28);
+  height: calc(var(--sp-size) * 0.28);
+  border-radius: 50%;
+  background-color: var(--sp-color);
+  animation: spDot 0.8s ease-in-out infinite;
+  display: block;
+}
+
+@keyframes spDot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1;   }
+}
+
+/* ── BARS variant ── */
+.sp-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: calc(var(--sp-size) * 0.08);
+  height: var(--sp-size);
+}
+
+.sp-bar {
+  width: calc(var(--sp-size) * 0.14);
+  height: 60%;
+  border-radius: 999px;
+  background-color: var(--sp-color);
+  animation: spBar 0.9s ease-in-out infinite;
+  display: block;
+}
+
+@keyframes spBar {
+  0%, 100% { height: 30%; opacity: 0.4; }
+  50%       { height: 100%; opacity: 1;  }
+}

@@ -1,1 +1,45 @@
-<p>progressbar works!</p>
+<div class="pb-wrapper">
+
+  @if (showLabel || showValue) {
+    <div class="pb-top-row">
+      @if (showLabel && label) {
+        <span class="pb-label">{{ label }}</span>
+      }
+      @if (showValue && variant !== 'indeterminate' && variant !== 'bullet' && variant !== 'bullet-tooltip') {
+        <span class="pb-value">{{ percentage | number:'1.0-0' }}%</span>
+      }
+    </div>
+  }
+
+  <!-- Bullet / Bullet-Tooltip variants -->
+  @if (variant === 'bullet' || variant === 'bullet-tooltip') {
+    <div class="pb-bullet-wrapper">
+      <div [class]="getTrackClass()">
+        <div [class]="getBarClass()" [style.width.%]="percentage"></div>
+      </div>
+      <div class="pb-bullet-dot-wrap" [style.left.%]="percentage">
+        @if (variant === 'bullet-tooltip') {
+          <div class="pb-bullet-tooltip">{{ percentage | number:'1.0-0' }}%</div>
+        }
+        <div class="pb-bullet-dot" [class]="'pb-bullet-dot-' + color"></div>
+        @if (variant === 'bullet') {
+          <div class="pb-bullet-label-inline" [class]="'pb-bullet-label-' + color">{{ percentage | number:'1.0-0' }}%</div>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Track -->
+    <div [class]="getTrackClass()">
+      @if (variant === 'indeterminate') {
+        <div [class]="getBarClass()"></div>
+      } @else {
+        <div [class]="getBarClass()" [style.width.%]="percentage">
+          @if (showValue && percentage > 10) {
+            <span class="pb-inner-value">{{ percentage | number:'1.0-0' }}%</span>
+          }
+        </div>
+      }
+    </div>
+  }
+
+</div>

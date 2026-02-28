@@ -1,0 +1,129 @@
+<div class="sel-wrapper">
+
+  <!-- Label -->
+  @if (label) {
+    <label class="sel-label" [class]="'sel-label-' + size">
+      {{ label }}
+      @if (required) { <span class="sel-required">*</span> }
+    </label>
+  }
+
+  <!-- Trigger -->
+  <div [class]="getWrapperClass()" (click)="toggle()">
+
+    <!-- Prefix Icon -->
+    @if (prefixIcon) {
+      <span class="sel-prefix-icon"><i [class]="prefixIcon"></i></span>
+    }
+
+    <!-- Selected Display -->
+    <div class="sel-display">
+      @if (multiple && selectedValues.length > 0) {
+        <div class="sel-tags">
+          @for (val of selectedValues; track val) {
+            <span class="sel-tag">
+              {{ getLabelForValue(val) }}
+              <i class="bi bi-x sel-tag-remove" (click)="removeTag(val, $event)"></i>
+            </span>
+          }
+        </div>
+      } @else if (!multiple && selectedValue !== null) {
+        <div class="sel-selected-item">
+          @if (getSelectedIcon()) {
+            <i [class]="getSelectedIcon() + ' sel-selected-icon'"></i>
+          }
+          <span class="sel-selected-label">{{ getSelectedLabel() }}</span>
+        </div>
+      } @else {
+        <span class="sel-placeholder">{{ placeholder }}</span>
+      }
+    </div>
+
+    <!-- Actions -->
+    <div class="sel-actions">
+      @if (clearable && (selectedValue !== null || selectedValues.length > 0)) {
+        <i class="bi bi-x-circle-fill sel-clear" (click)="clear($event)"></i>
+      }
+      <i class="bi bi-chevron-down sel-chevron" [class.sel-chevron-open]="isOpen"></i>
+    </div>
+
+  </div>
+
+  <!-- Dropdown -->
+  @if (isOpen) {
+    <div class="sel-dropdown">
+
+      <!-- Search -->
+      @if (searchable) {
+        <div class="sel-search-wrap">
+          <i class="bi bi-search sel-search-icon"></i>
+          <input
+            class="sel-search-input"
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+            (click)="$event.stopPropagation()" />
+        </div>
+      }
+
+      <!-- Options -->
+      <div class="sel-options">
+        @if (filteredOptions.length === 0) {
+          <div class="sel-empty">No options found</div>
+        }
+
+        @if (hasGroups) {
+          @for (group of groupedOptions; track group.group) {
+            @if (group.group) {
+              <div class="sel-group-label">{{ group.group }}</div>
+            }
+            @for (option of group.options; track option.value) {
+              <div [class]="'sel-option' + (isSelected(option.value) ? ' sel-option-selected' : '') + (option.disabled ? ' sel-option-disabled' : '')"
+                (click)="selectOption(option)">
+                @if (option.icon) {
+                  <i [class]="option.icon + ' sel-option-icon'"></i>
+                }
+                <div class="sel-option-content">
+                  <span class="sel-option-label">{{ option.label }}</span>
+                  @if (option.description) {
+                    <span class="sel-option-desc">{{ option.description }}</span>
+                  }
+                </div>
+                @if (isSelected(option.value)) {
+                  <i class="bi bi-check2 sel-check"></i>
+                }
+              </div>
+            }
+          }
+        } @else {
+          @for (option of filteredOptions; track option.value) {
+            <div [class]="'sel-option' + (isSelected(option.value) ? ' sel-option-selected' : '') + (option.disabled ? ' sel-option-disabled' : '')"
+              (click)="selectOption(option)">
+              @if (option.icon) {
+                <i [class]="option.icon + ' sel-option-icon'"></i>
+              }
+              <div class="sel-option-content">
+                <span class="sel-option-label">{{ option.label }}</span>
+                @if (option.description) {
+                  <span class="sel-option-desc">{{ option.description }}</span>
+                }
+              </div>
+              @if (isSelected(option.value)) {
+                <i class="bi bi-check2 sel-check"></i>
+              }
+            </div>
+          }
+        }
+      </div>
+
+    </div>
+  }
+
+  <!-- Bottom -->
+  @if (errorMessage) {
+    <span class="sel-message-error"><i class="bi bi-x-circle"></i> {{ errorMessage }}</span>
+  } @else if (hint) {
+    <span class="sel-hint">{{ hint }}</span>
+  }
+
+</div>

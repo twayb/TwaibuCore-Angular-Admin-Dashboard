@@ -8,6 +8,8 @@ import { LockscreenComponent } from './pages/authentication/lockscreen/lockscree
 import { TransportationDashboardComponent } from './features/dashboards/transportation-dashboard/transportation-dashboard';
 import { ComplaintsDashboardComponent } from './features/dashboards/complaints-dashboard/complaints-dashboard';
 import { ComponentsPageComponent } from './pages/general/components-page/components-page';
+import { WidgetsComponent } from './shared/widgets/widgets';
+import { TablesComponent } from './shared/tables/tables';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
@@ -19,5 +21,7 @@ export const routes: Routes = [
     { path: 'dashboard/transportation', component: TransportationDashboardComponent },
     { path: 'dashboard/complaints', component: ComplaintsDashboardComponent },
     { path: 'general/components', component: ComponentsPageComponent },
+    {path: 'general/widgets', component: WidgetsComponent},
+    { path: 'general/tables', component: TablesComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];

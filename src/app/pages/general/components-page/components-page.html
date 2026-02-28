@@ -1113,7 +1113,7 @@
       @case ('pagination') {
       <div class="flex flex-col gap-8">
 
-          <!-- Table Style -->
+        <!-- Table Style -->
         <div class="flex flex-col gap-3">
           <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Table Style</p>
           <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
@@ -1214,18 +1214,761 @@
           </div>
         </div>
 
-      
+
 
       </div>
       }
       @case ('popover') {
-      <p class="text-sm text-[var(--color-muted)]">Popover — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Placements -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Placements</p>
+          <div class="p-8 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap justify-center gap-4">
+
+            <app-popover placement="top" title="Top" content="This popover appears on top of the trigger element.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Top"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="bottom" title="Bottom" content="This popover appears below the trigger element.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Bottom"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="left" title="Left" content="This popover appears to the left of the trigger.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Left"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="right" title="Right" content="This popover appears to the right of the trigger.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Right"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top-start" title="Top Start" content="Aligned to the start of the trigger.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Top Start"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top-end" title="Top End" content="Aligned to the end of the trigger.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Top End"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="bottom-start" title="Bottom Start" content="Aligned to the start below.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Bottom Start"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="bottom-end" title="Bottom End" content="Aligned to the end below.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Bottom End"></app-buttons>
+            </app-popover>
+
+          </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-8 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap justify-center gap-4">
+
+            <app-popover placement="top" variant="default" title="Default"
+              content="Default popover style with card background.">
+              <app-buttons type="dark" variant="soft" size="sm" label="Default"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="dark" title="Dark" content="Dark popover with white text.">
+              <app-buttons type="dark" variant="solid" size="sm" label="Dark"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="primary" title="Primary" content="Primary colored popover.">
+              <app-buttons type="primary" variant="solid" size="sm" label="Primary"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="success" title="Success" content="Success colored popover.">
+              <app-buttons type="success" variant="solid" size="sm" label="Success"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="danger" title="Danger" content="Danger colored popover.">
+              <app-buttons type="danger" variant="solid" size="sm" label="Danger"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="warning" title="Warning" content="Warning colored popover.">
+              <app-buttons type="warning" variant="solid" size="sm" label="Warning"></app-buttons>
+            </app-popover>
+
+          </div>
+        </div>
+
+        <!-- Hover Trigger -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Hover Trigger</p>
+          <div class="p-8 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap justify-center gap-4">
+
+            <app-popover placement="top" trigger="hover" title="Hover Me"
+              content="This popover opens on mouse hover instead of click.">
+              <app-buttons type="primary" variant="soft" size="sm" label="Hover Me"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="bottom" trigger="hover" variant="dark" title="User Info"
+              content="Twaibu Songoro — ICTO. Active 2 minutes ago.">
+              <app-buttons type="dark" variant="soft" size="sm" iconLeft="bi bi-person-circle"
+                label="Profile"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="right" trigger="hover" variant="primary"
+              content="Click to copy this item to clipboard.">
+              <app-buttons type="primary" variant="solid" size="sm" iconOnly="bi bi-clipboard"></app-buttons>
+            </app-popover>
+
+          </div>
+        </div>
+
+        <!-- No Title -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Without Title</p>
+          <div class="p-8 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap justify-center gap-4">
+
+            <app-popover placement="top" content="Simple popover with no title, just content text.">
+              <app-buttons type="dark" variant="soft" size="sm" label="No Title"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="top" variant="dark" content="Dark popover with no title.">
+              <app-buttons type="dark" variant="solid" size="sm" label="Dark No Title"></app-buttons>
+            </app-popover>
+
+            <app-popover placement="bottom" trigger="hover" variant="primary" content="Hover popover with no title.">
+              <app-buttons type="primary" variant="soft" size="sm" label="Hover No Title"></app-buttons>
+            </app-popover>
+
+          </div>
+        </div>
+
+      </div>
       }
       @case ('progressbar') {
-      <p class="text-sm text-[var(--color-muted)]">Progress Bar — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Bullet Style -->
+        <!-- <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Bullet Style</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-6">
+            <app-progressbar variant="bullet" color="danger" [value]="50" size="sm" [showLabel]="true"
+              label="Storage"></app-progressbar>
+            <app-progressbar variant="bullet" color="info" [value]="60" size="sm" [showLabel]="true"
+              label="Memory"></app-progressbar>
+            <app-progressbar variant="bullet" color="success" [value]="70" size="sm" [showLabel]="true"
+              label="CPU"></app-progressbar>
+            <app-progressbar variant="bullet" color="danger" [value]="80" size="sm" [showLabel]="true"
+              label="Network"></app-progressbar>
+          </div>
+        </div> -->
+
+        <!-- Bullet Tooltip Style -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Bullet Tooltip Style</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-8 pt-8">
+            <app-progressbar variant="bullet-tooltip" color="danger" [value]="50" size="sm" [showLabel]="true"
+              label="Storage"></app-progressbar>
+            <app-progressbar variant="bullet-tooltip" color="info" [value]="60" size="sm" [showLabel]="true"
+              label="Memory"></app-progressbar>
+            <app-progressbar variant="bullet-tooltip" color="success" [value]="70" size="sm" [showLabel]="true"
+              label="CPU"></app-progressbar>
+          </div>
+        </div>
+
+        <!-- Flat Colors -->
+        <!-- <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Flat Colors</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-3">
+            <app-progressbar variant="flat" color="danger" [value]="15" size="md"></app-progressbar>
+            <app-progressbar variant="flat" color="info" [value]="30" size="md"></app-progressbar>
+            <app-progressbar variant="flat" color="success" [value]="45" size="md"></app-progressbar>
+            <app-progressbar variant="flat" color="primary" [value]="60" size="md"></app-progressbar>
+            <app-progressbar variant="flat" color="warning" [value]="80" size="md"></app-progressbar>
+          </div>
+        </div> -->
+
+        <!-- Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Colors</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-progressbar color="primary" [value]="75" [showLabel]="true" label="Primary"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar color="success" [value]="60" [showLabel]="true" label="Success"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar color="danger" [value]="45" [showLabel]="true" label="Danger"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar color="warning" [value]="80" [showLabel]="true" label="Warning"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar color="info" [value]="55" [showLabel]="true" label="Info"
+              [showValue]="true"></app-progressbar>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-progressbar size="xs" color="primary" [value]="70" [showLabel]="true"
+              label="Extra Small"></app-progressbar>
+            <app-progressbar size="sm" color="primary" [value]="70" [showLabel]="true" label="Small"></app-progressbar>
+            <app-progressbar size="md" color="primary" [value]="70" [showLabel]="true" label="Medium"></app-progressbar>
+            <app-progressbar size="lg" color="primary" [value]="70" [showLabel]="true" label="Large"></app-progressbar>
+          </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-progressbar variant="default" color="primary" [value]="65" [showLabel]="true" label="Default"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar variant="striped" color="primary" [value]="65" [showLabel]="true" label="Striped"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar variant="striped" color="success" [value]="65" [showLabel]="true" label="Striped Animated"
+              [showValue]="true" [animated]="true"></app-progressbar>
+            <app-progressbar variant="gradient" color="primary" [value]="65" [showLabel]="true" label="Gradient"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar variant="gradient" color="success" [value]="65" [showLabel]="true" label="Gradient Success"
+              [showValue]="true"></app-progressbar>
+          </div>
+        </div>
+
+        <!-- Indeterminate -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Indeterminate</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-progressbar variant="indeterminate" color="primary" [showLabel]="true"
+              label="Loading..."></app-progressbar>
+            <app-progressbar variant="indeterminate" color="success" [showLabel]="true"
+              label="Processing..."></app-progressbar>
+            <app-progressbar variant="indeterminate" color="warning" [showLabel]="true"
+              label="Uploading..."></app-progressbar>
+          </div>
+        </div>
+
+        <!-- With Inner Value -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Inner Value</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-progressbar size="lg" color="primary" [value]="75" [showLabel]="true" label="Storage Used"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar size="lg" color="success" [value]="92" [showLabel]="true" label="Tasks Complete"
+              [showValue]="true"></app-progressbar>
+            <app-progressbar size="lg" color="danger" [value]="38" [showLabel]="true" label="Errors"
+              [showValue]="true"></app-progressbar>
+          </div>
+        </div>
+
+        <!-- Real World Examples -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Real World</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Skills -->
+            <div class="flex flex-col gap-3">
+              <p class="text-sm font-semibold text-[var(--color-text)]">Developer Skills</p>
+              <app-progressbar color="primary" [value]="90" [showLabel]="true" label="Angular" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="info" [value]="78" [showLabel]="true" label="TypeScript" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="warning" [value]="65" [showLabel]="true" label="Node.js" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="success" [value]="55" [showLabel]="true" label="PostgreSQL" [showValue]="true"
+                size="sm"></app-progressbar>
+            </div>
+
+            <!-- Storage -->
+            <div class="flex flex-col gap-3">
+              <p class="text-sm font-semibold text-[var(--color-text)]">Storage Usage</p>
+              <app-progressbar color="primary" [value]="45" [showLabel]="true" label="Documents" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="success" [value]="20" [showLabel]="true" label="Images" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="warning" [value]="70" [showLabel]="true" label="Videos" [showValue]="true"
+                size="sm"></app-progressbar>
+              <app-progressbar color="danger" [value]="88" [showLabel]="true" label="System" [showValue]="true"
+                size="sm"></app-progressbar>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
       }
+
+      @case ('select') {
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-3 gap-4">
+            <app-select [options]="basicOptions" label="Default" variant="default" placeholder="Select option..."
+              hint="Default select style"></app-select>
+            <app-select [options]="basicOptions" label="Filled" variant="filled" placeholder="Select option..."
+              hint="Filled select style"></app-select>
+            <app-select [options]="basicOptions" label="Outlined" variant="outlined" placeholder="Select option..."
+              hint="Outlined select style"></app-select>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-select [options]="basicOptions" label="Small" size="sm" placeholder="Small select..."></app-select>
+            <app-select [options]="basicOptions" label="Medium" size="md" placeholder="Medium select..."></app-select>
+            <app-select [options]="basicOptions" label="Large" size="lg" placeholder="Large select..."></app-select>
+          </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Icons</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="basicOptions" label="Navigation" prefixIcon="bi bi-grid"
+              placeholder="Select page..."></app-select>
+            <app-select [options]="countryOptions" label="Country" prefixIcon="bi bi-globe"
+              placeholder="Select country..." [searchable]="true"></app-select>
+          </div>
+        </div>
+
+        <!-- With Description -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Description</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="roleOptions" label="User Role" placeholder="Select role..."
+              hint="Choose a role for this user"></app-select>
+          </div>
+        </div>
+
+        <!-- Searchable -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Searchable</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="countryOptions" label="Search Country" [searchable]="true"
+              placeholder="Search and select..."></app-select>
+            <app-select [options]="roleOptions" label="Search Role" [searchable]="true"
+              placeholder="Search and select..."></app-select>
+          </div>
+        </div>
+
+        <!-- Grouped Options -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Grouped Options</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="groupedOptions" label="Technology Stack" placeholder="Select technology..."
+              [searchable]="true"></app-select>
+          </div>
+        </div>
+
+        <!-- Multiple Selection -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Multiple Selection</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="basicOptions" label="Multiple Pages" [multiple]="true" [clearable]="true"
+              placeholder="Select pages..."></app-select>
+            <app-select [options]="countryOptions" label="Multiple Countries" [multiple]="true" [clearable]="true"
+              [searchable]="true" placeholder="Select countries..."></app-select>
+          </div>
+        </div>
+
+        <!-- Clearable & Disabled -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Clearable & Disabled</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="basicOptions" label="Clearable" [clearable]="true"
+              placeholder="Select and clear..."></app-select>
+            <app-select [options]="basicOptions" label="Disabled" [disabled]="true"
+              placeholder="Cannot select..."></app-select>
+          </div>
+        </div>
+
+        <!-- Error State -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Error State</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-select [options]="basicOptions" label="Required Field" [required]="true"
+              errorMessage="Please select an option" placeholder="Select option..."></app-select>
+          </div>
+        </div>
+
+      </div>
+      }
+
+      @case ('spinner') {
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-8 items-center">
+            <app-spinner variant="border" color="primary" label="Border"></app-spinner>
+            <app-spinner variant="ring" color="primary" label="Ring"></app-spinner>
+            <app-spinner variant="dual" color="primary" label="Dual"></app-spinner>
+            <app-spinner variant="pulse" color="primary" label="Pulse"></app-spinner>
+            <app-spinner variant="dots" color="primary" label="Dots"></app-spinner>
+            <app-spinner variant="bars" color="primary" label="Bars"></app-spinner>
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Colors</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-8 items-center">
+            <app-spinner variant="border" color="primary" label="Primary"></app-spinner>
+            <app-spinner variant="border" color="success" label="Success"></app-spinner>
+            <app-spinner variant="border" color="danger" label="Danger"></app-spinner>
+            <app-spinner variant="border" color="warning" label="Warning"></app-spinner>
+            <app-spinner variant="border" color="info" label="Info"></app-spinner>
+            <app-spinner variant="border" color="dark" label="Dark"></app-spinner>
+            <app-spinner variant="border" color="light" label="Light"></app-spinner>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-8 items-end">
+            <app-spinner variant="border" color="primary" size="xs" label="XSmall"></app-spinner>
+            <app-spinner variant="border" color="primary" size="sm" label="Small"></app-spinner>
+            <app-spinner variant="border" color="primary" size="md" label="Medium"></app-spinner>
+            <app-spinner variant="border" color="primary" size="lg" label="Large"></app-spinner>
+            <app-spinner variant="border" color="primary" size="xl" label="XLarge"></app-spinner>
+          </div>
+        </div>
+
+        <!-- All Variants × Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">All Variants × Colors</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            @for (color of ['primary','success','danger','warning','info','dark']; track color) {
+            <div class="flex flex-col gap-4 items-center">
+              <app-spinner variant="border" [color]="$any(color)"></app-spinner>
+              <app-spinner variant="ring" [color]="$any(color)"></app-spinner>
+              <app-spinner variant="dual" [color]="$any(color)"></app-spinner>
+              <app-spinner variant="pulse" [color]="$any(color)"></app-spinner>
+              <app-spinner variant="dots" [color]="$any(color)"></app-spinner>
+              <app-spinner variant="bars" [color]="$any(color)"></app-spinner>
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- On Dark Background -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">On Dark Background</p>
+          <div class="p-6 rounded-xl bg-[#1e293b] flex flex-wrap gap-8 items-center">
+            <app-spinner variant="border" color="white" label="White"></app-spinner>
+            <app-spinner variant="ring" color="white" label="White"></app-spinner>
+            <app-spinner variant="dual" color="white" label="White"></app-spinner>
+            <app-spinner variant="pulse" color="white" label="White"></app-spinner>
+            <app-spinner variant="dots" color="white" label="White"></app-spinner>
+            <app-spinner variant="bars" color="white" label="White"></app-spinner>
+          </div>
+        </div>
+
+        <!-- In Buttons -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">In Buttons</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-wrap gap-3 items-center">
+            <button
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-primary)] text-white text-sm font-semibold">
+              <app-spinner variant="border" color="white" size="xs"></app-spinner>
+              Loading...
+            </button>
+            <button
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[rgba(79,110,247,0.12)] text-[var(--color-primary)] text-sm font-semibold">
+              <app-spinner variant="border" color="primary" size="xs"></app-spinner>
+              Processing...
+            </button>
+            <button
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#22c55e] text-white text-sm font-semibold">
+              <app-spinner variant="dots" color="white" size="xs"></app-spinner>
+              Saving...
+            </button>
+            <button
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#ef4444] text-white text-sm font-semibold">
+              <app-spinner variant="ring" color="white" size="xs"></app-spinner>
+              Deleting...
+            </button>
+          </div>
+        </div>
+
+      </div>
+      }
+
+      @case ('stepper') {
+      <div class="flex flex-col gap-8">
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-8">
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Default</p>
+              <app-stepper [steps]="basicSteps" [currentStep]="stepperCurrent1" variant="default"
+                color="primary"></app-stepper>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Outlined</p>
+              <app-stepper [steps]="basicSteps" [currentStep]="stepperCurrent1" variant="outlined"
+                color="primary"></app-stepper>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Filled</p>
+              <app-stepper [steps]="basicSteps" [currentStep]="stepperCurrent1" variant="filled"
+                color="primary"></app-stepper>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Colors</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-6">
+            <app-stepper [steps]="basicSteps" [currentStep]="2" variant="default" color="primary"></app-stepper>
+            <app-stepper [steps]="basicSteps" [currentStep]="2" variant="default" color="success"></app-stepper>
+            <app-stepper [steps]="basicSteps" [currentStep]="2" variant="default" color="danger"></app-stepper>
+            <app-stepper [steps]="basicSteps" [currentStep]="2" variant="default" color="warning"></app-stepper>
+            <app-stepper [steps]="basicSteps" [currentStep]="2" variant="default" color="info"></app-stepper>
+          </div>
+        </div>
+
+        <!-- Interactive -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Interactive</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-6">
+            <app-stepper [steps]="basicSteps" [currentStep]="stepperCurrent2" variant="default" color="primary"
+              [clickable]="true" (stepChanged)="stepperCurrent2 = $event"></app-stepper>
+            <div class="flex gap-3 justify-center">
+              <app-buttons type="dark" variant="soft" size="sm" label="Previous" iconLeft="bi bi-chevron-left"
+                [disabled]="stepperCurrent2 === 0" (clicked)="stepperCurrent2 = stepperCurrent2 - 1">
+              </app-buttons>
+              <app-buttons type="primary" variant="solid" size="sm" label="Next" iconRight="bi bi-chevron-right"
+                [disabled]="stepperCurrent2 === basicSteps.length - 1"
+                (clicked)="stepperCurrent2 = stepperCurrent2 + 1">
+              </app-buttons>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Vertical</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-6">
+            <app-stepper [steps]="orderSteps" [currentStep]="stepperCurrent3" variant="default" color="success"
+              orientation="vertical"></app-stepper>
+            <app-stepper [steps]="basicSteps" [currentStep]="stepperCurrent4" variant="outlined" color="primary"
+              orientation="vertical"></app-stepper>
+          </div>
+        </div>
+
+        <!-- Order Tracking Example -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Order Tracking</p>
+          <div class="p-6 rounded-xl bg-[var(--color-bg-1)]">
+            <app-stepper [steps]="orderSteps" [currentStep]="2" variant="default" color="success"></app-stepper>
+          </div>
+        </div>
+
+      </div>
+      }
+
       @case ('tabs') {
-      <p class="text-sm text-[var(--color-muted)]">Tabs — coming soon</p>
+      <div class="flex flex-col gap-8">
+
+        <!-- Vertical Tabs -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Vertical</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Vertical Default -->
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Default</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab1" variant="default" orientation="vertical"
+                (tabChanged)="activeTab1 = $event">
+                @switch (activeTab1) {
+                @case ('overview') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Overview</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">This is the overview tab. Summary and key metrics
+                    are displayed here.</p>
+                </div>
+                }
+                @case ('analytics') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Analytics</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Charts and analytics data would be shown here.</p>
+                </div>
+                }
+                @case ('reports') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Reports</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Generated reports and exports displayed here.</p>
+                </div>
+                }
+                @case ('settings') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Settings</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Configuration and preferences go here.</p>
+                </div>
+                }
+                }
+              </app-tab>
+            </div>
+
+            <!-- Vertical Pills -->
+            <div class="flex flex-col gap-2">
+              <p class="text-xs text-[var(--color-muted)]">Pills</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab2" variant="pills" orientation="vertical"
+                color="primary" (tabChanged)="activeTab2 = $event">
+                @switch (activeTab2) {
+                @case ('overview') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Overview</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">This is the overview tab. Summary and key metrics
+                    are displayed here.</p>
+                </div>
+                }
+                @case ('analytics') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Analytics</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Charts and analytics data would be shown here.</p>
+                </div>
+                }
+                @case ('reports') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Reports</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Generated reports and exports displayed here.</p>
+                </div>
+                }
+                @case ('settings') {
+                <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                  <p class="text-sm font-semibold text-[var(--color-text)]">Settings</p>
+                  <p class="text-sm text-[var(--color-muted)] mt-2">Configuration and preferences go here.</p>
+                </div>
+                }
+                }
+              </app-tab>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Variants</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-6">
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs text-[var(--color-muted)]">Default</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab1" variant="default"
+                (tabChanged)="activeTab1 = $event"></app-tab>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs text-[var(--color-muted)]">Underline</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab2" variant="underline"
+                (tabChanged)="activeTab2 = $event"></app-tab>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs text-[var(--color-muted)]">Pills</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab3" variant="pills"
+                (tabChanged)="activeTab3 = $event"></app-tab>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs text-[var(--color-muted)]">Outlined</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab4" variant="outlined"
+                (tabChanged)="activeTab4 = $event"></app-tab>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs text-[var(--color-muted)]">Filled</p>
+              <app-tab [tabs]="basicTabs" [activeTab]="activeTab5" variant="filled"
+                (tabChanged)="activeTab5 = $event"></app-tab>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Colors</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" color="primary"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" color="success"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" color="danger"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" color="warning"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" color="info"></app-tab>
+          </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Sizes</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="default" size="sm"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="default" size="md"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="default" size="lg"></app-tab>
+          </div>
+        </div>
+
+        <!-- With Badges -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Badges</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-tab [tabs]="badgeTabs" [activeTab]="activeTab6" variant="default"
+              (tabChanged)="activeTab6 = $event"></app-tab>
+            <app-tab [tabs]="badgeTabs" [activeTab]="activeTab6" variant="pills"
+              (tabChanged)="activeTab6 = $event"></app-tab>
+          </div>
+        </div>
+
+        <!-- Full Width -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">Full Width</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)] flex flex-col gap-4">
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="pills" [fullWidth]="true"></app-tab>
+            <app-tab [tabs]="basicTabs" activeTab="overview" variant="filled" [fullWidth]="true"></app-tab>
+          </div>
+        </div>
+
+        <!-- With Content -->
+        <div class="flex flex-col gap-3">
+          <p class="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">With Content</p>
+          <div class="p-4 rounded-xl bg-[var(--color-bg-1)]">
+            <app-tab [tabs]="basicTabs" [activeTab]="activeTab1" variant="default" (tabChanged)="activeTab1 = $event">
+              @switch (activeTab1) {
+              @case ('overview') {
+              <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                <p class="text-sm font-semibold text-[var(--color-text)]">Overview</p>
+                <p class="text-sm text-[var(--color-muted)] mt-1">This is the overview tab content. You can put any
+                  content here.</p>
+              </div>
+              }
+              @case ('analytics') {
+              <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                <p class="text-sm font-semibold text-[var(--color-text)]">Analytics</p>
+                <p class="text-sm text-[var(--color-muted)] mt-1">Analytics data and charts would go here.</p>
+              </div>
+              }
+              @case ('reports') {
+              <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                <p class="text-sm font-semibold text-[var(--color-text)]">Reports</p>
+                <p class="text-sm text-[var(--color-muted)] mt-1">Reports and exports would be displayed here.</p>
+              </div>
+              }
+              @case ('settings') {
+              <div class="p-4 rounded-xl border border-[var(--color-border)]">
+                <p class="text-sm font-semibold text-[var(--color-text)]">Settings</p>
+                <p class="text-sm text-[var(--color-muted)] mt-1">Configuration options would go here.</p>
+              </div>
+              }
+              }
+            </app-tab>
+          </div>
+        </div>
+
+      </div>
       }
 
       }

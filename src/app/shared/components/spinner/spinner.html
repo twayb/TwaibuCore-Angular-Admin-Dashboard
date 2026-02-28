@@ -1,0 +1,41 @@
+<div class="sp-wrapper">
+
+  @if (variant === 'dots') {
+    <div [class]="getClass()">
+      @for (d of getDotArray(); track d) {
+        <span class="sp-dot" [style.animation-delay]="((d - 1) * 0.15) + 's'"></span>
+      }
+    </div>
+
+  } @else if (variant === 'bars') {
+    <div [class]="getClass()">
+      @for (b of getBarArray(); track b) {
+        <span class="sp-bar" [style.animation-delay]="((b - 1) * 0.1) + 's'"></span>
+      }
+    </div>
+
+  } @else if (variant === 'pulse') {
+    <div [class]="getClass()">
+      <span class="sp-pulse-inner"></span>
+    </div>
+
+  } @else if (variant === 'ring') {
+    <div [class]="getClass()">
+      <span class="sp-ring-inner"></span>
+    </div>
+
+  } @else if (variant === 'dual') {
+    <div [class]="getClass()">
+      <span class="sp-dual-inner"></span>
+    </div>
+
+  } @else {
+    <!-- Border (default) -->
+    <div [class]="getClass()"></div>
+  }
+
+  @if (label) {
+    <span class="sp-label">{{ label }}</span>
+  }
+
+</div>

@@ -1,1 +1,23 @@
-<p>tab works!</p>
+<div [class]="getWrapperClass()">
+
+  <!-- Nav -->
+  <div [class]="getNavClass()">
+    @for (tab of tabs; track tab.key) {
+      <button [class]="getTabClass(tab)" (click)="selectTab(tab)">
+        @if (tab.icon) {
+          <i [class]="tab.icon + ' tabs-tab-icon'"></i>
+        }
+        <span>{{ tab.label }}</span>
+        @if (tab.badge) {
+          <span [class]="getBadgeClass(tab.badgeType)">{{ tab.badge }}</span>
+        }
+      </button>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="tabs-content">
+    <ng-content></ng-content>
+  </div>
+
+</div>

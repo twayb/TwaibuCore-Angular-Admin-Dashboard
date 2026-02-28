@@ -1,0 +1,432 @@
+<div class="wg-page">
+
+  <!-- Page Header -->
+  <div class="wg-header">
+    <div>
+      <h1 class="wg-title">Widgets</h1>
+      <p class="wg-subtitle">A collection of reusable dashboard widgets</p>
+    </div>
+  </div>
+
+  <!-- ── KPI STATS ── -->
+  <section class="wg-section">
+    <p class="wg-section-label">Stats & KPI</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (stat of kpiStats; track stat.title) {
+        <div class="wg-card">
+          <div class="flex items-start justify-between">
+            <div class="flex flex-col gap-1">
+              <span class="wg-card-label">{{ stat.title }}</span>
+              <span class="wg-card-value">{{ stat.value }}</span>
+              <span class="wg-badge" [class]="stat.up ? 'wg-badge-up' : 'wg-badge-down'">
+                <i [class]="stat.up ? 'bi bi-arrow-up-right' : 'bi bi-arrow-down-right'"></i>
+                {{ stat.change }} vs last month
+              </span>
+            </div>
+            <div class="wg-icon-wrap" [style.background]="stat.bg">
+              <i [class]="stat.icon" [style.color]="stat.iconColor"></i>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ── SPARKLINES ── -->
+  <section class="wg-section">
+    <p class="wg-section-label">Sparkline Cards</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (spark of sparklines; track spark.title) {
+        <div class="wg-card">
+          <div class="flex items-center justify-between mb-2">
+            <span class="wg-card-label">{{ spark.title }}</span>
+            <span class="wg-badge" [class]="spark.up ? 'wg-badge-up' : 'wg-badge-down'">
+              <i [class]="spark.up ? 'bi bi-arrow-up-right' : 'bi bi-arrow-down-right'"></i>
+              {{ spark.change }}
+            </span>
+          </div>
+          <span class="wg-card-value mb-2">{{ spark.value }}</span>
+          <apx-chart
+            [series]="getSparklineOptions(spark.color, spark.data).series"
+            [chart]="getSparklineOptions(spark.color, spark.data).chart"
+            [stroke]="getSparklineOptions(spark.color, spark.data).stroke"
+            [colors]="getSparklineOptions(spark.color, spark.data).colors"
+            [tooltip]="getSparklineOptions(spark.color, spark.data).tooltip">
+          </apx-chart>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ── CHARTS ROW ── -->
+  <section class="wg-section">
+    <p class="wg-section-label">Charts</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <!-- Revenue Area Chart -->
+      <div class="wg-card lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <p class="wg-card-title">Revenue Overview</p>
+            <p class="wg-card-subtitle">Monthly revenue vs expenses</p>
+          </div>
+          <div class="flex gap-2">
+            <span class="wg-dot-label" style="--dot:#4F6EF7">Revenue</span>
+            <span class="wg-dot-label" style="--dot:#22c55e">Expenses</span>
+          </div>
+        </div>
+        <apx-chart
+          [series]="revenueChartSeries"
+          [chart]="revenueChartOptions"
+          [xaxis]="revenueChartXAxis"
+          [stroke]="revenueChartStroke"
+          [fill]="revenueChartFill"
+          [colors]="revenueChartColors">
+        </apx-chart>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="wg-card">
+        <div class="mb-2">
+          <p class="wg-card-title">Traffic Sources</p>
+          <p class="wg-card-subtitle">Where your visitors come from</p>
+        </div>
+        <apx-chart
+          [series]="donutSeries"
+          [chart]="donutChart"
+          [labels]="donutLabels"
+          [colors]="donutColors"
+          [legend]="donutLegend">
+        </apx-chart>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CHARTS ROW 2 ── -->
+  <section class="wg-section">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+      <!-- Bar Chart -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <p class="wg-card-title">Sales Comparison</p>
+            <p class="wg-card-subtitle">This month vs last month</p>
+          </div>
+        </div>
+        <apx-chart
+          [series]="barSeries"
+          [chart]="barChart"
+          [xaxis]="barXAxis"
+          [colors]="barColors"
+          [plotOptions]="barPlotOptions"
+          [dataLabels]="barDataLabels">
+        </apx-chart>
+      </div>
+
+      <!-- Radial Chart -->
+      <div class="wg-card">
+        <div class="mb-2">
+          <p class="wg-card-title">Performance Overview</p>
+          <p class="wg-card-subtitle">Key metrics at a glance</p>
+        </div>
+        <apx-chart
+          [series]="radialSeries"
+          [chart]="radialChart"
+          [labels]="radialLabels"
+          [colors]="radialColors"
+          [plotOptions]="radialPlotOptions">
+        </apx-chart>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── ACTIVITY + ORDERS ── -->
+  <section class="wg-section">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+      <!-- Activity Feed -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Activity Feed</p>
+          <a class="wg-link">View all</a>
+        </div>
+        <div class="flex flex-col gap-4">
+          @for (act of activities; track act.user) {
+            <div class="flex items-start gap-3">
+              <div class="wg-avatar" [style.background]="act.color">{{ act.avatar }}</div>
+              <div class="flex-1 min-w-0">
+                <p class="wg-act-text"><strong>{{ act.user }}</strong> {{ act.action }}</p>
+                <p class="wg-act-time">{{ act.time }}</p>
+              </div>
+              <div class="wg-act-icon" [style.background]="act.iconBg">
+                <i [class]="act.icon" [style.color]="act.color"></i>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Recent Orders</p>
+          <a class="wg-link">View all</a>
+        </div>
+        <div class="wg-table-wrap">
+          <table class="wg-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of recentOrders; track order.id) {
+                <tr>
+                  <td class="wg-order-id">{{ order.id }}</td>
+                  <td>{{ order.customer }}</td>
+                  <td class="font-semibold">{{ order.amount }}</td>
+                  <td><span class="wg-status" [class]="'wg-status-' + order.statusType">{{ order.status }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── TASKS + GOALS ── -->
+  <section class="wg-section">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+      <!-- Task List -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Tasks</p>
+          <!-- <span class="wg-badge wg-badge-up">{{ tasks.filter(t => t.done).length }}/{{ tasks.length }} done</span>
+        </div> -->
+        <span class="wg-badge wg-badge-up">{{ doneTasksCount }}/{{ tasks.length }} done</span></div>
+        <div class="flex flex-col gap-3">
+          @for (task of tasks; track task.label) {
+            <div class="wg-task" [class.wg-task-done]="task.done" (click)="toggleTask(task)">
+              <div class="wg-task-check" [class.wg-task-check-done]="task.done">
+                @if (task.done) { <i class="bi bi-check-lg"></i> }
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="wg-task-label" [class.wg-task-label-done]="task.done">{{ task.label }}</p>
+                <p class="wg-task-due">Due: {{ task.due }}</p>
+              </div>
+              <span class="wg-priority" [class]="'wg-priority-' + task.priority">{{ task.priority }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Goal Tracker -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Goal Tracker</p>
+          <a class="wg-link">Details</a>
+        </div>
+        <div class="flex flex-col gap-5">
+          @for (goal of goals; track goal.label) {
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="wg-goal-label">{{ goal.label }}</span>
+                <span class="wg-goal-value">{{ formatGoalValue(goal) }}</span>
+              </div>
+              <div class="wg-progress-track">
+                <div class="wg-progress-bar" [style.width.%]="getGoalPercent(goal)" [style.background]="goal.color"></div>
+              </div>
+              <div class="flex justify-between">
+                <span class="wg-goal-pct" [style.color]="goal.color">{{ getGoalPercent(goal) }}% complete</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── TEAM + NOTIFICATIONS + QUICK ACTIONS ── -->
+  <section class="wg-section">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <!-- Team Members -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Team Members</p>
+          <a class="wg-link">Manage</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          @for (member of teamMembers; track member.name) {
+            <div class="flex items-center gap-3">
+              <div class="wg-member-avatar-wrap">
+                <div class="wg-avatar" [style.background]="member.color">{{ member.avatar }}</div>
+                <div class="wg-online-dot" [class.wg-online]="member.online" [class.wg-offline]="!member.online"></div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="wg-member-name">{{ member.name }}</p>
+                <p class="wg-member-role">{{ member.role }}</p>
+              </div>
+              <span class="wg-online-badge" [class]="member.online ? 'wg-online-badge-on' : 'wg-online-badge-off'">
+                {{ member.online ? 'Online' : 'Offline' }}
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="wg-card">
+        <div class="flex items-center justify-between mb-4">
+          <p class="wg-card-title">Notifications</p>
+          <!-- <span class="wg-badge wg-badge-down">{{ notifications.filter(n => !n.read).length }} new</span> -->
+           <span class="wg-badge wg-badge-down">{{ unreadNotificationsCount }} new</span>
+        </div>
+        <div class="flex flex-col gap-3">
+          @for (notif of notifications; track notif.title) {
+            <div class="wg-notif" [class.wg-notif-unread]="!notif.read">
+              <div class="wg-act-icon" [style.background]="notif.iconBg">
+                <i [class]="notif.icon" [style.color]="notif.iconColor"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="wg-notif-title">{{ notif.title }}</p>
+                <p class="wg-notif-msg">{{ notif.message }}</p>
+              </div>
+              <span class="wg-notif-time">{{ notif.time }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="wg-card">
+        <p class="wg-card-title mb-4">Quick Actions</p>
+        <div class="grid grid-cols-3 gap-3">
+          @for (action of quickActions; track action.label) {
+            <button class="wg-action-btn">
+              <div class="wg-action-icon" [style.background]="action.bg">
+                <i [class]="action.icon" [style.color]="action.color"></i>
+              </div>
+              <span class="wg-action-label">{{ action.label }}</span>
+            </button>
+          }
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PROFILE + WEATHER + CALENDAR ── -->
+  <section class="wg-section">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <!-- Profile Card -->
+      <div class="wg-card wg-profile-card">
+        <div class="wg-profile-banner"></div>
+        <div class="wg-profile-body">
+          <div class="wg-profile-avatar" [style.background]="profile.color">{{ profile.avatar }}</div>
+          <p class="wg-profile-name">{{ profile.name }}</p>
+          <p class="wg-profile-role">{{ profile.role }}</p>
+          <div class="wg-profile-stats">
+            <div class="wg-profile-stat">
+              <span class="wg-profile-stat-val">{{ profile.followers }}</span>
+              <span class="wg-profile-stat-lbl">Followers</span>
+            </div>
+            <div class="wg-profile-stat-divider"></div>
+            <div class="wg-profile-stat">
+              <span class="wg-profile-stat-val">{{ profile.following }}</span>
+              <span class="wg-profile-stat-lbl">Following</span>
+            </div>
+            <div class="wg-profile-stat-divider"></div>
+            <div class="wg-profile-stat">
+              <span class="wg-profile-stat-val">{{ profile.projects }}</span>
+              <span class="wg-profile-stat-lbl">Projects</span>
+            </div>
+          </div>
+          <div class="wg-profile-info">
+            <div class="wg-profile-info-row">
+              <i class="bi bi-geo-alt"></i>
+              <span>{{ profile.location }}</span>
+            </div>
+            <div class="wg-profile-info-row">
+              <i class="bi bi-envelope"></i>
+              <span>{{ profile.email }}</span>
+            </div>
+            <div class="wg-profile-info-row">
+              <i class="bi bi-calendar3"></i>
+              <span>Joined {{ profile.joined }}</span>
+            </div>
+          </div>
+          <button class="wg-profile-btn">Edit Profile</button>
+        </div>
+      </div>
+
+      <!-- Weather -->
+      <div class="wg-card wg-weather-card">
+        <div class="wg-weather-main">
+          <div>
+            <p class="wg-weather-city">{{ weather.city }}</p>
+            <p class="wg-weather-temp">{{ weather.temp }}</p>
+            <p class="wg-weather-cond">{{ weather.condition }}</p>
+            <div class="wg-weather-meta">
+              <span><i class="bi bi-droplet"></i> {{ weather.humidity }}</span>
+              <span><i class="bi bi-wind"></i> {{ weather.wind }}</span>
+            </div>
+          </div>
+          <i [class]="weather.icon + ' wg-weather-icon'"></i>
+        </div>
+        <div class="wg-weather-forecast">
+          @for (f of weather.forecast; track f.day) {
+            <div class="wg-forecast-item">
+              <span class="wg-forecast-day">{{ f.day }}</span>
+              <i [class]="f.icon + ' wg-forecast-icon'"></i>
+              <span class="wg-forecast-temp">{{ f.temp }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="wg-card">
+        <div class="wg-cal-header">
+          <button class="wg-cal-nav" (click)="prevMonth()"><i class="bi bi-chevron-left"></i></button>
+          <p class="wg-cal-month">{{ monthLabel }}</p>
+          <button class="wg-cal-nav" (click)="nextMonth()"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        <div class="wg-cal-grid">
+          @for (day of ['Su','Mo','Tu','We','Th','Fr','Sa']; track day) {
+            <div class="wg-cal-day-name">{{ day }}</div>
+          }
+          @for (day of calendarDays; track $index) {
+            <div class="wg-cal-day"
+              [class.wg-cal-empty]="day === 0"
+              [class.wg-cal-today]="isToday(day)"
+              [class.wg-cal-has-event]="day !== 0 && events[day]"
+              [class.wg-cal-selected]="selectedDate === day && day !== 0"
+              (click)="day !== 0 && (selectedDate = day)">
+              @if (day !== 0) { {{ day }} }
+            </div>
+          }
+        </div>
+        @if (selectedDate && events[selectedDate]) {
+          <div class="wg-cal-event">
+            <i class="bi bi-calendar-event"></i>
+            {{ events[selectedDate] }}
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+</div>

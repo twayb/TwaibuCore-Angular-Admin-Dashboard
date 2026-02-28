@@ -12,6 +12,13 @@ import { InputsComponent } from '../../../shared/components/inputs/inputs';
 import { ListgroupComponent, ListGroupItem } from '../../../shared/components/listgroup/listgroup';
 import { ModalComponent } from '../../../shared/components/modal/modal';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination';
+import { PopoverComponent } from '../../../shared/components/popover/popover';
+import { DecimalPipe } from '@angular/common';
+import { ProgressbarComponent } from '../../../shared/components/progressbar/progressbar';
+import { SelectComponent, SelectOption } from '../../../shared/components/select/select';
+import { SpinnerComponent } from '../../../shared/components/spinner/spinner';
+import { StepperComponent, StepperStep } from '../../../shared/components/stepper/stepper';
+import { TabComponent, TabItem } from '../../../shared/components/tab/tab'; 
 
 interface ComponentNav {
   label: string;
@@ -24,7 +31,8 @@ interface ComponentNav {
   standalone: true,
   imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, 
     CardsComponent, BreadcrumbComponent, CheckboxComponent, 
-    FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent,PaginationComponent ],
+    FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent,PaginationComponent,
+    PopoverComponent, ProgressbarComponent, SpinnerComponent, SelectComponent, StepperComponent, TabComponent],
   templateUrl: './components-page.html',
   styleUrl: './components-page.css'
 })
@@ -48,6 +56,7 @@ export class ComponentsPageComponent {
     { label: 'Popover',      icon: 'bi bi-chat-square-text',     key: 'popover' },
     { label: 'Progress Bar', icon: 'bi bi-bar-chart-steps',      key: 'progressbar' },
     { label: 'Select',       icon: 'bi bi-caret-down-square',     key: 'select' },
+    { label: 'Spinner',      icon: 'bi bi-arrow-clockwise',      key: 'spinner' },
     { label: 'Stepper',      icon: 'bi bi-diagram-3',            key: 'stepper' },
     { label: 'Tabs',         icon: 'bi bi-folder-symlink',       key: 'tabs' },
   ];
@@ -222,4 +231,92 @@ page2 = 3;
 page3 = 5;
 page4 = 1;
 page5 = 1;
+
+// Select options
+basicOptions: SelectOption[] = [
+  { label: 'Dashboard',  value: 'dashboard',  icon: 'bi bi-speedometer2' },
+  { label: 'Users',      value: 'users',      icon: 'bi bi-people' },
+  { label: 'Settings',   value: 'settings',   icon: 'bi bi-gear' },
+  { label: 'Reports',    value: 'reports',    icon: 'bi bi-bar-chart' },
+  { label: 'Help',       value: 'help',       icon: 'bi bi-question-circle' },
+];
+
+countryOptions: SelectOption[] = [
+  { label: 'Tanzania',      value: 'tz', icon: 'bi bi-geo-alt' },
+  { label: 'Kenya',         value: 'ke', icon: 'bi bi-geo-alt' },
+  { label: 'Uganda',        value: 'ug', icon: 'bi bi-geo-alt' },
+  { label: 'Rwanda',        value: 'rw', icon: 'bi bi-geo-alt' },
+  { label: 'South Africa',  value: 'za', icon: 'bi bi-geo-alt' },
+  { label: 'Nigeria',       value: 'ng', icon: 'bi bi-geo-alt' },
+  { label: 'Ghana',         value: 'gh', icon: 'bi bi-geo-alt' },
+  { label: 'Egypt',         value: 'eg', icon: 'bi bi-geo-alt' },
+];
+
+roleOptions: SelectOption[] = [
+  { label: 'Administrator', value: 'admin',   description: 'Full system access',         icon: 'bi bi-shield-check' },
+  { label: 'Manager',       value: 'manager', description: 'Manage teams and projects',  icon: 'bi bi-person-badge' },
+  { label: 'Developer',     value: 'dev',     description: 'Access to dev tools',        icon: 'bi bi-code-slash' },
+  { label: 'Analyst',       value: 'analyst', description: 'View reports and data',      icon: 'bi bi-bar-chart' },
+  { label: 'Viewer',        value: 'viewer',  description: 'Read-only access',           icon: 'bi bi-eye', disabled: true },
+];
+
+groupedOptions: SelectOption[] = [
+  { label: 'Angular',    value: 'angular',    group: 'Frontend',  icon: 'bi bi-code-slash' },
+  { label: 'React',      value: 'react',      group: 'Frontend',  icon: 'bi bi-code-slash' },
+  { label: 'Vue',        value: 'vue',        group: 'Frontend',  icon: 'bi bi-code-slash' },
+  { label: 'Node.js',    value: 'node',       group: 'Backend',   icon: 'bi bi-server' },
+  { label: 'Django',     value: 'django',     group: 'Backend',   icon: 'bi bi-server' },
+  { label: 'PostgreSQL', value: 'postgres',   group: 'Database',  icon: 'bi bi-database' },
+  { label: 'MongoDB',    value: 'mongo',      group: 'Database',  icon: 'bi bi-database' },
+];
+
+sel1: any = null;
+sel2: any = null;
+sel3: any = null;
+sel4: any[] = [];
+
+// Stepper data
+basicSteps: StepperStep[] = [
+  { label: 'Account',   description: 'Create account',    icon: 'bi bi-person' },
+  { label: 'Profile',   description: 'Setup profile',     icon: 'bi bi-card-text' },
+  { label: 'Payment',   description: 'Add payment',       icon: 'bi bi-credit-card' },
+  { label: 'Confirm',   description: 'Confirm details',   icon: 'bi bi-check-circle' },
+];
+
+orderSteps: StepperStep[] = [
+  { label: 'Placed',    description: 'Order received',    icon: 'bi bi-bag-check' },
+  { label: 'Packed',    description: 'Being prepared',    icon: 'bi bi-box-seam' },
+  { label: 'Shipped',   description: 'On the way',        icon: 'bi bi-truck' },
+  { label: 'Delivered', description: 'Delivered',         icon: 'bi bi-house-check' },
+];
+
+stepperCurrent1 = 1;
+stepperCurrent2 = 2;
+stepperCurrent3 = 1;
+stepperCurrent4 = 2;
+
+
+// Tabs data
+basicTabs: TabItem[] = [
+  { label: 'Overview',  key: 'overview',  icon: 'bi bi-grid' },
+  { label: 'Analytics', key: 'analytics', icon: 'bi bi-bar-chart' },
+  { label: 'Reports',   key: 'reports',   icon: 'bi bi-file-text' },
+  { label: 'Settings',  key: 'settings',  icon: 'bi bi-gear' },
+];
+
+badgeTabs: TabItem[] = [
+  { label: 'Inbox',    key: 'inbox',    icon: 'bi bi-inbox',  badge: '12', badgeType: 'danger' },
+  { label: 'Sent',     key: 'sent',     icon: 'bi bi-send',   badge: '3',  badgeType: 'primary' },
+  { label: 'Drafts',   key: 'drafts',   icon: 'bi bi-file-earmark', badge: '5', badgeType: 'warning' },
+  { label: 'Archived', key: 'archived', icon: 'bi bi-archive' },
+  { label: 'Spam',     key: 'spam',     icon: 'bi bi-exclamation-triangle', disabled: true },
+];
+
+activeTab1 = 'overview';
+activeTab2 = 'overview';
+activeTab3 = 'overview';
+activeTab4 = 'overview';
+activeTab5 = 'overview';
+activeTab6 = 'inbox';
+
 }

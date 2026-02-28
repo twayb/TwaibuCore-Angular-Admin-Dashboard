@@ -1,0 +1,45 @@
+<div [class]="getWrapperClass()">
+  @for (step of steps; track $index) {
+
+    <div [class]="getStepClass($index)" (click)="goToStep($index)">
+
+      <!-- Indicator + Connector row (horizontal) -->
+      <div class="stp-indicator-row">
+
+        <!-- Indicator -->
+        <div [class]="getIndicatorClass($index)">
+          @if (isCompleted($index)) {
+            <i class="bi bi-check-lg"></i>
+          } @else if (step.icon && !isCompleted($index)) {
+            <i [class]="step.icon"></i>
+          } @else {
+            <span>{{ $index + 1 }}</span>
+          }
+        </div>
+
+        <!-- Connector (not on last) -->
+        @if (!isLast($index) && orientation === 'horizontal') {
+          <div [class]="getConnectorClass($index)"></div>
+        }
+
+      </div>
+
+      <!-- Label -->
+      <div class="stp-label-wrap">
+        <span class="stp-label">{{ step.label }}</span>
+        @if (step.description) {
+          <span class="stp-description">{{ step.description }}</span>
+        }
+      </div>
+
+      <!-- Vertical Connector -->
+      @if (!isLast($index) && orientation === 'vertical') {
+        <div class="stp-vertical-connector">
+          <div [class]="getConnectorClass($index)"></div>
+        </div>
+      }
+
+    </div>
+
+  }
+</div>

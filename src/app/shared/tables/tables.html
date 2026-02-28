@@ -1,0 +1,452 @@
+<div class="tbl-layout">
+
+    <!-- Left Nav -->
+    <aside class="tbl-sidebar">
+        @for (item of tableNavItems; track item.key) {
+        <button class="tbl-nav-item" [class.tbl-nav-active]="activeTable === item.key" (click)="activeTable = item.key">
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+        </button>
+        }
+    </aside>
+
+    <!-- Right Content -->
+    <div class="tbl-content">
+
+        @switch (activeTable) {
+
+        <!-- ── BASIC TABLE ── -->
+        @case ('basic') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Basic Table</h3>
+                    <p class="tbl-panel-subtitle">Simple table with clean styling</p>
+                </div>
+            </div>
+            <div class="tbl-responsive">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Joined</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employees.slice(0,8); track emp.id) {
+                        <tr>
+                            <td class="tbl-id">{{ emp.id }}</td>
+                            <td class="font-medium">{{ emp.name }}</td>
+                            <td class="tbl-muted">{{ emp.email }}</td>
+                            <td>{{ emp.role }}</td>
+                            <td>{{ emp.department }}</td>
+                            <td class="tbl-muted">{{ emp.joined }}</td>
+                            <td>{{ emp.country }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        <!-- ── FILTER TABLE ── -->
+        @case ('filter') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Table with Filter</h3>
+                    <p class="tbl-panel-subtitle">Search and filter by department and status</p>
+                </div>
+                <span class="tbl-count">{{ filteredEmployees.length }} results</span>
+            </div>
+
+            <!-- Filters -->
+            <div class="tbl-filters">
+                <div class="tbl-search-wrap">
+                    <i class="bi bi-search tbl-search-icon"></i>
+                    <input class="tbl-search" type="text" placeholder="Search name, email, role..."
+                        [(ngModel)]="filterQuery" />
+                    @if (filterQuery) {
+                    <i class="bi bi-x tbl-search-clear" (click)="filterQuery = ''"></i>
+                    }
+                </div>
+                <select class="tbl-select" [(ngModel)]="filterDepartment">
+                    <option value="">All Departments</option>
+                    @for (dept of departments; track dept) {
+                    <option [value]="dept">{{ dept }}</option>
+                    }
+                </select>
+                <select class="tbl-select" [(ngModel)]="filterStatus">
+                    <option value="">All Statuses</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Suspended">Suspended</option>
+                </select>
+                @if (filterQuery || filterDepartment || filterStatus) {
+                <button class="tbl-clear-btn" (click)="clearFilters()">
+                    <i class="bi bi-x-circle"></i> Clear
+                </button>
+                }
+            </div>
+
+            <div class="tbl-responsive">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Salary</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (filteredEmployees.length === 0) {
+                        <tr>
+                            <td colspan="7" class="tbl-empty">
+                                <i class="bi bi-inbox"></i>
+                                <span>No results found</span>
+                            </td>
+                        </tr>
+                        }
+                        @for (emp of filteredEmployees; track emp.id) {
+                        <tr>
+                            <td class="tbl-id">{{ emp.id }}</td>
+                            <td class="font-medium">{{ emp.name }}</td>
+                            <td class="tbl-muted">{{ emp.email }}</td>
+                            <td>{{ emp.department }}</td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td>{{ formatSalary(emp.salary) }}</td>
+                            <td>{{ emp.country }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        <!-- ── SORT & PAGINATE ── -->
+        @case ('sortpage') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Sort & Pagination</h3>
+                    <p class="tbl-panel-subtitle">Click column headers to sort</p>
+                </div>
+                <span class="tbl-count">{{ employees.length }} total</span>
+            </div>
+            <div class="tbl-responsive">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th class="tbl-th-sort" (click)="sortBy('id')"># <i [class]="getSortIcon('id')"></i></th>
+                            <th class="tbl-th-sort" (click)="sortBy('name')">Name <i [class]="getSortIcon('name')"></i>
+                            </th>
+                            <th class="tbl-th-sort" (click)="sortBy('role')">Role <i [class]="getSortIcon('role')"></i>
+                            </th>
+                            <th class="tbl-th-sort" (click)="sortBy('department')">Department <i
+                                    [class]="getSortIcon('department')"></i></th>
+                            <th class="tbl-th-sort" (click)="sortBy('salary')">Salary <i
+                                    [class]="getSortIcon('salary')"></i></th>
+                            <th class="tbl-th-sort" (click)="sortBy('status')">Status <i
+                                    [class]="getSortIcon('status')"></i></th>
+                            <th class="tbl-th-sort" (click)="sortBy('country')">Country <i
+                                    [class]="getSortIcon('country')"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of pagedEmployees; track emp.id) {
+                        <tr>
+                            <td class="tbl-id">{{ emp.id }}</td>
+                            <td class="font-medium">{{ emp.name }}</td>
+                            <td>{{ emp.role }}</td>
+                            <td>{{ emp.department }}</td>
+                            <td>{{ formatSalary(emp.salary) }}</td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td>{{ emp.country }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="tbl-pagination">
+                <span class="tbl-page-info">
+                    Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ currentPage * pageSize > employees.length ?
+                    employees.length : currentPage * pageSize }} of {{ employees.length }}
+                </span>
+                <div class="tbl-page-btns">
+                    <button class="tbl-page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    @for (page of pageNumbers; track page) {
+                    <button class="tbl-page-btn" [class.tbl-page-active]="page === currentPage"
+                        (click)="goToPage(page)">
+                        {{ page }}
+                    </button>
+                    }
+                    <button class="tbl-page-btn" [disabled]="currentPage === totalPages"
+                        (click)="goToPage(currentPage + 1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+                <select class="tbl-select" [(ngModel)]="pageSize" (ngModelChange)="currentPage = 1">
+                    <option [value]="5">5 / page</option>
+                    <option [value]="10">10 / page</option>
+                    <option [value]="12">All</option>
+                </select>
+            </div>
+        </div>
+        }
+
+        <!-- ── AVATAR & BADGES ── -->
+        @case ('avatarbadge') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Avatar & Badges</h3>
+                    <p class="tbl-panel-subtitle">Table with avatars, colored badges and status indicators</p>
+                </div>
+            </div>
+            <div class="tbl-responsive">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employees; track emp.id) {
+                        <tr>
+                            <td class="tbl-id">{{ emp.id }}</td>
+                            <td>
+                                <div class="tbl-user-cell">
+                                    <div class="tbl-avatar" [style.background]="emp.avatarColor">{{ emp.avatar }}</div>
+                                    <div class="tbl-user-info">
+                                        <span class="tbl-user-name">{{ emp.name }}</span>
+                                        <span class="tbl-user-email">{{ emp.email }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ emp.role }}</td>
+                            <td><span [class]="getDeptClass(emp.department)">{{ emp.department }}</span></td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td class="font-medium">{{ formatSalary(emp.salary) }}</td>
+                            <td>
+                                <div class="tbl-actions">
+                                    <button class="tbl-action-btn tbl-action-edit"><i class="bi bi-pencil"></i></button>
+                                    <button class="tbl-action-btn tbl-action-view"><i class="bi bi-eye"></i></button>
+                                    <button class="tbl-action-btn tbl-action-delete"><i
+                                            class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        <!-- ── ROW SELECTION ── -->
+        @case ('selection') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Row Selection</h3>
+                    <p class="tbl-panel-subtitle">Select rows individually or all at once</p>
+                </div>
+                @if (selectedCount > 0) {
+                <div class="tbl-selection-bar">
+                    <span class="tbl-selection-count">{{ selectedCount }} selected</span>
+                    <button class="tbl-sel-action-btn tbl-sel-danger" (click)="deleteSelected()">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                    <button class="tbl-sel-action-btn tbl-sel-primary">
+                        <i class="bi bi-download"></i> Export
+                    </button>
+                </div>
+                }
+            </div>
+            <div class="tbl-responsive">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th class="tbl-th-check">
+                                <div class="tbl-checkbox" [class.tbl-checked]="allSelected"
+                                    [class.tbl-indeterminate]="someSelected" (click)="toggleAll()">
+                                    @if (allSelected) { <i class="bi bi-check-lg"></i> }
+                                    @else if (someSelected) { <i class="bi bi-dash-lg"></i> }
+                                </div>
+                            </th>
+                            <th>Employee</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Salary</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employees; track emp.id) {
+                        <tr [class.tbl-row-selected]="emp.selected">
+                            <td class="tbl-th-check">
+                                <div class="tbl-checkbox" [class.tbl-checked]="emp.selected" (click)="toggleRow(emp)">
+                                    @if (emp.selected) { <i class="bi bi-check-lg"></i> }
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tbl-user-cell">
+                                    <div class="tbl-avatar" [style.background]="emp.avatarColor">{{ emp.avatar }}</div>
+                                    <div class="tbl-user-info">
+                                        <span class="tbl-user-name">{{ emp.name }}</span>
+                                        <span class="tbl-user-email">{{ emp.email }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ emp.role }}</td>
+                            <td><span [class]="getDeptClass(emp.department)">{{ emp.department }}</span></td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td>{{ formatSalary(emp.salary) }}</td>
+                            <td>{{ emp.country }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        <!-- ── STICKY COLUMNS ── -->
+        @case ('sticky') {
+            <div class="tbl-scroll-hint">
+  <i class="bi bi-arrow-left-right"></i>
+  <span>Scroll horizontally to see all columns</span>
+</div>
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Sticky Columns</h3>
+                    <p class="tbl-panel-subtitle">First and last columns stay fixed while scrolling horizontally</p>
+                </div>
+            </div>
+            <div class="tbl-responsive">
+                <table class="tbl tbl-sticky-cols" style="min-width: 600px;"> 
+                    <thead>
+                        <tr>
+                            <th class="tbl-sticky-left">#</th>
+                            <th class="tbl-sticky-left2">Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Salary</th>
+                            <th>Joined</th>
+                            <th>Country</th>
+                            <th>Status</th>
+                            <th class="tbl-sticky-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employees; track emp.id) {
+                        <tr>
+                            <td class="tbl-sticky-left tbl-id">{{ emp.id }}</td>
+                            <td class="tbl-sticky-left2">
+                                <div class="tbl-user-cell">
+                                    <div class="tbl-avatar" [style.background]="emp.avatarColor">{{ emp.avatar }}</div>
+                                    <span class="tbl-user-name">{{ emp.name }}</span>
+                                </div>
+                            </td>
+                            <td class="tbl-muted">{{ emp.email }}</td>
+                            <td>{{ emp.role }}</td>
+                            <td><span [class]="getDeptClass(emp.department)">{{ emp.department }}</span></td>
+                            <td>{{ formatSalary(emp.salary) }}</td>
+                            <td class="tbl-muted">{{ emp.joined }}</td>
+                            <td>{{ emp.country }}</td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td class="tbl-sticky-right">
+                                <div class="tbl-actions">
+                                    <button class="tbl-action-btn tbl-action-edit"><i class="bi bi-pencil"></i></button>
+                                    <button class="tbl-action-btn tbl-action-delete"><i
+                                            class="bi bi-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        <!-- ── STICKY HEADER ── -->
+        @case ('stickyheader') {
+        <div class="tbl-panel">
+            <div class="tbl-panel-header">
+                <div>
+                    <h3 class="tbl-panel-title">Sticky Header</h3>
+                    <p class="tbl-panel-subtitle">Header stays fixed while scrolling through rows</p>
+                </div>
+            </div>
+            <div class="tbl-responsive tbl-sticky-header-wrap">
+                <table class="tbl tbl-sticky-header">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Salary</th>
+                            <th>Joined</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (emp of employees; track emp.id) {
+                        <tr>
+                            <td class="tbl-id">{{ emp.id }}</td>
+                            <td>
+                                <div class="tbl-user-cell">
+                                    <div class="tbl-avatar" [style.background]="emp.avatarColor">{{ emp.avatar }}</div>
+                                    <div class="tbl-user-info">
+                                        <span class="tbl-user-name">{{ emp.name }}</span>
+                                        <span class="tbl-user-email">{{ emp.email }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="tbl-muted">{{ emp.email }}</td>
+                            <td>{{ emp.role }}</td>
+                            <td><span [class]="getDeptClass(emp.department)">{{ emp.department }}</span></td>
+                            <td><span [class]="getStatusClass(emp.status)">{{ emp.status }}</span></td>
+                            <td>{{ formatSalary(emp.salary) }}</td>
+                            <td class="tbl-muted">{{ emp.joined }}</td>
+                            <td>{{ emp.country }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        }
+
+        }
+    </div>
+</div>
