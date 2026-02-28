@@ -12,6 +12,7 @@ import { WidgetsComponent } from './shared/widgets/widgets';
 import { TablesComponent } from './shared/tables/tables';
 import { FormsComponent } from './shared/forms/forms';
 import { IconsComponent } from './shared/icons/icons';
+import { MapComponent } from './shared/map/map';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: 'general/tables', component: TablesComponent },
     { path: 'general/forms', component: FormsComponent },
     { path: 'general/icons', component: IconsComponent },
+    { path: 'general/map', component: MapComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];
