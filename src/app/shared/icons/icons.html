@@ -1,0 +1,136 @@
+<div class="ico-page">
+
+  <!-- Header -->
+  <div class="ico-header">
+    <div>
+      <h1 class="ico-title">Bootstrap Icons</h1>
+      <p class="ico-subtitle">{{ iconCount }} icons — click any icon to copy</p>
+    </div>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="ico-toolbar">
+    <div class="ico-search-wrap">
+      <i class="bi bi-search ico-search-icon"></i>
+      <input
+        class="ico-search"
+        type="text"
+        placeholder="Search icons..."
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)">
+      @if (searchQuery()) {
+        <i class="bi bi-x ico-search-clear" (click)="searchQuery.set('')"></i>
+      }
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="ico-categories">
+    <button class="ico-cat-btn" [class.ico-cat-active]="activeCategory() === 'all'" (click)="activeCategory.set('all')">
+      All <span class="ico-cat-count">{{ allIcons.length }}</span>
+    </button>
+    @for (cat of categories; track cat.key) {
+      <button class="ico-cat-btn" [class.ico-cat-active]="activeCategory() === cat.key" (click)="activeCategory.set(cat.key)">
+        {{ cat.label }} <span class="ico-cat-count">{{ cat.icons.length }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Results info -->
+  @if (searchQuery()) {
+    <div class="ico-results-info">
+      <i class="bi bi-search"></i>
+      Found <strong>{{ iconCount }}</strong> icons matching "<strong>{{ searchQuery() }}</strong>"
+      <button class="ico-clear-search" (click)="searchQuery.set('')">Clear search</button>
+    </div>
+  }
+
+  <!-- Grid -->
+  @if (filteredIcons.length > 0) {
+    <div class="ico-grid">
+      @for (icon of filteredIcons; track icon) {
+        <button class="ico-item" (click)="selectIcon(icon)">
+          <div class="ico-item-icon">
+            <i [class]="'bi bi-' + icon"></i>
+          </div>
+          <span class="ico-item-name">{{ icon }}</span>
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="ico-empty">
+      <i class="bi bi-emoji-frown"></i>
+      <p>No icons found for "<strong>{{ searchQuery() }}</strong>"</p>
+      <button class="ico-empty-btn" (click)="searchQuery.set('')">Clear search</button>
+    </div>
+  }
+
+</div>
+
+<!-- Modal -->
+@if (selectedIcon()) {
+  <div class="ico-modal-backdrop" (click)="closeModal()">
+    <div class="ico-modal" (click)="$event.stopPropagation()">
+
+      <button class="ico-modal-close" (click)="closeModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <!-- Icon Preview -->
+      <div class="ico-modal-preview">
+        <i [class]="'bi bi-' + selectedIcon()"></i>
+      </div>
+
+      <h3 class="ico-modal-name">{{ selectedIcon() }}</h3>
+      <p class="ico-modal-subtitle">Bootstrap Icon</p>
+
+      <!-- Size Preview -->
+      <div class="ico-modal-sizes">
+        <div class="ico-size-item">
+          <i [class]="'bi bi-' + selectedIcon()" style="font-size: 16px"></i>
+          <span>16px</span>
+        </div>
+        <div class="ico-size-item">
+          <i [class]="'bi bi-' + selectedIcon()" style="font-size: 24px"></i>
+          <span>24px</span>
+        </div>
+        <div class="ico-size-item">
+          <i [class]="'bi bi-' + selectedIcon()" style="font-size: 32px"></i>
+          <span>32px</span>
+        </div>
+        <div class="ico-size-item">
+          <i [class]="'bi bi-' + selectedIcon()" style="font-size: 48px"></i>
+          <span>48px</span>
+        </div>
+      </div>
+
+      <!-- Copy Options -->
+      <div class="ico-modal-copy-options">
+
+        <div class="ico-copy-option">
+          <p class="ico-copy-label">CSS Class</p>
+          <div class="ico-copy-row">
+            <code class="ico-copy-code">{{ getClassName(selectedIcon()!) }}</code>
+            <button class="ico-copy-btn" [class.ico-copied]="copiedText() === 'class'" (click)="copyText(getClassName(selectedIcon()!), 'class')">
+              <i [class]="copiedText() === 'class' ? 'bi bi-check-lg' : 'bi bi-clipboard'"></i>
+              {{ copiedText() === 'class' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="ico-copy-option">
+          <p class="ico-copy-label">HTML Tag</p>
+          <div class="ico-copy-row">
+            <code class="ico-copy-code">{{ getHtmlTag(selectedIcon()!) }}</code>
+            <button class="ico-copy-btn" [class.ico-copied]="copiedText() === 'html'" (click)="copyText(getHtmlTag(selectedIcon()!), 'html')">
+              <i [class]="copiedText() === 'html' ? 'bi bi-check-lg' : 'bi bi-clipboard'"></i>
+              {{ copiedText() === 'html' ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+}

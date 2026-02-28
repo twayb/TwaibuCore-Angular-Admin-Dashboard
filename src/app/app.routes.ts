@@ -11,6 +11,7 @@ import { ComponentsPageComponent } from './pages/general/components-page/compone
 import { WidgetsComponent } from './shared/widgets/widgets';
 import { TablesComponent } from './shared/tables/tables';
 import { FormsComponent } from './shared/forms/forms';
+import { IconsComponent } from './shared/icons/icons';
 
 export const routes: Routes = [
     { path: 'pages/auth/login', component: LoginComponent },
@@ -25,5 +26,6 @@ export const routes: Routes = [
     {path: 'general/widgets', component: WidgetsComponent},
     { path: 'general/tables', component: TablesComponent },
     { path: 'general/forms', component: FormsComponent },
+    { path: 'general/icons', component: IconsComponent },
     { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
 ];
