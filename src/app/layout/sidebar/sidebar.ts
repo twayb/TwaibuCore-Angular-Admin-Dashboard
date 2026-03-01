@@ -102,8 +102,8 @@ export class SidebarComponent {
       groups: [],
       items: [
         { label: 'Chat', icon: 'bi bi-chat-dots', route: '/apps/chat' },
-        { label: 'Email', icon: 'bi bi-envelope', route: '/apps/email' },
-        { label: 'Calendar', icon: 'bi bi-calendar3', route: '/apps/calendar' },
+        { label: 'Email', icon: 'bi bi-envelope', route: 'features/email' },
+        { label: 'Calendar', icon: 'bi bi-calendar3', route: 'features/calendar' },
       ]
     },
     {

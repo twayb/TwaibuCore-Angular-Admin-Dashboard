@@ -1,0 +1,391 @@
+<div class="cal-page">
+
+  <!-- Header -->
+  <div class="cal-header">
+    <div class="cal-header-left">
+      <h1 class="cal-title">Calendar</h1>
+      <p class="cal-subtitle">{{ totalEventsThisMonth }} events this month</p>
+    </div>
+    <div class="cal-header-right">
+      <!-- View switcher -->
+      <div class="cal-view-switcher">
+        @for (view of views; track view.key) {
+          <button class="cal-view-btn" [class.cal-view-active]="activeView() === view.key"
+            (click)="activeView.set($any(view.key))">
+            <i [class]="view.icon"></i>
+            <span>{{ view.label }}</span>
+          </button>
+        }
+      </div>
+      <button class="cal-add-btn" (click)="openAddModal()">
+        <i class="bi bi-plus-lg"></i> Add Event
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="cal-main">
+
+    <!-- Sidebar -->
+    <div class="cal-sidebar">
+
+      <!-- Mini Calendar -->
+      <div class="cal-mini">
+        <div class="cal-mini-header">
+          <button class="cal-mini-nav" (click)="navigate(-1)"><i class="bi bi-chevron-left"></i></button>
+          <span class="cal-mini-label">{{ currentMonthLabel }}</span>
+          <button class="cal-mini-nav" (click)="navigate(1)"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        <div class="cal-mini-grid">
+          @for (d of weekDayLabels; track d) {
+            <div class="cal-mini-dow">{{ d[0] }}</div>
+          }
+          @for (day of calendarDays; track day.date.toISOString()) {
+            <button class="cal-mini-day"
+              [class.cal-mini-today]="day.isToday"
+              [class.cal-mini-other]="!day.isCurrentMonth"
+              [class.cal-mini-selected]="day.isSelected"
+              [class.cal-mini-has-events]="day.events.length > 0"
+              (click)="selectDay(day)">
+              {{ day.date.getDate() }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="cal-categories">
+        <p class="cal-sidebar-label">Categories</p>
+        @for (cat of categories; track cat.key) {
+          <div class="cal-cat-item">
+            <div class="cal-cat-dot" [style.background]="cat.color"></div>
+            <span class="cal-cat-label">{{ cat.label }}</span>
+            <span class="cal-cat-count">
+             {{ getEventCountByCategory(cat.key) }}
+            </span>
+          </div>
+        }
+      </div>
+
+      <!-- Upcoming -->
+      <div class="cal-upcoming">
+        <p class="cal-sidebar-label">Upcoming Events</p>
+        <div class="cal-upcoming-list">
+          @for (event of events().slice(0, 5); track event.id) {
+            <div class="cal-upcoming-item" (click)="openEventDetail(event)">
+              <div class="cal-upcoming-color" [style.background]="getCategoryColor(event.category)"></div>
+              <div class="cal-upcoming-info">
+                <p class="cal-upcoming-title">{{ event.title }}</p>
+                <p class="cal-upcoming-time">{{ event.date }} · {{ event.startTime }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Calendar Body -->
+    <div class="cal-body">
+
+      <!-- Navigation Bar -->
+      <div class="cal-nav">
+        <div class="cal-nav-left">
+          <button class="cal-nav-btn" (click)="navigate(-1)"><i class="bi bi-chevron-left"></i></button>
+          <button class="cal-nav-btn" (click)="navigate(1)"><i class="bi bi-chevron-right"></i></button>
+          <button class="cal-today-btn" (click)="goToday()">Today</button>
+        </div>
+        <h2 class="cal-nav-label">{{ headerLabel }}</h2>
+        <div class="cal-nav-right"></div>
+      </div>
+
+      <!-- ── MONTH VIEW ── -->
+      @if (activeView() === 'month') {
+        <div class="cal-month">
+          <div class="cal-month-header">
+            @for (d of weekDayLabels; track d) {
+              <div class="cal-month-dow">{{ d }}</div>
+            }
+          </div>
+          <div class="cal-month-grid">
+            @for (day of calendarDays; track day.date.toISOString()) {
+              <div class="cal-month-cell"
+                [class.cal-cell-other]="!day.isCurrentMonth"
+                [class.cal-cell-today]="day.isToday"
+                [class.cal-cell-selected]="day.isSelected"
+                (click)="selectDay(day)">
+                <div class="cal-cell-header">
+                  <span class="cal-cell-date">{{ day.date.getDate() }}</span>
+                  @if (day.isToday) { <span class="cal-cell-today-badge">Today</span> }
+                </div>
+                <div class="cal-cell-events">
+                  @for (event of day.events.slice(0, 3); track event.id) {
+                    <div class="cal-event-pill"
+                      [style.background]="getCategoryColor(event.category) + '20'"
+                      [style.border-left]="'3px solid ' + getCategoryColor(event.category)"
+                      [style.color]="getCategoryColor(event.category)"
+                      (click)="openEventDetail(event); $event.stopPropagation()">
+                      <span class="cal-event-pill-time">{{ event.allDay ? 'All day' : event.startTime }}</span>
+                      <span class="cal-event-pill-title">{{ event.title }}</span>
+                    </div>
+                  }
+                  @if (day.events.length > 3) {
+                    <div class="cal-event-more">+{{ day.events.length - 3 }} more</div>
+                  }
+                </div>
+                <button class="cal-cell-add" (click)="openAddModal(day.date); $event.stopPropagation()">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── WEEK VIEW ── -->
+      @if (activeView() === 'week') {
+        <div class="cal-week">
+          <div class="cal-week-header">
+            <div class="cal-week-time-col"></div>
+            @for (day of weekDays; track day.toISOString()) {
+              <div class="cal-week-day-col" [class.cal-week-today]="isToday(day)">
+                <p class="cal-week-dow">{{ day.toLocaleDateString('en-US', { weekday: 'short' }) }}</p>
+                <p class="cal-week-date" [class.cal-week-date-today]="isToday(day)">{{ day.getDate() }}</p>
+              </div>
+            }
+          </div>
+          <div class="cal-week-body">
+            @for (hour of weekHours; track hour) {
+              <div class="cal-week-row">
+                <div class="cal-week-time">{{ formatHour(hour) }}</div>
+                @for (day of weekDays; track day.toISOString()) {
+                  <div class="cal-week-cell" [class.cal-week-cell-today]="isToday(day)"
+                    (click)="openAddModal(day)">
+                    @for (event of getEventsForHour(day, hour); track event.id) {
+                      <div class="cal-week-event"
+                        [style.background]="getCategoryColor(event.category) + '20'"
+                        [style.border-left]="'3px solid ' + getCategoryColor(event.category)"
+                        [style.color]="getCategoryColor(event.category)"
+                        (click)="openEventDetail(event); $event.stopPropagation()">
+                        <span class="cal-week-event-title">{{ event.title }}</span>
+                        <span class="cal-week-event-time">{{ event.startTime }} – {{ event.endTime }}</span>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── DAY VIEW ── -->
+      @if (activeView() === 'day') {
+        <div class="cal-day">
+          <!-- All day events -->
+          @if (dayAllDayEvents.length > 0) {
+            <div class="cal-day-allday">
+              <div class="cal-day-allday-label">All Day</div>
+              <div class="cal-day-allday-events">
+                @for (event of dayAllDayEvents; track event.id) {
+                  <div class="cal-week-event"
+                    [style.background]="getCategoryColor(event.category) + '20'"
+                    [style.border-left]="'3px solid ' + getCategoryColor(event.category)"
+                    [style.color]="getCategoryColor(event.category)"
+                    (click)="openEventDetail(event)">
+                    {{ event.title }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          <div class="cal-day-body">
+            @for (hour of dayHours; track hour) {
+              <div class="cal-day-row">
+                <div class="cal-day-time">{{ formatHour(hour) }}</div>
+                <div class="cal-day-cell" (click)="openAddModal(currentDate())">
+                  @for (event of getEventsForDayHour(hour); track event.id) {
+                    <div class="cal-day-event"
+                      [style.background]="getCategoryColor(event.category) + '15'"
+                      [style.border-left]="'4px solid ' + getCategoryColor(event.category)"
+                      [style.color]="getCategoryColor(event.category)"
+                      (click)="openEventDetail(event); $event.stopPropagation()">
+                      <p class="cal-day-event-title">{{ event.title }}</p>
+                      <p class="cal-day-event-time">{{ event.startTime }} – {{ event.endTime }}</p>
+                      @if (event.description) {
+                        <p class="cal-day-event-desc">{{ event.description }}</p>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── AGENDA VIEW ── -->
+      @if (activeView() === 'agenda') {
+        <div class="cal-agenda">
+          @if (agendaDays.length === 0) {
+            <div class="cal-agenda-empty">
+              <i class="bi bi-calendar-x"></i>
+              <p>No events this month</p>
+              <button class="cal-add-btn" (click)="openAddModal()">Add Event</button>
+            </div>
+          }
+          @for (day of agendaDays; track day.date.toISOString()) {
+            <div class="cal-agenda-day">
+              <div class="cal-agenda-date-col">
+                <p class="cal-agenda-dow">{{ day.date.toLocaleDateString('en-US', { weekday: 'short' }) }}</p>
+                <p class="cal-agenda-date" [class.cal-agenda-today]="isToday(day.date)">{{ day.date.getDate() }}</p>
+                <p class="cal-agenda-month">{{ day.date.toLocaleDateString('en-US', { month: 'short' }) }}</p>
+              </div>
+              <div class="cal-agenda-events">
+                @for (event of day.events; track event.id) {
+                  <div class="cal-agenda-event" (click)="openEventDetail(event)">
+                    <div class="cal-agenda-event-color" [style.background]="getCategoryColor(event.category)"></div>
+                    <div class="cal-agenda-event-info">
+                      <p class="cal-agenda-event-title">{{ event.title }}</p>
+                      <p class="cal-agenda-event-meta">
+                        <i class="bi bi-clock"></i>
+                        {{ event.allDay ? 'All Day' : event.startTime + ' – ' + event.endTime }}
+                        <span class="cal-agenda-event-cat"
+                          [style.background]="getCategoryColor(event.category) + '20'"
+                          [style.color]="getCategoryColor(event.category)">
+                          {{ getCategoryLabel(event.category) }}
+                        </span>
+                      </p>
+                      @if (event.description) {
+                        <p class="cal-agenda-event-desc">{{ event.description }}</p>
+                      }
+                    </div>
+                    <div class="cal-agenda-event-actions">
+                      <button class="cal-icon-btn" (click)="openEditModal(event); $event.stopPropagation()">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="cal-icon-btn cal-icon-btn-danger" (click)="deleteEvent(event.id); $event.stopPropagation()">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ── ADD/EDIT EVENT MODAL ── -->
+@if (showEventModal) {
+  <div class="cal-modal-backdrop" (click)="showEventModal = false">
+    <div class="cal-modal" (click)="$event.stopPropagation()">
+      <div class="cal-modal-header">
+        <h3 class="cal-modal-title">
+          <i [class]="eventModalMode === 'add' ? 'bi bi-calendar-plus' : 'bi bi-calendar-check'"></i>
+          {{ eventModalMode === 'add' ? 'New Event' : 'Edit Event' }}
+        </h3>
+        <button class="cal-modal-close" (click)="showEventModal = false"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="cal-modal-body">
+        <div class="cal-form-field">
+          <label class="cal-form-label">Title <span class="cal-req">*</span></label>
+          <input class="cal-form-input" type="text" placeholder="Event title..." [(ngModel)]="eventForm.title">
+        </div>
+        <div class="cal-form-row">
+          <div class="cal-form-field">
+            <label class="cal-form-label">Date <span class="cal-req">*</span></label>
+            <input class="cal-form-input" type="date" [(ngModel)]="eventForm.date">
+          </div>
+          <div class="cal-form-field">
+            <label class="cal-form-label">Category</label>
+            <select class="cal-form-select" [(ngModel)]="eventForm.category">
+              @for (cat of categories; track cat.key) {
+                <option [value]="cat.key">{{ cat.label }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="cal-form-field">
+          <label class="cal-form-label">
+            <input type="checkbox" [(ngModel)]="eventForm.allDay" style="margin-right:6px">
+            All Day Event
+          </label>
+        </div>
+        @if (!eventForm.allDay) {
+          <div class="cal-form-row">
+            <div class="cal-form-field">
+              <label class="cal-form-label">Start Time</label>
+              <input class="cal-form-input" type="time" [(ngModel)]="eventForm.startTime">
+            </div>
+            <div class="cal-form-field">
+              <label class="cal-form-label">End Time</label>
+              <input class="cal-form-input" type="time" [(ngModel)]="eventForm.endTime">
+            </div>
+          </div>
+        }
+        <div class="cal-form-field">
+          <label class="cal-form-label">Description</label>
+          <textarea class="cal-form-textarea" rows="3" placeholder="Add description..." [(ngModel)]="eventForm.description"></textarea>
+        </div>
+      </div>
+      <div class="cal-modal-footer">
+        <button class="cal-btn-ghost" (click)="showEventModal = false">Cancel</button>
+        <button class="cal-btn-primary" (click)="saveEvent()">
+          <i class="bi bi-check-lg"></i>
+          {{ eventModalMode === 'add' ? 'Add Event' : 'Save Changes' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ── EVENT DETAIL ── -->
+@if (showEventDetail && selectedEvent) {
+  <div class="cal-modal-backdrop" (click)="showEventDetail = false">
+    <div class="cal-modal cal-modal-sm" (click)="$event.stopPropagation()">
+      <div class="cal-modal-header">
+        <div class="cal-detail-cat-dot" [style.background]="getCategoryColor(selectedEvent.category)"></div>
+        <h3 class="cal-modal-title">{{ selectedEvent.title }}</h3>
+        <button class="cal-modal-close" (click)="showEventDetail = false"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="cal-modal-body">
+        <div class="cal-detail-row">
+          <i class="bi bi-calendar3"></i>
+          <span>{{ selectedEvent.date }}</span>
+        </div>
+        <div class="cal-detail-row">
+          <i class="bi bi-clock"></i>
+          <span>{{ selectedEvent.allDay ? 'All Day' : selectedEvent.startTime + ' – ' + selectedEvent.endTime }}</span>
+        </div>
+        <div class="cal-detail-row">
+          <i class="bi bi-tag"></i>
+          <span class="cal-detail-badge"
+            [style.background]="getCategoryColor(selectedEvent.category) + '20'"
+            [style.color]="getCategoryColor(selectedEvent.category)">
+            {{ getCategoryLabel(selectedEvent.category) }}
+          </span>
+        </div>
+        @if (selectedEvent.description) {
+          <div class="cal-detail-row">
+            <i class="bi bi-text-left"></i>
+            <span>{{ selectedEvent.description }}</span>
+          </div>
+        }
+      </div>
+      <div class="cal-modal-footer">
+        <button class="cal-btn-danger" (click)="deleteEvent(selectedEvent.id)">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+        <button class="cal-btn-primary" (click)="openEditModal(selectedEvent)">
+          <i class="bi bi-pencil"></i> Edit
+        </button>
+      </div>
+    </div>
+  </div>
+}

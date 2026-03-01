@@ -18,6 +18,8 @@ import { ForbiddenComponent } from './pages/erros/forbidden/forbidden';
 import { ServerErrorComponent } from './pages/erros/server-error/server-error';
 import { NotFoundComponent } from './pages/erros/not-found/not-found';
 import { MaintenanceComponent } from './pages/erros/maintenance/maintenance';
+import { CalenderComponent } from './features/calender/calender';
+import { EmailComponent } from './features/email/email';
 
 export const routes: Routes = [
 
@@ -45,6 +47,8 @@ export const routes: Routes = [
   { path: 'general/icons',            component: IconsComponent                   },
   { path: 'general/map',              component: MapComponent                     },
   { path: 'profile',                  component: ProfileComponent                 },
+  { path: 'features/calendar', component: CalenderComponent },
+  { path: 'features/email', component: EmailComponent },
 
   // ── REDIRECT & CATCH-ALL ──
 { path: '',    redirectTo: 'dashboard/admin', pathMatch: 'full' },
