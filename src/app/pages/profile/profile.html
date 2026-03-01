@@ -1,0 +1,525 @@
+<div class="prf-page">
+
+  <!-- Banner + Avatar -->
+  <div class="prf-banner-wrap">
+    <div class="prf-banner"></div>
+    <div class="prf-banner-content">
+      <div class="prf-avatar-wrap">
+        @if (avatarPreview) {
+          <img class="prf-avatar-img" [src]="avatarPreview" alt="Avatar">
+        } @else {
+          <div class="prf-avatar-initials" [style.background]="profile.avatarColor">
+            {{ profile.avatar }}
+          </div>
+        }
+        <label class="prf-avatar-edit" title="Change photo">
+          <input type="file" accept="image/*" class="prf-file-hidden" (change)="onAvatarChange($event)">
+          <i class="bi bi-camera-fill"></i>
+        </label>
+      </div>
+      <div class="prf-banner-info">
+        <h2 class="prf-name">{{ profile.name }}</h2>
+        <p class="prf-role">{{ profile.role }} · {{ profile.department }}</p>
+        <div class="prf-meta">
+          <span><i class="bi bi-geo-alt"></i> {{ profile.location }}</span>
+          <span><i class="bi bi-calendar3"></i> Joined {{ profile.joined }}</span>
+          <span><i class="bi bi-envelope"></i> {{ profile.email }}</span>
+        </div>
+      </div>
+      <div class="prf-banner-stats">
+        <div class="prf-stat">
+          <p class="prf-stat-val">{{ profile.projects }}</p>
+          <p class="prf-stat-lbl">Projects</p>
+        </div>
+        <div class="prf-stat-divider"></div>
+        <div class="prf-stat">
+          <p class="prf-stat-val">{{ profile.commits }}</p>
+          <p class="prf-stat-lbl">Commits</p>
+        </div>
+        <div class="prf-stat-divider"></div>
+        <div class="prf-stat">
+          <p class="prf-stat-val">{{ profile.tasks }}</p>
+          <p class="prf-stat-lbl">Tasks</p>
+        </div>
+        <div class="prf-stat-divider"></div>
+        <div class="prf-stat">
+          <p class="prf-stat-val">{{ profile.reviews }}</p>
+          <p class="prf-stat-lbl">Reviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="prf-tabs">
+    @for (tab of tabs; track tab.key) {
+      <button class="prf-tab" [class.prf-tab-active]="activeTab() === tab.key" (click)="activeTab.set($any(tab.key))">
+        <i [class]="tab.icon"></i>
+        <span>{{ tab.label }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Tab Content -->
+  <div class="prf-content">
+
+    @switch (activeTab()) {
+
+      <!-- ── OVERVIEW ── -->
+      @case ('overview') {
+        <div class="prf-grid">
+
+          <!-- About -->
+          <div class="prf-card prf-col-2">
+            <div class="prf-card-header">
+              <h3 class="prf-card-title"><i class="bi bi-person"></i> About</h3>
+            </div>
+            <div class="prf-card-body">
+              <p class="prf-bio">{{ profile.bio }}</p>
+              <div class="prf-info-grid">
+                <div class="prf-info-item">
+                  <i class="bi bi-envelope"></i>
+                  <div>
+                    <p class="prf-info-label">Email</p>
+                    <p class="prf-info-value">{{ profile.email }}</p>
+                  </div>
+                </div>
+                <div class="prf-info-item">
+                  <i class="bi bi-telephone"></i>
+                  <div>
+                    <p class="prf-info-label">Phone</p>
+                    <p class="prf-info-value">{{ profile.phone }}</p>
+                  </div>
+                </div>
+                <div class="prf-info-item">
+                  <i class="bi bi-geo-alt"></i>
+                  <div>
+                    <p class="prf-info-label">Location</p>
+                    <p class="prf-info-value">{{ profile.location }}</p>
+                  </div>
+                </div>
+                <div class="prf-info-item">
+                  <i class="bi bi-globe"></i>
+                  <div>
+                    <p class="prf-info-label">Website</p>
+                    <a class="prf-link" [href]="profile.website" target="_blank">{{ profile.website }}</a>
+                  </div>
+                </div>
+                <div class="prf-info-item">
+                  <i class="bi bi-briefcase"></i>
+                  <div>
+                    <p class="prf-info-label">Department</p>
+                    <p class="prf-info-value">{{ profile.department }}</p>
+                  </div>
+                </div>
+                <div class="prf-info-item">
+                  <i class="bi bi-calendar3"></i>
+                  <div>
+                    <p class="prf-info-label">Member Since</p>
+                    <p class="prf-info-value">{{ profile.joined }}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Social Links -->
+              <div class="prf-socials">
+                @for (s of socialLinks; track s.label) {
+                  <a class="prf-social-btn" [href]="s.url" target="_blank" [style.color]="s.color" [style.border-color]="s.color + '40'">
+                    <i [class]="s.icon"></i> {{ s.label }}
+                  </a>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="prf-card">
+            <div class="prf-card-header">
+              <h3 class="prf-card-title"><i class="bi bi-bar-chart"></i> Skills</h3>
+            </div>
+            <div class="prf-card-body">
+              <div class="prf-skills">
+                @for (skill of skills; track skill.name) {
+                  <div class="prf-skill-item">
+                    <div class="prf-skill-header">
+                      <span class="prf-skill-name">{{ skill.name }}</span>
+                      <span class="prf-skill-pct">{{ skill.level }}%</span>
+                    </div>
+                    <div class="prf-skill-bar">
+                      <div class="prf-skill-fill" [style.width.%]="skill.level"></div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="prf-card">
+            <div class="prf-card-header">
+              <h3 class="prf-card-title"><i class="bi bi-graph-up"></i> Quick Stats</h3>
+            </div>
+            <div class="prf-card-body">
+              <div class="prf-quick-stats">
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(79,110,247,0.12)">
+                    <i class="bi bi-folder" style="color:#4F6EF7"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.projects }}</p>
+                    <p class="prf-qs-lbl">Projects</p>
+                  </div>
+                </div>
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(34,197,94,0.12)">
+                    <i class="bi bi-check2-all" style="color:#22c55e"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.tasks }}</p>
+                    <p class="prf-qs-lbl">Tasks Done</p>
+                  </div>
+                </div>
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(139,92,246,0.12)">
+                    <i class="bi bi-code-slash" style="color:#8b5cf6"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.commits }}</p>
+                    <p class="prf-qs-lbl">Commits</p>
+                  </div>
+                </div>
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(6,182,212,0.12)">
+                    <i class="bi bi-eye" style="color:#06b6d4"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.reviews }}</p>
+                    <p class="prf-qs-lbl">Reviews</p>
+                  </div>
+                </div>
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(245,158,11,0.12)">
+                    <i class="bi bi-people" style="color:#f59e0b"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.followers }}</p>
+                    <p class="prf-qs-lbl">Followers</p>
+                  </div>
+                </div>
+                <div class="prf-qs-item">
+                  <div class="prf-qs-icon" style="background:rgba(239,68,68,0.12)">
+                    <i class="bi bi-heart" style="color:#ef4444"></i>
+                  </div>
+                  <div>
+                    <p class="prf-qs-val">{{ profile.following }}</p>
+                    <p class="prf-qs-lbl">Following</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- ── EDIT PROFILE ── -->
+      @case ('edit') {
+        <div class="prf-form-wrap">
+          <div class="prf-card">
+            <div class="prf-card-header">
+              <h3 class="prf-card-title"><i class="bi bi-pencil-square"></i> Edit Profile</h3>
+              <p class="prf-card-subtitle">Update your personal information</p>
+            </div>
+            <form class="prf-card-body" (ngSubmit)="submitEdit()">
+
+              <!-- Avatar Upload -->
+              <div class="prf-edit-avatar-section">
+                <div class="prf-edit-avatar">
+                  @if (avatarPreview) {
+                    <img [src]="avatarPreview" alt="Avatar" class="prf-edit-avatar-img">
+                  } @else {
+                    <div class="prf-edit-avatar-initials" [style.background]="profile.avatarColor">
+                      {{ profile.avatar }}
+                    </div>
+                  }
+                </div>
+                <div>
+                  <p class="prf-edit-avatar-name">{{ profile.name }}</p>
+                  <p class="prf-edit-avatar-role">{{ profile.role }}</p>
+                  <label class="prf-upload-btn">
+                    <input type="file" accept="image/*" class="prf-file-hidden" (change)="onAvatarChange($event)">
+                    <i class="bi bi-upload"></i> Upload Photo
+                  </label>
+                </div>
+              </div>
+
+              <div class="prf-divider"></div>
+
+              <div class="prf-row-2">
+                <div class="prf-field">
+                  <label class="prf-label">First Name <span class="prf-req">*</span></label>
+                  <input class="prf-input" [class.prf-input-error]="hasError(editForm,'firstName')" [class.prf-input-success]="isValid(editForm,'firstName')" type="text" [formControl]="$any(editForm.get('firstName'))">
+                  @if (hasError(editForm,'firstName')) { <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(editForm,'firstName') }}</span> }
+                </div>
+                <div class="prf-field">
+                  <label class="prf-label">Last Name <span class="prf-req">*</span></label>
+                  <input class="prf-input" [class.prf-input-error]="hasError(editForm,'lastName')" [class.prf-input-success]="isValid(editForm,'lastName')" type="text" [formControl]="$any(editForm.get('lastName'))">
+                  @if (hasError(editForm,'lastName')) { <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(editForm,'lastName') }}</span> }
+                </div>
+              </div>
+
+              <div class="prf-row-2">
+                <div class="prf-field">
+                  <label class="prf-label">Email <span class="prf-req">*</span></label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-envelope prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded" [class.prf-input-error]="hasError(editForm,'email')" [class.prf-input-success]="isValid(editForm,'email')" type="email" [formControl]="$any(editForm.get('email'))">
+                  </div>
+                  @if (hasError(editForm,'email')) { <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(editForm,'email') }}</span> }
+                </div>
+                <div class="prf-field">
+                  <label class="prf-label">Phone</label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-telephone prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded" type="tel" [formControl]="$any(editForm.get('phone'))">
+                  </div>
+                </div>
+              </div>
+
+              <div class="prf-row-2">
+                <div class="prf-field">
+                  <label class="prf-label">Role <span class="prf-req">*</span></label>
+                  <input class="prf-input" type="text" [formControl]="$any(editForm.get('role'))">
+                </div>
+                <div class="prf-field">
+                  <label class="prf-label">Department <span class="prf-req">*</span></label>
+                  <select class="prf-select" [formControl]="$any(editForm.get('department'))">
+                    <option>Engineering</option>
+                    <option>Design</option>
+                    <option>Management</option>
+                    <option>Analytics</option>
+                    <option>HR</option>
+                    <option>Sales</option>
+                    <option>Finance</option>
+                    <option>Marketing</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="prf-row-2">
+                <div class="prf-field">
+                  <label class="prf-label">Location</label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-geo-alt prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded" type="text" [formControl]="$any(editForm.get('location'))">
+                  </div>
+                </div>
+                <div class="prf-field">
+                  <label class="prf-label">Website</label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-globe prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded" type="url" [formControl]="$any(editForm.get('website'))">
+                  </div>
+                </div>
+              </div>
+
+              <div class="prf-field">
+                <label class="prf-label">Bio</label>
+                <textarea class="prf-textarea" rows="4" placeholder="Write something about yourself..." [formControl]="$any(editForm.get('bio'))"></textarea>
+              </div>
+
+              <div class="prf-form-footer">
+                <button type="button" class="prf-btn prf-btn-ghost" (click)="editForm.reset()">Reset</button>
+                <button type="submit" class="prf-btn prf-btn-primary">
+                  <i class="bi bi-check-lg"></i> Save Changes
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      }
+
+      <!-- ── SECURITY ── -->
+      @case ('security') {
+        <div class="prf-form-wrap">
+          <div class="prf-security-grid">
+
+            <!-- Change Password -->
+            <div class="prf-card">
+              <div class="prf-card-header">
+                <h3 class="prf-card-title"><i class="bi bi-lock"></i> Change Password</h3>
+                <p class="prf-card-subtitle">Use a strong password you don't use elsewhere</p>
+              </div>
+              <form class="prf-card-body" (ngSubmit)="submitSecurity()">
+
+                <div class="prf-field">
+                  <label class="prf-label">Current Password <span class="prf-req">*</span></label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-lock prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded prf-input-pr"
+                      [type]="showCurrentPassword ? 'text' : 'password'"
+                      placeholder="Enter current password"
+                      [formControl]="$any(securityForm.get('currentPassword'))"
+                      [class.prf-input-error]="hasError(securityForm,'currentPassword')">
+                    <i [class]="(showCurrentPassword ? 'bi bi-eye-slash' : 'bi bi-eye') + ' prf-input-icon-right'"
+                      (click)="showCurrentPassword = !showCurrentPassword"></i>
+                  </div>
+                  @if (hasError(securityForm,'currentPassword')) {
+                    <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(securityForm,'currentPassword') }}</span>
+                  }
+                </div>
+
+                <div class="prf-field">
+                  <label class="prf-label">New Password <span class="prf-req">*</span></label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-lock prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded prf-input-pr"
+                      [type]="showNewPassword ? 'text' : 'password'"
+                      placeholder="Min 8 characters"
+                      [formControl]="$any(securityForm.get('newPassword'))"
+                      [class.prf-input-error]="hasError(securityForm,'newPassword')">
+                    <i [class]="(showNewPassword ? 'bi bi-eye-slash' : 'bi bi-eye') + ' prf-input-icon-right'"
+                      (click)="showNewPassword = !showNewPassword"></i>
+                  </div>
+                  @if (hasError(securityForm,'newPassword')) {
+                    <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(securityForm,'newPassword') }}</span>
+                  }
+                  @if (securityForm.get('newPassword')?.value) {
+                    <div class="prf-strength">
+                      <div class="prf-strength-bars">
+                        @for (i of [1,2,3,4]; track i) {
+                          <div class="prf-strength-bar" [style.background]="i <= passwordStrength ? passwordStrengthColor : 'var(--color-border)'"></div>
+                        }
+                      </div>
+                      <span class="prf-strength-label" [style.color]="passwordStrengthColor">{{ passwordStrengthLabel }}</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="prf-field">
+                  <label class="prf-label">Confirm Password <span class="prf-req">*</span></label>
+                  <div class="prf-input-wrap">
+                    <i class="bi bi-lock prf-input-icon"></i>
+                    <input class="prf-input prf-input-padded prf-input-pr"
+                      [type]="showConfirmPassword ? 'text' : 'password'"
+                      placeholder="Repeat new password"
+                      [formControl]="$any(securityForm.get('confirmPassword'))"
+                      [class.prf-input-error]="hasError(securityForm,'confirmPassword')">
+                    <i [class]="(showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye') + ' prf-input-icon-right'"
+                      (click)="showConfirmPassword = !showConfirmPassword"></i>
+                  </div>
+                  @if (hasError(securityForm,'confirmPassword')) {
+                    <span class="prf-error"><i class="bi bi-x-circle"></i> {{ getError(securityForm,'confirmPassword') }}</span>
+                  }
+                </div>
+
+                <div class="prf-form-footer">
+                  <button type="button" class="prf-btn prf-btn-ghost" (click)="securityForm.reset()">Cancel</button>
+                  <button type="submit" class="prf-btn prf-btn-primary">
+                    <i class="bi bi-shield-check"></i> Update Password
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+            <!-- Right column -->
+            <div class="prf-security-right">
+
+              <!-- 2FA -->
+              <div class="prf-card">
+                <div class="prf-card-header">
+                  <h3 class="prf-card-title"><i class="bi bi-phone"></i> Two-Factor Authentication</h3>
+                </div>
+                <div class="prf-card-body">
+                  <div class="prf-2fa-row">
+                    <div class="prf-2fa-info">
+                      <p class="prf-2fa-status">
+                        Status:
+                        <span [class]="twoFactorEnabled ? 'prf-badge-success' : 'prf-badge-danger'">
+                          {{ twoFactorEnabled ? 'Enabled' : 'Disabled' }}
+                        </span>
+                      </p>
+                      <p class="prf-2fa-desc">Add an extra layer of security to your account using your phone.</p>
+                    </div>
+                    <label class="prf-switch">
+                      <input type="checkbox" [checked]="twoFactorEnabled" (change)="toggleTwoFactor()">
+                      <span class="prf-switch-thumb"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active Sessions -->
+              <div class="prf-card">
+                <div class="prf-card-header">
+                  <h3 class="prf-card-title"><i class="bi bi-laptop"></i> Active Sessions</h3>
+                  <p class="prf-card-subtitle">Devices currently logged in</p>
+                </div>
+                <div class="prf-card-body">
+                  <div class="prf-sessions">
+                    @for (session of activeSessions; track $index) {
+                      <div class="prf-session-item">
+                        <div class="prf-session-icon">
+                          <i [class]="session.device.includes('iPhone') || session.device.includes('Android') ? 'bi bi-phone' : 'bi bi-laptop'"></i>
+                        </div>
+                        <div class="prf-session-info">
+                          <p class="prf-session-device">
+                            {{ session.device }}
+                            @if (session.current) { <span class="prf-badge-success prf-badge-sm">Current</span> }
+                          </p>
+                          <p class="prf-session-meta">{{ session.location }} · {{ session.time }}</p>
+                        </div>
+                        @if (!session.current) {
+                          <button class="prf-session-revoke" (click)="revokeSession($index)">
+                            <i class="bi bi-x-circle"></i>
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      }
+
+      <!-- ── ACTIVITY ── -->
+      @case ('activity') {
+        <div class="prf-form-wrap">
+          <div class="prf-card">
+            <div class="prf-card-header">
+              <h3 class="prf-card-title"><i class="bi bi-clock-history"></i> Recent Activity</h3>
+              <p class="prf-card-subtitle">{{ activities.length }} recent actions</p>
+            </div>
+            <div class="prf-card-body">
+              <div class="prf-timeline">
+                @for (activity of activities; track activity.id; let last = $last) {
+                  <div class="prf-timeline-item">
+                    <div class="prf-timeline-left">
+                      <div class="prf-timeline-icon" [style.background]="activity.iconBg">
+                        <i [class]="activity.icon" [style.color]="activity.iconColor"></i>
+                      </div>
+                      @if (!last) { <div class="prf-timeline-line"></div> }
+                    </div>
+                    <div class="prf-timeline-body">
+                      <p class="prf-timeline-action">{{ activity.action }}</p>
+                      <p class="prf-timeline-detail">{{ activity.detail }}</p>
+                      <p class="prf-timeline-time"><i class="bi bi-clock"></i> {{ activity.time }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+    }
+
+  </div>
+
+</div>
