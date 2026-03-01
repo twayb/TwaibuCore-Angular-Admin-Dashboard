@@ -1,0 +1,109 @@
+<div class="err-page">
+    <div class="err-container">
+
+        <!-- SVG Illustration -->
+        <div class="err-illustration">
+            <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" class="err-svg">
+
+                <!-- Background circles -->
+                <circle cx="200" cy="110" r="100" fill="rgba(79,110,247,0.07)" />
+                <circle cx="200" cy="110" r="72" fill="rgba(79,110,247,0.04)" />
+
+                <!-- Ground shadow -->
+                <ellipse cx="200" cy="220" rx="100" ry="10" fill="rgba(0,0,0,0.06)" />
+
+                <!-- Wrench (static) -->
+                <g transform="translate(200, 42) rotate(-40)">
+                    <rect x="-4" y="-28" width="8" height="48" rx="4" fill="#64748b" />
+                    <ellipse cx="0" cy="-28" rx="12" ry="8" fill="#64748b" />
+                    <ellipse cx="0" cy="-28" rx="7" ry="5" fill="#94a3b8" />
+                    <ellipse cx="0" cy="20" rx="9" ry="6" fill="#64748b" />
+                </g>
+
+                <!-- Gear LEFT (blue) -->
+                <g>
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 148 148"
+                        to="360 148 148" dur="4s" repeatCount="indefinite" />
+                    <circle cx="148" cy="148" r="36" fill="#4F6EF7" />
+                    <circle cx="148" cy="148" r="25" fill="#6366f1" />
+                    <circle cx="148" cy="148" r="9" fill="#818cf8" />
+                    <rect x="140" y="106" width="16" height="12" rx="3" fill="#4F6EF7" />
+                    <rect x="140" y="178" width="16" height="12" rx="3" fill="#4F6EF7" />
+                    <rect x="106" y="140" width="12" height="16" rx="3" fill="#4F6EF7" />
+                    <rect x="178" y="140" width="12" height="16" rx="3" fill="#4F6EF7" />
+                    <rect x="112" y="112" width="12" height="14" rx="3" transform="rotate(45 118 119)" fill="#4F6EF7" />
+                    <rect x="168" y="112" width="12" height="14" rx="3" transform="rotate(-45 174 119)"
+                        fill="#4F6EF7" />
+                    <rect x="112" y="166" width="12" height="14" rx="3" transform="rotate(-45 118 173)"
+                        fill="#4F6EF7" />
+                    <rect x="168" y="166" width="12" height="14" rx="3" transform="rotate(45 174 173)" fill="#4F6EF7" />
+                </g>
+
+                <!-- Gear RIGHT (green) -->
+                <g>
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 252 148"
+                        to="-360 252 148" dur="5s" repeatCount="indefinite" />
+                    <circle cx="252" cy="148" r="30" fill="#22c55e" />
+                    <circle cx="252" cy="148" r="20" fill="#16a34a" />
+                    <circle cx="252" cy="148" r="7" fill="#4ade80" />
+                    <rect x="244" y="112" width="14" height="10" rx="3" fill="#22c55e" />
+                    <rect x="244" y="174" width="14" height="10" rx="3" fill="#22c55e" />
+                    <rect x="216" y="140" width="10" height="14" rx="3" fill="#22c55e" />
+                    <rect x="278" y="140" width="10" height="14" rx="3" fill="#22c55e" />
+                    <rect x="220" y="116" width="10" height="14" rx="3" transform="rotate(45 225 123)" fill="#22c55e" />
+                    <rect x="272" y="116" width="10" height="14" rx="3" transform="rotate(-45 277 123)"
+                        fill="#22c55e" />
+                    <rect x="220" y="166" width="10" height="14" rx="3" transform="rotate(-45 225 173)"
+                        fill="#22c55e" />
+                    <rect x="272" y="166" width="10" height="14" rx="3" transform="rotate(45 277 173)" fill="#22c55e" />
+                </g>
+
+                <!-- Sparkles -->
+                <text x="70" y="80" font-size="14" fill="#4F6EF7" opacity="0.3">✦</text>
+                <text x="320" y="90" font-size="10" fill="#22c55e" opacity="0.3">✦</text>
+                <text x="80" y="195" font-size="10" fill="#4F6EF7" opacity="0.2">✦</text>
+                <text x="310" y="200" font-size="12" fill="#22c55e" opacity="0.25">✦</text>
+
+            </svg>
+
+            <!-- Content -->
+            <div class="err-content">
+                <div class="err-code">503</div>
+                <h1 class="err-title">Under Maintenance</h1>
+                <p class="err-desc">
+                    We're currently performing scheduled maintenance to improve your experience.
+                    We'll be back online shortly. Thank you for your patience!
+                </p>
+
+                <!-- Timer -->
+                <div class="err-maintenance-timer">
+                    <div class="err-timer-block">
+                        <span class="err-timer-val">{{ hours }}</span>
+                        <span class="err-timer-lbl">Hours</span>
+                    </div>
+                    <div class="err-timer-sep">:</div>
+                    <div class="err-timer-block">
+                        <span class="err-timer-val">{{ minutes }}</span>
+                        <span class="err-timer-lbl">Minutes</span>
+                    </div>
+                    <div class="err-timer-sep">:</div>
+                    <div class="err-timer-block">
+                        <span class="err-timer-val">{{ seconds }}</span>
+                        <span class="err-timer-lbl">Seconds</span>
+                    </div>
+                </div>
+
+                <div class="err-actions">
+                    <button class="err-btn err-btn-primary" (click)="goHome()">
+                        <i class="bi bi-house"></i> Go to Dashboard
+                    </button>
+                </div>
+
+                <div class="err-status-box">
+                    <i class="bi bi-info-circle"></i>
+                    Follow us for updates or <a class="err-link">check our status page</a>.
+                </div>
+            </div>
+
+        </div>
+    </div>

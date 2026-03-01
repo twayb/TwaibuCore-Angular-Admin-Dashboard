@@ -1,62 +1,69 @@
 <div class="app-layout">
 
   <!-- Warning Banner -->
-@if (lockscreen.isWarning()) {
-  <div class="idle-warning-banner">
-    <div class="idle-warning-content">
-      <div class="idle-warning-icon">
-        <i class="bi bi-clock-history"></i>
+  @if (lockscreen.isWarning()) {
+    <div class="idle-warning-banner">
+      <div class="idle-warning-content">
+        <div class="idle-warning-icon">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <div class="idle-warning-text">
+          <p class="idle-warning-title">Session about to lock!</p>
+          <p class="idle-warning-msg">Your session will be locked due to inactivity in
+            <strong>{{ lockscreen.countdown() }} seconds</strong>.
+            Move your mouse or press any key to stay active.
+          </p>
+        </div>
+        <button class="idle-warning-btn" (click)="lockscreen.cancelWarning()">
+          Stay Active
+        </button>
       </div>
-      <div class="idle-warning-text">
-        <p class="idle-warning-title">Session about to lock!</p>
-        <p class="idle-warning-msg">Your session will be locked due to inactivity in
-          <strong>{{ lockscreen.countdown() }} seconds</strong>.
-          Move your mouse or press any key to stay active.
-        </p>
+      <div class="idle-warning-progress">
+        <div class="idle-warning-progress-fill"
+          [style.width.%]="(lockscreen.countdown() / 15) * 100">
+        </div>
       </div>
-      <button class="idle-warning-btn" (click)="lockscreen.cancelWarning()">
-        Stay Active
-      </button>
     </div>
-    <div class="idle-warning-progress">
-      <div class="idle-warning-progress-fill"
-        [style.width.%]="(lockscreen.countdown() / 15) * 100">
-      </div>
-    </div>
-  </div>
-}
+  }
 
   <!-- Lockscreen -->
   @if (lockscreen.isLocked()) {
-  <app-lockscreen></app-lockscreen>
+    <app-lockscreen></app-lockscreen>
   }
 
   <!-- Floating Settings Button -->
   @if (!isAuthPage()) {
-  <button class="floating-settings-btn" (click)="themeService.toggleSettings()">
-    <i class="bi bi-palette"></i>
-  </button>
+    <button class="floating-settings-btn" (click)="themeService.toggleSettings()">
+      <i class="bi bi-palette"></i>
+    </button>
   }
 
   <app-theme-settings></app-theme-settings>
 
+  <!-- Sidebar -->
   @if (!isAuthPage()) {
-  <app-sidebar></app-sidebar>
-  @if (layout.isMobile() && layout.isOverlay()) {
-  <div class="overlay-backdrop" (click)="layout.closeOverlay()"></div>
-  }
+    <app-sidebar></app-sidebar>
+    @if (layout.isMobile() && layout.isOverlay()) {
+      <div class="overlay-backdrop" (click)="layout.closeOverlay()"></div>
+    }
   }
 
-  <div [class]="isAuthPage() ? 'auth-area' : 'main-area'" [class.collapsed]="!isAuthPage() && layout.isCollapsed()">
+  <!-- Main Area -->
+  <div [class]="isAuthPage() ? 'auth-area' : 'main-area'"
+       [class.collapsed]="!isAuthPage() && layout.isCollapsed()">
+
     @if (!isAuthPage()) {
-    <app-header></app-header>
+      <app-header></app-header>
     }
+
     <div [class]="isAuthPage() ? 'auth-content' : 'content'">
       <router-outlet></router-outlet>
     </div>
+
     @if (!isAuthPage()) {
-    <app-footer></app-footer>
+      <app-footer></app-footer>
     }
+
   </div>
 
   <app-toast></app-toast>

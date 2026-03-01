@@ -1,0 +1,89 @@
+<div class="err-page">
+  <div class="err-container">
+
+    <!-- SVG Illustration -->
+    <div class="err-illustration">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="err-svg">
+        <!-- Background -->
+        <circle cx="200" cy="150" r="120" fill="rgba(239,68,68,0.07)" />
+        <circle cx="200" cy="150" r="85"  fill="rgba(239,68,68,0.05)" />
+
+        <!-- Server body -->
+        <rect x="120" y="80" width="160" height="140" rx="10" fill="#1e293b" />
+        <rect x="125" y="85" width="150" height="130" rx="8"  fill="#334155" />
+
+        <!-- Server slots -->
+        <rect x="135" y="100" width="130" height="22" rx="5" fill="#1e293b" />
+        <rect x="135" y="130" width="130" height="22" rx="5" fill="#1e293b" />
+        <rect x="135" y="160" width="130" height="22" rx="5" fill="#1e293b" />
+        <rect x="135" y="190" width="130" height="18" rx="5" fill="#1e293b" />
+
+        <!-- Slot lights - error state -->
+        <circle cx="250" cy="111" r="4" fill="#ef4444" />
+        <circle cx="250" cy="141" r="4" fill="#ef4444" />
+        <circle cx="250" cy="171" r="4" fill="#f59e0b" />
+        <circle cx="250" cy="199" r="4" fill="#22c55e" />
+
+        <!-- Blinking animation on error lights -->
+        <circle cx="250" cy="111" r="4" fill="#ef4444" opacity="0.6">
+          <animate attributeName="opacity" values="0.6;0;0.6" dur="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="250" cy="141" r="4" fill="#ef4444" opacity="0.6">
+          <animate attributeName="opacity" values="0;0.6;0" dur="1s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Slot lines -->
+        <rect x="143" y="108" width="90" height="3" rx="2" fill="#475569" />
+        <rect x="143" y="114" width="70" height="3" rx="2" fill="#475569" />
+        <rect x="143" y="138" width="90" height="3" rx="2" fill="#475569" />
+        <rect x="143" y="144" width="60" height="3" rx="2" fill="#475569" />
+        <rect x="143" y="168" width="90" height="3" rx="2" fill="#475569" />
+        <rect x="143" y="174" width="80" height="3" rx="2" fill="#475569" />
+
+        <!-- Error X mark -->
+        <circle cx="200" cy="80" r="20" fill="#ef4444" />
+        <line x1="192" y1="72" x2="208" y2="88" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="208" y1="72" x2="192" y2="88" stroke="white" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Smoke/warning from server -->
+        <path d="M160 80 Q155 65 165 55 Q158 45 168 38" stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M240 80 Q245 65 235 55 Q242 45 232 38" stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- Ground shadow -->
+        <ellipse cx="200" cy="228" rx="90" ry="10" fill="rgba(0,0,0,0.08)" />
+
+        <!-- Sparks -->
+        <text x="270" y="100" font-size="18" fill="#f59e0b">⚡</text>
+        <text x="105" y="110" font-size="14" fill="#ef4444" opacity="0.6">⚡</text>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="err-content">
+      <div class="err-code err-code-danger">500</div>
+      <h1 class="err-title">Internal Server Error</h1>
+      <p class="err-desc">
+        Something went wrong on our end. Our team has been notified
+        and is working hard to fix it. Please try again in a moment.
+      </p>
+      <div class="err-actions">
+        <button class="err-btn err-btn-danger" (click)="retry()">
+          <i class="bi bi-arrow-clockwise"></i> Try Again
+        </button>
+        <button class="err-btn err-btn-ghost" (click)="goHome()">
+          <i class="bi bi-house"></i> Go Home
+        </button>
+      </div>
+      <div class="err-status-box">
+        <i class="bi bi-info-circle"></i>
+        Error Code: <strong>500</strong> — If this persists, please
+        <a class="err-link">contact support</a>.
+      </div>
+    </div>
+
+  </div>
+</div>

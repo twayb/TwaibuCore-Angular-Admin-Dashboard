@@ -1,0 +1,79 @@
+<div class="err-page">
+  <div class="err-container">
+
+    <!-- SVG Illustration -->
+    <div class="err-illustration">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="err-svg">
+        <!-- Background circles -->
+        <circle cx="200" cy="150" r="120" fill="var(--err-primary-soft)" />
+        <circle cx="200" cy="150" r="85"  fill="var(--err-primary-softer)" />
+
+        <!-- Ground -->
+        <ellipse cx="200" cy="260" rx="130" ry="16" fill="var(--err-primary-soft)" />
+
+        <!-- Sign post -->
+        <rect x="196" y="140" width="8" height="110" rx="4" fill="#94a3b8" />
+
+        <!-- Sign board -->
+        <rect x="140" y="90" width="120" height="60" rx="10" fill="#4F6EF7" />
+        <rect x="144" y="94" width="112" height="52" rx="8" fill="#6366f1" />
+        <text x="200" y="118" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="sans-serif">404</text>
+        <text x="200" y="136" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10" font-family="sans-serif">PAGE NOT FOUND</text>
+
+        <!-- Character body -->
+        <circle cx="200" cy="200" r="22" fill="#fbbf24" />
+        <circle cx="193" cy="196" r="3" fill="#1e293b" />
+        <circle cx="207" cy="196" r="3" fill="#1e293b" />
+        <!-- Sad mouth -->
+        <path d="M193 207 Q200 203 207 207" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Sweat drop -->
+        <ellipse cx="215" cy="192" rx="3" ry="4" fill="#60a5fa" />
+
+        <!-- Arms -->
+        <path d="M178 205 Q168 215 162 210" stroke="#fbbf24" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M222 205 Q232 215 238 210" stroke="#fbbf24" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+        <!-- Legs -->
+        <path d="M193 222 L188 248" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+        <path d="M207 222 L212 248" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="186" cy="250" rx="8" ry="4" fill="#94a3b8" />
+        <ellipse cx="214" cy="250" rx="8" ry="4" fill="#94a3b8" />
+
+        <!-- Stars/sparkles -->
+        <text x="80"  y="100" font-size="16" fill="#4F6EF7" opacity="0.5">✦</text>
+        <text x="310" y="120" font-size="12" fill="#6366f1" opacity="0.4">✦</text>
+        <text x="60"  y="180" font-size="10" fill="#4F6EF7" opacity="0.3">✦</text>
+        <text x="330" y="200" font-size="14" fill="#6366f1" opacity="0.4">✦</text>
+
+        <!-- Question marks floating -->
+        <text x="100" y="150" font-size="20" fill="#4F6EF7" opacity="0.25" font-weight="bold">?</text>
+        <text x="290" y="160" font-size="16" fill="#6366f1" opacity="0.3" font-weight="bold">?</text>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="err-content">
+      <div class="err-code">404</div>
+      <h1 class="err-title">Page Not Found</h1>
+      <p class="err-desc">
+        Oops! The page you're looking for seems to have wandered off.
+        It might have been moved, deleted, or never existed.
+      </p>
+      <div class="err-actions">
+        <button class="err-btn err-btn-primary" (click)="goHome()">
+          <i class="bi bi-house"></i> Back to Home
+        </button>
+        <button class="err-btn err-btn-ghost" (click)="goBack()">
+          <i class="bi bi-arrow-left"></i> Go Back
+        </button>
+      </div>
+      <div class="err-links">
+        <span>You might be looking for:</span>
+        <a class="err-link" (click)="goHome()">Dashboard</a>
+        <a class="err-link">Help Center</a>
+        <a class="err-link">Contact Support</a>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="err-page">
+  <div class="err-container">
+
+    <!-- SVG Illustration -->
+    <div class="err-illustration">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="err-svg">
+        <!-- Background -->
+        <circle cx="200" cy="150" r="120" fill="rgba(245,158,11,0.07)" />
+        <circle cx="200" cy="150" r="85"  fill="rgba(245,158,11,0.05)" />
+
+        <!-- Shield body -->
+        <path d="M200 60 L260 85 L260 155 Q260 200 200 230 Q140 200 140 155 L140 85 Z" fill="#f59e0b" />
+        <path d="M200 70 L252 92 L252 155 Q252 194 200 220 Q148 194 148 155 L148 92 Z" fill="#fbbf24" />
+        <path d="M200 80 L244 99 L244 155 Q244 188 200 210 Q156 188 156 155 L156 99 Z" fill="#fde68a" />
+
+        <!-- Lock icon on shield -->
+        <rect x="183" y="145" width="34" height="28" rx="5" fill="#f59e0b" />
+        <path d="M190 145 L190 137 Q190 125 200 125 Q210 125 210 137 L210 145" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle cx="200" cy="157" r="4" fill="#fde68a" />
+        <rect x="198" y="157" width="4" height="8" rx="2" fill="#fde68a" />
+
+        <!-- No entry circle overlay -->
+        <circle cx="245" cy="90" r="22" fill="white" />
+        <circle cx="245" cy="90" r="18" fill="#ef4444" />
+        <rect x="230" y="87" width="30" height="6" rx="3" fill="white" />
+
+        <!-- Warning triangles -->
+        <polygon points="80,200 100,165 120,200" fill="#f59e0b" opacity="0.3" />
+        <text x="96" y="195" text-anchor="middle" font-size="16" fill="white" font-weight="bold" opacity="0.6">!</text>
+
+        <polygon points="280,180 300,145 320,180" fill="#ef4444" opacity="0.2" />
+        <text x="300" y="175" text-anchor="middle" font-size="14" fill="white" font-weight="bold" opacity="0.5">!</text>
+
+        <!-- Ground shadow -->
+        <ellipse cx="200" cy="248" rx="80" ry="10" fill="rgba(0,0,0,0.07)" />
+
+        <!-- Key icon -->
+        <g transform="translate(100, 130) rotate(-30)">
+          <circle cx="0" cy="0" r="12" fill="none" stroke="#94a3b8" stroke-width="4" opacity="0.4"/>
+          <rect x="10" y="-3" width="25" height="6" rx="3" fill="#94a3b8" opacity="0.4"/>
+          <rect x="28" y="3"  width="6"  height="8" rx="2" fill="#94a3b8" opacity="0.4"/>
+          <rect x="22" y="3"  width="5"  height="6" rx="2" fill="#94a3b8" opacity="0.4"/>
+        </g>
+
+        <!-- Stars -->
+        <text x="70"  y="120" font-size="14" fill="#f59e0b" opacity="0.3">✦</text>
+        <text x="320" y="140" font-size="10" fill="#ef4444" opacity="0.3">✦</text>
+        <text x="310" y="220" font-size="12" fill="#f59e0b" opacity="0.2">✦</text>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="err-content">
+      <div class="err-code err-code-warning">403</div>
+      <h1 class="err-title">Access Forbidden</h1>
+      <p class="err-desc">
+        You don't have permission to access this page.
+        This area is restricted to authorized users only.
+        Please contact your administrator if you believe this is a mistake.
+      </p>
+      <div class="err-actions">
+        <button class="err-btn err-btn-warning" (click)="goHome()">
+          <i class="bi bi-house"></i> Back to Home
+        </button>
+        <button class="err-btn err-btn-ghost" (click)="goBack()">
+          <i class="bi bi-arrow-left"></i> Go Back
+        </button>
+      </div>
+      <div class="err-status-box err-status-warning">
+        <i class="bi bi-shield-exclamation"></i>
+        You need proper permissions to view this resource.
+        <a class="err-link">Request Access</a>
+      </div>
+    </div>
+
+  </div>
+</div>

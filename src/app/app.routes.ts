@@ -14,22 +14,39 @@ import { FormsComponent } from './shared/forms/forms';
 import { IconsComponent } from './shared/icons/icons';
 import { MapComponent } from './shared/map/map';
 import { ProfileComponent } from './pages/profile/profile';
+import { ForbiddenComponent } from './pages/erros/forbidden/forbidden';
+import { ServerErrorComponent } from './pages/erros/server-error/server-error';
+import { NotFoundComponent } from './pages/erros/not-found/not-found';
+import { MaintenanceComponent } from './pages/erros/maintenance/maintenance';
 
 export const routes: Routes = [
-    { path: 'pages/auth/login', component: LoginComponent },
-    { path: 'pages/auth/register', component: RegisterComponent },
-    { path: 'pages/auth/forgot-password', component: ForgotPasswordComponent },
-    { path: 'pages/auth/lockscreen', component: LockscreenComponent },
-    { path: 'dashboard/admin', component: AdminDashboardComponent },
-    { path: 'dashboard/recruitment', component: RecruitmentDashboardComponent },
-    { path: 'dashboard/transportation', component: TransportationDashboardComponent },
-    { path: 'dashboard/complaints', component: ComplaintsDashboardComponent },
-    { path: 'general/components', component: ComponentsPageComponent },
-    {path: 'general/widgets', component: WidgetsComponent},
-    { path: 'general/tables', component: TablesComponent },
-    { path: 'general/forms', component: FormsComponent },
-    { path: 'general/icons', component: IconsComponent },
-    { path: 'general/map', component: MapComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: '', redirectTo: '/dashboard/admin', pathMatch: 'full' },
+
+  // ── AUTH PAGES (no sidebar) ──
+  { path: 'pages/auth/login',           component: LoginComponent          },
+  { path: 'pages/auth/register',        component: RegisterComponent        },
+  { path: 'pages/auth/forgot-password', component: ForgotPasswordComponent  },
+  { path: 'pages/auth/lockscreen',      component: LockscreenComponent      },
+
+  // ── ERROR PAGES (no sidebar) ──
+{ path: 'errors/404', component: NotFoundComponent   },
+{ path: 'errors/500', component: ServerErrorComponent },
+{ path: 'errors/403', component: ForbiddenComponent  },
+{ path: 'errors/maintenance', component: MaintenanceComponent },
+
+  // ── MAIN APP PAGES (with sidebar) ──
+  { path: 'dashboard/admin',          component: AdminDashboardComponent          },
+  { path: 'dashboard/recruitment',    component: RecruitmentDashboardComponent    },
+  { path: 'dashboard/transportation', component: TransportationDashboardComponent },
+  { path: 'dashboard/complaints',     component: ComplaintsDashboardComponent     },
+  { path: 'general/components',       component: ComponentsPageComponent          },
+  { path: 'general/widgets',          component: WidgetsComponent                 },
+  { path: 'general/tables',           component: TablesComponent                  },
+  { path: 'general/forms',            component: FormsComponent                   },
+  { path: 'general/icons',            component: IconsComponent                   },
+  { path: 'general/map',              component: MapComponent                     },
+  { path: 'profile',                  component: ProfileComponent                 },
+
+  // ── REDIRECT & CATCH-ALL ──
+{ path: '',    redirectTo: 'dashboard/admin', pathMatch: 'full' },
+{ path: '**',  redirectTo: 'errors/404' },
 ];

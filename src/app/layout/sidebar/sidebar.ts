@@ -125,21 +125,22 @@ export class SidebarComponent {
           icon: 'bi bi-exclamation-triangle',
           isOpen: false,
           items: [
-            { label: '404 Not Found', icon: '', route: '/pages/errors/404' },
-            { label: '500 Server Error', icon: '', route: '/pages/errors/500' },
-            { label: '403 Forbidden', icon: '', route: '/pages/errors/403' },
+            { label: '404 Not Found', icon: '', route: '/errors/404' },
+            { label: '500 Server Error', icon: '', route: '/errors/500' },
+            { label: '403 Forbidden', icon: '', route: '/errors/403' },
+            { label: 'Maintenance', icon: '', route: '/errors/maintenance' }
           ]
         },
-        {
-          label: 'Utility',
-          icon: 'bi bi-tools',
-          isOpen: false,
-          items: [
-            { label: 'Blank Page', icon: '', route: '/pages/utility/blank' },
-            { label: 'Starter Page', icon: '', route: '/pages/utility/starter' },
-            { label: 'Maintenance', icon: '', route: '/pages/utility/maintenance' },
-          ]
-        }
+        // {
+        //   label: 'Utility',
+        //   icon: 'bi bi-tools',
+        //   isOpen: false,
+        //   items: [
+        //     { label: 'Blank Page', icon: '', route: '/pages/utility/blank' },
+        //     { label: 'Starter Page', icon: '', route: '/pages/utility/starter' },
+        //     { label: 'Maintenance', icon: '', route: '/pages/utility/maintenance' },
+        //   ]
+        // }
       ],
       items: []
     },
