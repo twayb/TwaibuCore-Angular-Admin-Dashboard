@@ -1,0 +1,33 @@
+@if (visible) {
+  <div class="apl-overlay">
+    <div class="apl-content">
+      <div class="apl-logo">
+        <div class="apl-logo-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="12" fill="url(#apl-grad)"/>
+            <path d="M10 28L20 12L30 28H24L20 21L16 28H10Z" fill="white" opacity="0.9"/>
+            <path d="M15 28L20 19L25 28H15Z" fill="white"/>
+            <defs>
+              <linearGradient id="apl-grad" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" stop-color="#4F6EF7"/>
+                <stop offset="100%" stop-color="#3d5ce6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="apl-logo-text">TwaibuCore</span>
+      </div>
+      <div class="apl-spinner-wrap">
+        <div class="apl-spinner">
+          <div class="apl-spinner-ring"></div>
+          <div class="apl-spinner-ring apl-spinner-ring-2"></div>
+          <div class="apl-spinner-dot"></div>
+        </div>
+      </div>
+      <p class="apl-text">Loading your dashboard...</p>
+      <div class="apl-progress">
+        <div class="apl-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+}

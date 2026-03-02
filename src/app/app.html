@@ -1,4 +1,6 @@
 <div class="app-layout">
+  <!-- App Loader -->
+<app-app-loader [visible]="isLoading()"></app-app-loader>
 
   <!-- Warning Banner -->
   @if (lockscreen.isWarning()) {
