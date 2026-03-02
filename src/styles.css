@@ -252,3 +252,8 @@ h1 { font-size: calc(var(--font-size-base) * 1.8); }
 h2 { font-size: calc(var(--font-size-base) * 1.5); }
 h3 { font-size: calc(var(--font-size-base) * 1.25); }
 h4 { font-size: calc(var(--font-size-base) * 1.1); }
+
+#map {
+  height: 500px;
+  width: 100%;
+}
