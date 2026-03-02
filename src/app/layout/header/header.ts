@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, inject, ViewChild } from '@angular/core';
 import { LayoutService } from '../../core/services/layout-service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification';
 
 
 @Component({
@@ -11,6 +12,10 @@ import { Router } from '@angular/router';
   styleUrl: './header.css',
 })
 export class HeaderComponent {
+
+  // inside class:
+notif       = inject(NotificationService);
+showNotif   = false;
 
   private router = inject(Router);
   layout = inject(LayoutService);
@@ -52,5 +57,21 @@ export class HeaderComponent {
   profile() {
     this.router.navigate(['/profile']);
   }
+
+  toggleNotif(e: Event) {
+  e.stopPropagation();
+  this.showNotif = !this.showNotif;
+}
+
+readAndNavigate(id: number, route?: string) {
+  this.notif.markAsRead(id);
+  this.showNotif = false;
+  if (route) this.router.navigate([route]);
+}
+
+viewAll() {
+  this.showNotif = false;
+  this.router.navigate(['/features/email']);
+}
 
 }

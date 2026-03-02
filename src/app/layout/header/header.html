@@ -31,10 +31,81 @@
     </button>
 
     <!-- Notification -->
-    <button class="icon-btn">
+    <!-- <button class="icon-btn">
       <i class="bi bi-bell"></i>
       <span class="badge">3</span>
-    </button>
+    </button> -->
+
+    <div class="hdr-notif-wrap">
+      <button class="icon-btn" (click)="toggleNotif($event)">
+        <i class="bi bi-bell"></i>
+        @if (notif.unreadCount() > 0) {
+        <span class="hdr-notif-badge">{{ notif.unreadCount() }}</span>
+        }
+      </button>
+
+      <!-- Dropdown -->
+      @if (showNotif) {
+      <div class="hdr-notif-dropdown">
+
+        <!-- Header -->
+        <div class="hdr-notif-header">
+          <h3 class="hdr-notif-title">Notifications</h3>
+          <div class="hdr-notif-header-actions">
+            @if (notif.unreadCount() > 0) {
+            <button class="hdr-notif-mark-all" (click)="notif.markAllAsRead()">
+              Mark all read
+            </button>
+            }
+            <span class="hdr-notif-count">{{ notif.unreadCount() }} new</span>
+          </div>
+        </div>
+
+        <!-- List -->
+        <div class="hdr-notif-list">
+          @if (notif.notifications().length === 0) {
+          <div class="hdr-notif-empty">
+            <i class="bi bi-bell-slash"></i>
+            <p>No notifications</p>
+          </div>
+          }
+          @for (n of notif.notifications(); track n.id) {
+          <div class="hdr-notif-item" [class.hdr-notif-unread]="!n.read" (click)="readAndNavigate(n.id, n.route)">
+
+            <!-- Avatar -->
+            <div class="hdr-notif-avatar" [style.background]="n.avatarColor">
+              {{ n.avatar }}
+            </div>
+
+            <!-- Content -->
+            <div class="hdr-notif-content">
+              <div class="hdr-notif-item-header">
+                <span class="hdr-notif-name">{{ n.title }}</span>
+                <span class="hdr-notif-time">{{ n.time }}</span>
+              </div>
+              <p class="hdr-notif-msg">{{ n.message }}</p>
+            </div>
+
+            <!-- Unread dot -->
+            @if (!n.read) {
+            <div class="hdr-notif-dot"></div>
+            }
+
+          </div>
+          }
+        </div>
+
+        <!-- Footer -->
+        <div class="hdr-notif-footer">
+          <button class="hdr-notif-view-all" (click)="viewAll()">
+            <i class="bi bi-envelope"></i>
+            View all messages
+          </button>
+        </div>
+
+      </div>
+      }
+    </div>
 
     <!-- Avatar -->
     <!-- <div class="header-avatar">
@@ -84,7 +155,7 @@
             <i class="bi bi-person-check"></i>
             <span>My Account</span>
           </li> -->
-          
+
         </ul>
 
         <div class="dropdown-divider"></div>
