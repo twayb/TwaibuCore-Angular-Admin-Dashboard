@@ -16,48 +16,47 @@
 
     <!-- Search -->
     @if (!sidebarCollapsed) {
-      <div class="eml-search-wrap">
-        <i class="bi bi-search eml-search-icon"></i>
-        <input class="eml-search" type="text" placeholder="Search emails..."
-          [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)">
-        @if (searchQuery()) {
-          <i class="bi bi-x eml-search-clear" (click)="searchQuery.set('')"></i>
-        }
-      </div>
+    <div class="eml-search-wrap">
+      <i class="bi bi-search eml-search-icon"></i>
+      <input class="eml-search" type="text" placeholder="Search emails..." [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)">
+      @if (searchQuery()) {
+      <i class="bi bi-x eml-search-clear" (click)="searchQuery.set('')"></i>
+      }
+    </div>
     }
 
     <!-- Folders -->
     <nav class="eml-folders">
       @for (folder of folders; track folder.key) {
-        <button class="eml-folder-btn"
-          [class.eml-folder-active]="activeFolder() === folder.key"
-          (click)="setFolder($any(folder.key))">
-          <i [class]="folder.icon" [style.color]="activeFolder() === folder.key ? folder.color : ''"></i>
-          @if (!sidebarCollapsed) {
-            <span class="eml-folder-label">{{ folder.label }}</span>
-            @if (getUnreadCount($any(folder.key)) > 0) {
-              <span class="eml-folder-badge">{{ getUnreadCount($any(folder.key)) }}</span>
-            }
-          } @else {
-            @if (getUnreadCount($any(folder.key)) > 0) {
-              <span class="eml-folder-dot"></span>
-            }
-          }
-        </button>
+      <button class="eml-folder-btn" [class.eml-folder-active]="activeFolder() === folder.key"
+        (click)="setFolder($any(folder.key))">
+        <i [class]="folder.icon" [style.color]="activeFolder() === folder.key ? folder.color : ''"></i>
+        @if (!sidebarCollapsed) {
+        <span class="eml-folder-label">{{ folder.label }}</span>
+        @if (getUnreadCount($any(folder.key)) > 0) {
+        <span class="eml-folder-badge">{{ getUnreadCount($any(folder.key)) }}</span>
+        }
+        } @else {
+        @if (getUnreadCount($any(folder.key)) > 0) {
+        <span class="eml-folder-dot"></span>
+        }
+        }
+      </button>
       }
     </nav>
 
     <!-- Labels -->
     @if (!sidebarCollapsed) {
-      <div class="eml-labels">
-        <p class="eml-section-label">Labels</p>
-        @for (label of labels; track label.label) {
-          <div class="eml-label-item">
-            <div class="eml-label-dot" [style.background]="label.color"></div>
-            <span>{{ label.label }}</span>
-          </div>
-        }
+    <div class="eml-labels">
+      <p class="eml-section-label">Labels</p>
+      @for (label of labels; track label.label) {
+      <div class="eml-label-item">
+        <div class="eml-label-dot" [style.background]="label.color"></div>
+        <span>{{ label.label }}</span>
       </div>
+      }
+    </div>
     }
 
   </div>
@@ -68,7 +67,7 @@
     <!-- List Header -->
     <div class="eml-list-header">
       <div class="eml-list-title">
-       <h2>{{ getFolderLabel() }}</h2>
+        <h2>{{ getFolderLabel() }}</h2>
         <span class="eml-list-count">{{ filteredEmails.length }}</span>
       </div>
       <div class="eml-list-actions">
@@ -84,59 +83,54 @@
     <!-- Email Items -->
     <div class="eml-list-body">
       @if (filteredEmails.length === 0) {
-        <div class="eml-empty">
-          <i class="bi bi-envelope-open"></i>
-          <p>No emails found</p>
-        </div>
+      <div class="eml-empty">
+        <i class="bi bi-envelope-open"></i>
+        <p>No emails found</p>
+      </div>
       }
       @for (email of filteredEmails; track email.id) {
-        <div class="eml-item"
-          [class.eml-item-unread]="!email.read"
-          [class.eml-item-active]="selectedEmail()?.id === email.id"
-          (click)="selectEmail(email)">
+      <div class="eml-item" [class.eml-item-unread]="!email.read"
+        [class.eml-item-active]="selectedEmail()?.id === email.id" (click)="selectEmail(email)">
 
-          <!-- Avatar -->
-          <div class="eml-item-avatar" [style.background]="email.fromColor">
-            {{ email.fromAvatar }}
-          </div>
-
-          <!-- Content -->
-          <div class="eml-item-content">
-            <div class="eml-item-row1">
-              <span class="eml-item-from">{{ email.from }}</span>
-              <span class="eml-item-time">{{ email.time }}</span>
-            </div>
-            <div class="eml-item-row2">
-              <span class="eml-item-subject">{{ email.subject }}</span>
-            </div>
-            <div class="eml-item-row3">
-              <span class="eml-item-preview">{{ email.preview }}</span>
-            </div>
-            @if (email.labels && email.labels.length > 0) {
-              <div class="eml-item-labels">
-                @for (label of email.labels; track label) {
-                  <span class="eml-item-label"
-                    [style.background]="getLabelBg(label)"
-                    [style.color]="getLabelColor(label)">
-                    {{ label }}
-                  </span>
-                }
-              </div>
-            }
-          </div>
-
-          <!-- Actions -->
-          <div class="eml-item-meta">
-            <button class="eml-star-btn" [class.eml-starred]="email.starred"
-              (click)="toggleStar(email, $event)">
-              <i [class]="email.starred ? 'bi bi-star-fill' : 'bi bi-star'"></i>
-            </button>
-            @if (email.attachments && email.attachments.length > 0) {
-              <i class="bi bi-paperclip eml-attach-icon"></i>
-            }
-          </div>
-
+        <!-- Avatar -->
+        <div class="eml-item-avatar" [style.background]="email.fromColor">
+          {{ email.fromAvatar }}
         </div>
+
+        <!-- Content -->
+        <div class="eml-item-content">
+          <div class="eml-item-row1">
+            <span class="eml-item-from">{{ email.from }}</span>
+            <span class="eml-item-time">{{ email.time }}</span>
+          </div>
+          <div class="eml-item-row2">
+            <span class="eml-item-subject">{{ email.subject }}</span>
+          </div>
+          <div class="eml-item-row3">
+            <span class="eml-item-preview">{{ email.preview }}</span>
+          </div>
+          @if (email.labels && email.labels.length > 0) {
+          <div class="eml-item-labels">
+            @for (label of email.labels; track label) {
+            <span class="eml-item-label" [style.background]="getLabelBg(label)" [style.color]="getLabelColor(label)">
+              {{ label }}
+            </span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Actions -->
+        <div class="eml-item-meta">
+          <button class="eml-star-btn" [class.eml-starred]="email.starred" (click)="toggleStar(email, $event)">
+            <i [class]="email.starred ? 'bi bi-star-fill' : 'bi bi-star'"></i>
+          </button>
+          @if (email.attachments && email.attachments.length > 0) {
+          <i class="bi bi-paperclip eml-attach-icon"></i>
+          }
+        </div>
+
+      </div>
       }
     </div>
 
@@ -146,114 +140,110 @@
   <div class="eml-detail" [class.eml-detail-visible]="selectedEmail() !== null">
 
     @if (!selectedEmail()) {
-      <div class="eml-detail-empty">
-        <i class="bi bi-envelope-open"></i>
-        <p>Select an email to read</p>
-      </div>
+    <div class="eml-detail-empty">
+      <i class="bi bi-envelope-open"></i>
+      <p>Select an email to read</p>
+    </div>
     }
 
     @if (selectedEmail(); as email) {
-      <!-- Detail Header -->
-      <div class="eml-detail-header">
-        <button class="eml-detail-back" (click)="selectedEmail.set(null)">
-          <i class="bi bi-arrow-left"></i>
+    <!-- Detail Header -->
+    <div class="eml-detail-header">
+      <button class="eml-detail-back" (click)="selectedEmail.set(null)">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <h2 class="eml-detail-subject">{{ email.subject }}</h2>
+      <div class="eml-detail-actions">
+        <button class="eml-detail-btn" title="Reply" (click)="replyEmail(email)">
+          <i class="bi bi-reply"></i>
         </button>
-        <h2 class="eml-detail-subject">{{ email.subject }}</h2>
-        <div class="eml-detail-actions">
-          <button class="eml-detail-btn" title="Reply" (click)="replyEmail(email)">
-            <i class="bi bi-reply"></i>
-          </button>
-          <button class="eml-detail-btn" title="Forward" (click)="forwardEmail(email)">
-            <i class="bi bi-forward"></i>
-          </button>
-          <button class="eml-detail-btn" title="Star" [class.eml-starred]="email.starred"
-            (click)="toggleStar(email)">
-            <i [class]="email.starred ? 'bi bi-star-fill' : 'bi bi-star'"></i>
-          </button>
-          <button class="eml-detail-btn" title="Mark unread" (click)="markRead(email)">
-            <i class="bi bi-envelope"></i>
-          </button>
-          @if (email.folder === 'trash') {
-            <button class="eml-detail-btn" title="Restore" (click)="restoreEmail(email)">
-              <i class="bi bi-arrow-counterclockwise"></i>
-            </button>
-          }
-          <button class="eml-detail-btn eml-detail-btn-danger" title="Delete"
-            (click)="deleteEmail(email)">
-            <i class="bi bi-trash"></i>
-          </button>
+        <button class="eml-detail-btn" title="Forward" (click)="forwardEmail(email)">
+          <i class="bi bi-forward"></i>
+        </button>
+        <button class="eml-detail-btn" title="Star" [class.eml-starred]="email.starred" (click)="toggleStar(email)">
+          <i [class]="email.starred ? 'bi bi-star-fill' : 'bi bi-star'"></i>
+        </button>
+        <button class="eml-detail-btn" title="Mark unread" (click)="markRead(email)">
+          <i class="bi bi-envelope"></i>
+        </button>
+        @if (email.folder === 'trash') {
+        <button class="eml-detail-btn" title="Restore" (click)="restoreEmail(email)">
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+        }
+        <button class="eml-detail-btn eml-detail-btn-danger" title="Delete" (click)="deleteEmail(email)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sender Info -->
+    <div class="eml-detail-sender">
+      <div class="eml-detail-avatar" [style.background]="email.fromColor">
+        {{ email.fromAvatar }}
+      </div>
+      <div class="eml-detail-sender-info">
+        <div class="eml-detail-sender-row">
+          <span class="eml-detail-sender-name">{{ email.from }}</span>
+          <span class="eml-detail-date">{{ email.date }} at {{ email.time }}</span>
+        </div>
+        <div class="eml-detail-addresses">
+          <span class="eml-detail-address">From: {{ email.fromEmail }}</span>
+          <span class="eml-detail-address">To: {{ email.toEmail }}</span>
         </div>
       </div>
-
-      <!-- Sender Info -->
-      <div class="eml-detail-sender">
-        <div class="eml-detail-avatar" [style.background]="email.fromColor">
-          {{ email.fromAvatar }}
-        </div>
-        <div class="eml-detail-sender-info">
-          <div class="eml-detail-sender-row">
-            <span class="eml-detail-sender-name">{{ email.from }}</span>
-            <span class="eml-detail-date">{{ email.date }} at {{ email.time }}</span>
-          </div>
-          <div class="eml-detail-addresses">
-            <span class="eml-detail-address">From: {{ email.fromEmail }}</span>
-            <span class="eml-detail-address">To: {{ email.toEmail }}</span>
-          </div>
-        </div>
-        @if (email.labels && email.labels.length > 0) {
-          <div class="eml-detail-label-wrap">
-            @for (label of email.labels; track label) {
-              <span class="eml-item-label"
-                [style.background]="getLabelBg(label)"
-                [style.color]="getLabelColor(label)">
-                {{ label }}
-              </span>
-            }
-          </div>
+      @if (email.labels && email.labels.length > 0) {
+      <div class="eml-detail-label-wrap">
+        @for (label of email.labels; track label) {
+        <span class="eml-item-label" [style.background]="getLabelBg(label)" [style.color]="getLabelColor(label)">
+          {{ label }}
+        </span>
         }
       </div>
-
-      <!-- Body -->
-      <div class="eml-detail-body">
-        <div class="eml-detail-text" [innerHTML]="formatBody(email.body)"></div>
-      </div>
-
-      <!-- Attachments -->
-      @if (email.attachments && email.attachments.length > 0) {
-        <div class="eml-detail-attachments">
-          <p class="eml-attach-title">
-            <i class="bi bi-paperclip"></i>
-            {{ email.attachments.length }} Attachment{{ email.attachments.length > 1 ? 's' : '' }}
-          </p>
-          <div class="eml-attach-list">
-            @for (att of email.attachments; track att.name) {
-              <div class="eml-attach-item">
-                <i [class]="att.icon + ' eml-attach-file-icon'"></i>
-                <div class="eml-attach-info">
-                  <p class="eml-attach-name">{{ att.name }}</p>
-                  <p class="eml-attach-size">{{ att.size }}</p>
-                </div>
-                <button class="eml-attach-download">
-                  <i class="bi bi-download"></i>
-                </button>
-              </div>
-            }
-          </div>
-        </div>
       }
+    </div>
 
-      <!-- Reply Actions -->
-      <div class="eml-detail-footer">
-        <button class="eml-footer-btn" (click)="replyEmail(email)">
-          <i class="bi bi-reply"></i> Reply
-        </button>
-        <button class="eml-footer-btn" (click)="forwardEmail(email)">
-          <i class="bi bi-forward"></i> Forward
-        </button>
-        <button class="eml-footer-btn eml-footer-btn-danger" (click)="deleteEmail(email)">
-          <i class="bi bi-trash"></i> Delete
-        </button>
+    <!-- Body -->
+    <div class="eml-detail-body">
+      <div class="eml-detail-text" [innerHTML]="formatBody(email.body)"></div>
+    </div>
+
+    <!-- Attachments -->
+    @if (email.attachments && email.attachments.length > 0) {
+    <div class="eml-detail-attachments">
+      <p class="eml-attach-title">
+        <i class="bi bi-paperclip"></i>
+        {{ email.attachments.length }} Attachment{{ email.attachments.length > 1 ? 's' : '' }}
+      </p>
+      <div class="eml-attach-list">
+        @for (att of email.attachments; track att.name) {
+        <div class="eml-attach-item">
+          <i [class]="att.icon + ' eml-attach-file-icon'"></i>
+          <div class="eml-attach-info">
+            <p class="eml-attach-name">{{ att.name }}</p>
+            <p class="eml-attach-size">{{ att.size }}</p>
+          </div>
+          <button class="eml-attach-download">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+        }
       </div>
+    </div>
+    }
+
+    <!-- Reply Actions -->
+    <div class="eml-detail-footer">
+      <button class="eml-footer-btn" (click)="replyEmail(email)">
+        <i class="bi bi-reply"></i> Reply
+      </button>
+      <button class="eml-footer-btn" (click)="forwardEmail(email)">
+        <i class="bi bi-forward"></i> Forward
+      </button>
+      <button class="eml-footer-btn eml-footer-btn-danger" (click)="deleteEmail(email)">
+        <i class="bi bi-trash"></i> Delete
+      </button>
+    </div>
     }
 
   </div>
@@ -262,72 +252,83 @@
 
 <!-- ── COMPOSE MODAL ── -->
 @if (showCompose) {
-     <div class="eml-compose-backdrop" (click)="showCompose = false"></div>
-  <div class="eml-compose-wrap">
-    <div class="eml-compose">
+<div class="eml-compose-backdrop" (click)="showCompose = false"></div>
+<div class="eml-compose-wrap">
+  <div class="eml-compose">
 
-      <!-- Compose Header -->
-      <div class="eml-compose-header">
-        <h3 class="eml-compose-title">
-          @if (composeMode === 'compose') { <i class="bi bi-pencil-square"></i> New Message }
-          @if (composeMode === 'reply')   { <i class="bi bi-reply"></i> Reply }
-          @if (composeMode === 'forward') { <i class="bi bi-forward"></i> Forward }
-        </h3>
-        <div class="eml-compose-header-actions">
-          <button class="eml-compose-icon-btn" (click)="saveDraft()" title="Save draft">
-            <i class="bi bi-save"></i>
-          </button>
-          <button class="eml-compose-icon-btn" (click)="showCompose = false" title="Close">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
+    <!-- Compose Header -->
+    <div class="eml-compose-header">
+      <h3 class="eml-compose-title">
+        @if (composeMode === 'compose') { <i class="bi bi-pencil-square"></i> New Message }
+        @if (composeMode === 'reply') { <i class="bi bi-reply"></i> Reply }
+        @if (composeMode === 'forward') { <i class="bi bi-forward"></i> Forward }
+      </h3>
+      <div class="eml-compose-header-actions">
+        <button class="eml-compose-icon-btn" (click)="saveDraft()" title="Save draft">
+          <i class="bi bi-save"></i>
+        </button>
+        <button class="eml-compose-icon-btn" (click)="showCompose = false" title="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
-
-      <!-- Compose Fields -->
-      <div class="eml-compose-body">
-        <div class="eml-compose-field">
-          <label class="eml-compose-label">To</label>
-          <input class="eml-compose-input" type="email" placeholder="recipient@email.com"
-            [(ngModel)]="composeForm.to">
-          <button class="eml-compose-cc-btn" (click)="composeForm.showCc = !composeForm.showCc">
-            {{ composeForm.showCc ? 'Hide CC' : 'CC' }}
-          </button>
-        </div>
-        @if (composeForm.showCc) {
-          <div class="eml-compose-field">
-            <label class="eml-compose-label">CC</label>
-            <input class="eml-compose-input" type="email" placeholder="cc@email.com"
-              [(ngModel)]="composeForm.cc">
-         
-          </div>
-        }
-        <div class="eml-compose-field">
-          <label class="eml-compose-label">Subject</label>
-          <input class="eml-compose-input" type="text" placeholder="Email subject..."
-            [(ngModel)]="composeForm.subject">
-        </div>
-        <div class="eml-compose-divider"></div>
-        <textarea class="eml-compose-textarea" placeholder="Write your message..."
-          [(ngModel)]="composeForm.body" rows="12"></textarea>
-      </div>
-
-      <!-- Compose Footer -->
-      <div class="eml-compose-footer">
-        <div class="eml-compose-tools">
-          <button class="eml-compose-tool" title="Attach file"><i class="bi bi-paperclip"></i></button>
-          <button class="eml-compose-tool" title="Bold"><i class="bi bi-type-bold"></i></button>
-          <button class="eml-compose-tool" title="Italic"><i class="bi bi-type-italic"></i></button>
-          <button class="eml-compose-tool" title="Link"><i class="bi bi-link-45deg"></i></button>
-          <button class="eml-compose-tool" title="Emoji"><i class="bi bi-emoji-smile"></i></button>
-        </div>
-        <div class="eml-compose-send-group">
-          <button class="eml-compose-draft-btn" (click)="saveDraft()">Save Draft</button>
-          <button class="eml-compose-send-btn" (click)="sendEmail()">
-            <i class="bi bi-send"></i> Send
-          </button>
-        </div>
-      </div>
-
     </div>
+
+    <!-- Compose Fields -->
+    <div class="eml-compose-body">
+      <div class="eml-compose-field">
+        <label class="eml-compose-label">To</label>
+        <input class="eml-compose-input" type="email" placeholder="recipient@email.com" [(ngModel)]="composeForm.to">
+        <button class="eml-compose-cc-btn" (click)="composeForm.showCc = !composeForm.showCc">
+          {{ composeForm.showCc ? 'Hide CC' : 'CC' }}
+        </button>
+      </div>
+      @if (composeForm.showCc) {
+      <div class="eml-compose-field">
+        <label class="eml-compose-label">CC</label>
+        <input class="eml-compose-input" type="email" placeholder="cc@email.com" [(ngModel)]="composeForm.cc">
+
+      </div>
+      }
+      <div class="eml-compose-field">
+        <label class="eml-compose-label">Subject</label>
+        <input class="eml-compose-input" type="text" placeholder="Email subject..." [(ngModel)]="composeForm.subject">
+      </div>
+      <app-rich-text-editor [(ngModel)]="editorBody" placeholder="Write your message..." toolbar="standard"
+        [minHeight]="200" [maxHeight]="320">
+      </app-rich-text-editor>
+    </div>
+
+    <!-- Compose Footer -->
+    <div class="eml-compose-footer">
+  <div class="eml-compose-tools">
+
+    <!-- Attach file (triggers file picker) -->
+    <button class="eml-compose-tool" title="Attach file" (click)="triggerAttachment()">
+      <i class="bi bi-paperclip"></i>
+    </button>
+    <input #attachInput type="file" accept="image/*,.pdf" style="display:none"
+      (change)="onFooterAttach($event)">
+
+    <!-- Attached files display -->
+    @if (emailAttachments.length > 0) {
+      @for (file of emailAttachments; track file.name) {
+        <div class="eml-compose-attach-tag">
+          <i [class]="file.type === 'application/pdf' ? 'bi bi-file-earmark-pdf' : 'bi bi-file-earmark-image'"></i>
+          <span>{{ file.name }}</span>
+          <button (click)="removeAttachment(file)"><i class="bi bi-x"></i></button>
+        </div>
+      }
+    }
+
   </div>
+  <div class="eml-compose-send-group">
+    <button class="eml-compose-draft-btn" (click)="saveDraft()">Save Draft</button>
+    <button class="eml-compose-send-btn" (click)="sendEmail()">
+      <i class="bi bi-send"></i> Send
+    </button>
+  </div>
+</div>
+
+  </div>
+</div>
 }

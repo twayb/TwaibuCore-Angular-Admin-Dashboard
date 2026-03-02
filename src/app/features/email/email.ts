@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ToastService } from '../../core/services/toast';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RichTextEditorComponent } from '../../shared/rich-text-editor/rich-text-editor';
 
 type EmailFolder = 'inbox' | 'sent' | 'drafts' | 'trash' | 'starred';
 
@@ -36,11 +37,12 @@ interface ComposeForm {
 @Component({
   selector: 'app-email',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RichTextEditorComponent],
   templateUrl: './email.html',
   styleUrl: './email.css',
 })
 export class EmailComponent {
+  @ViewChild('attachInput') attachInput!: ElementRef;
 
   toast = inject(ToastService);
 
@@ -50,6 +52,8 @@ export class EmailComponent {
   showCompose   = false;
   composeMode: 'compose' | 'reply' | 'forward' = 'compose';
   sidebarCollapsed = false;
+  editorBody = '';
+ 
 
   composeForm: ComposeForm = {
     to: '', cc: '', subject: '', body: '', showCc: false
@@ -149,6 +153,7 @@ export class EmailComponent {
       date: 'Sat', time: '07:00 AM', read: true, starred: false, folder: 'trash',
     },
   ]);
+  emailAttachments: File[]= [];
 
   // ── COMPUTED ──
   get filteredEmails(): Email[] {
@@ -333,5 +338,27 @@ getLabelBg(labelName: string): string {
   formatBody(body: string): string {
     return body.replace(/\n/g, '<br>');
   }
+
+  triggerAttachment() {
+  this.attachInput.nativeElement.click();
+}
+
+onFooterAttach(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file  = input.files?.[0];
+  if (!file) return;
+
+  if (file.size > 10 * 1024 * 1024) {
+    this.toast.error('File size must be less than 10MB');
+    return;
+  }
+
+  this.emailAttachments = [...this.emailAttachments, file];
+  input.value = '';
+}
+
+removeAttachment(file: File) {
+  this.emailAttachments = this.emailAttachments.filter(f => f !== file);
+}
 
 }

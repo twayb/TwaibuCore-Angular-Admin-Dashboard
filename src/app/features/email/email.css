@@ -651,7 +651,8 @@
   bottom: 60px;
   right: 24px;
   z-index: 9999;
-  width: 520px;
+  width: 820px;
+  height: auto;
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 140px);
@@ -716,7 +717,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .eml-compose-field {
@@ -867,8 +868,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  width: 680px;
-  max-height: 80vh;
+  width: 850px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0,0,0,0.25);
@@ -876,6 +877,64 @@
   overflow: hidden;
   animation: composeSlide 0.25s cubic-bezier(0.34,1.56,0.64,1);
 }
+
+.eml-compose-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.eml-compose-body app-rich-text-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.eml-compose-body app-rich-text-editor .rte-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.eml-compose-attach-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: var(--color-bg-1);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  max-width: 140px;
+}
+
+.eml-compose-attach-tag span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eml-compose-attach-tag i { color: var(--color-primary); font-size: 12px; }
+
+.eml-compose-attach-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-muted);
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.eml-compose-attach-tag button:hover { color: #ef4444; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {

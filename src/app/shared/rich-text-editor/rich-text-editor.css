@@ -1,0 +1,162 @@
+/* ── WRAPPER ── */
+.rte-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* ── LABEL ── */
+.rte-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.rte-req { color: #ef4444; margin-left: 2px; }
+
+/* ── CONTAINER ── */
+.rte-container {
+  border: 1.5px solid var(--color-border);
+  border-radius: 0;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--color-card);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.rte-editor {
+  background-color: var(--color-card);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.rte-container .ql-container {
+  border: none !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.rte-container .ql-editor {
+  flex: 1;
+  overflow-y: auto;
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: 12px 14px;
+  min-height: 0;
+}
+
+.rte-container.rte-focused {
+  /* border-color: var(--color-primary); */
+  box-shadow: none;
+}
+
+.rte-readonly .rte-container {
+  background-color: var(--color-bg-1);
+  opacity: 0.8;
+}
+
+/* ── TOOLBAR ── */
+.rte-toolbar {
+  border: none !important;
+  border-bottom: 1.5px solid var(--color-border) !important;
+  background-color: var(--color-bg-1) !important;
+  padding: 6px 10px !important;
+  flex-shrink: 0;
+}
+
+/* Override Quill toolbar styles */
+.rte-toolbar.ql-toolbar { border: none !important; }
+.rte-toolbar .ql-formats { margin-right: 10px !important; }
+
+.rte-toolbar .ql-stroke {
+  stroke: var(--color-muted) !important;
+}
+
+.rte-toolbar .ql-fill {
+  fill: var(--color-muted) !important;
+}
+
+.rte-toolbar .ql-picker-label {
+  color: var(--color-muted) !important;
+}
+
+.rte-toolbar button:hover .ql-stroke,
+.rte-toolbar .ql-active .ql-stroke {
+  stroke: var(--color-primary) !important;
+}
+
+.rte-toolbar button:hover .ql-fill,
+.rte-toolbar .ql-active .ql-fill {
+  fill: var(--color-primary) !important;
+}
+
+.rte-toolbar .ql-picker-label:hover,
+.rte-toolbar .ql-picker-label.ql-active {
+  color: var(--color-primary) !important;
+}
+
+/* ── EDITOR ── */
+.rte-editor {
+  background-color: var(--color-card);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Override Quill container */
+.rte-container .ql-container {
+  border: none !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+}
+
+.rte-container .ql-editor {
+  overflow-y: auto;
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: 12px 14px;
+}
+
+.rte-container .ql-editor.ql-blank::before {
+  color: var(--color-muted) !important;
+  font-style: normal !important;
+}
+
+/* Picker dropdowns */
+.rte-container .ql-picker-options {
+  background-color: var(--color-card) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.rte-container .ql-picker-item:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Code blocks */
+.rte-container .ql-editor pre.ql-syntax {
+  background-color: var(--color-bg-1);
+  border-radius: 6px;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* Blockquote */
+.rte-container .ql-editor blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 12px;
+  color: var(--color-muted);
+}

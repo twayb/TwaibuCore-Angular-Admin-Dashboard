@@ -1,0 +1,48 @@
+<div class="rte-wrap">
+  @if (label) {
+    <label class="rte-label">
+      {{ label }}
+      @if (required) { <span class="rte-req">*</span> }
+    </label>
+  }
+
+  <div class="rte-container" [class.rte-focused]="isFocused">
+
+    <!-- Toolbar -->
+    <div #toolbarContainer class="rte-toolbar">
+      <span class="ql-formats">
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+        <button class="ql-strike"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-blockquote"></button>
+        <button class="ql-code-block"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-header" value="1"></button>
+        <button class="ql-header" value="2"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-color"></select>
+        <select class="ql-background"></select>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-link"></button>
+        <button class="ql-image"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-clean"></button>
+      </span>
+    </div>
+
+    <!-- Editor -->
+    <div #editorContainer class="rte-editor"></div>
+
+  </div>
+</div>
