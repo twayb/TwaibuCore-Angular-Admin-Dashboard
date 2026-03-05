@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccordionComponent, AccordionItem } from '../../../shared/components/accordion/accordion';
 import { AlertsComponent } from '../../../shared/components/alerts/alerts';
 import { BadgesComponent } from '../../../shared/components/badges/badges';
@@ -19,6 +19,8 @@ import { SelectComponent, SelectOption } from '../../../shared/components/select
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner';
 import { StepperComponent, StepperStep } from '../../../shared/components/stepper/stepper';
 import { TabComponent, TabItem } from '../../../shared/components/tab/tab'; 
+import { ToastService } from '../../../core/services/toast';
+import { ToastComponent } from '../../../shared/components/toast/toast';
 
 interface ComponentNav {
   label: string;
@@ -32,13 +34,16 @@ interface ComponentNav {
   imports: [AccordionComponent, AlertsComponent, BadgesComponent, ButtonsComponent, 
     CardsComponent, BreadcrumbComponent, CheckboxComponent, 
     FormsModule, DropdownsComponent,InputsComponent, ListgroupComponent, ModalComponent,PaginationComponent,
-    PopoverComponent, ProgressbarComponent, SpinnerComponent, SelectComponent, StepperComponent, TabComponent],
+    PopoverComponent, ProgressbarComponent, SpinnerComponent, SelectComponent, StepperComponent, TabComponent,],
   templateUrl: './components-page.html',
   styleUrl: './components-page.css'
 })
 export class ComponentsPageComponent {
   activeComponent = 'accordion';
   loadingBtn = false;
+
+  // inject toast service
+toast = inject(ToastService);
 
   navItems: ComponentNav[] = [
     { label: 'Accordion',    icon: 'bi bi-chevron-down',         key: 'accordion' },
@@ -59,6 +64,7 @@ export class ComponentsPageComponent {
     { label: 'Spinner',      icon: 'bi bi-arrow-clockwise',      key: 'spinner' },
     { label: 'Stepper',      icon: 'bi bi-diagram-3',            key: 'stepper' },
     { label: 'Tabs',         icon: 'bi bi-folder-symlink',       key: 'tabs' },
+    { label: 'Toast',        icon: 'bi bi-bell',                 key: 'toast' }
   ];
 
   get activeLabel(): string {
@@ -318,5 +324,12 @@ activeTab3 = 'overview';
 activeTab4 = 'overview';
 activeTab5 = 'overview';
 activeTab6 = 'inbox';
+
+fireAllToasts() {
+  setTimeout(() => this.toast.success('Your changes have been saved!', 'Success'), 0);
+  setTimeout(() => this.toast.error('Something went wrong!', 'Error'), 300);
+  setTimeout(() => this.toast.warning('Please review your input!', 'Warning'), 600);
+  setTimeout(() => this.toast.info('Session expires in 5 minutes.', 'Info'), 900);
+}
 
 }
