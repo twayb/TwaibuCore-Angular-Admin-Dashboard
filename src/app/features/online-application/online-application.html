@@ -87,39 +87,131 @@
     </div>
 
     <!-- Right: Card widget -->
-    <div class="oas-hero-right">
-      <div class="oas-app-card oas-anim-card">
-        <div class="oas-app-card-top">
-          <div class="oas-app-card-label">
-            <i class="bi bi-circle-fill oas-pulse-dot"></i> Live Applications
-          </div>
-          <span class="oas-app-card-count">{{ allVacancies.length }} open</span>
+    <!-- Hero Illustration -->
+    <div class="oas-hero-right oas-anim-card">
+      <div class="oas-illustration-wrap">
+
+        <!-- Float badges -->
+        <div class="oas-float-badge oas-float-tl">
+          <i class="bi bi-patch-check-fill"></i> Official Portal
+        </div>
+        <div class="oas-float-badge oas-float-br">
+          <i class="bi bi-clock"></i> Closes Feb 28
         </div>
 
-        <div class="oas-vacancy-list">
-          @for (v of allVacancies.slice(0,5); track v.id; let i = $index) {
-            <div class="oas-vl-item" [style.animation-delay]="(i * 0.1 + 0.5) + 's'">
-              <div class="oas-vl-icon"><i class="bi bi-briefcase"></i></div>
-              <div class="oas-vl-info">
-                <div class="oas-vl-title">{{ v.post }}</div>
-                <div class="oas-vl-dept">{{ v.department }}</div>
-              </div>
-              <div class="oas-vl-posts">{{ v.numberOfPosts }} posts</div>
-            </div>
-          }
+        <!-- SVG Illustration: Person submitting a job application -->
+        <svg class="oas-illus-svg" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Job application illustration">
+
+          <!-- Background circle -->
+          <circle cx="240" cy="210" r="185" fill="var(--color-primary)" opacity="0.06"/>
+          <circle cx="240" cy="210" r="145" fill="var(--color-primary)" opacity="0.05"/>
+
+          <!-- Desk -->
+          <rect x="80" y="300" width="320" height="14" rx="7" fill="var(--color-primary)" opacity="0.15"/>
+          <rect x="110" y="314" width="18" height="55" rx="6" fill="var(--color-primary)" opacity="0.10"/>
+          <rect x="352" y="314" width="18" height="55" rx="6" fill="var(--color-primary)" opacity="0.10"/>
+
+          <!-- Laptop base -->
+          <rect x="145" y="230" width="190" height="72" rx="10" fill="var(--color-card)" stroke="var(--color-border)" stroke-width="2"/>
+          <!-- Laptop screen -->
+          <rect x="155" y="190" width="170" height="105" rx="8" fill="var(--color-primary)" opacity="0.90"/>
+          <rect x="163" y="198" width="154" height="90" rx="5" fill="var(--oas-illus-screen, #1e3a8a)" opacity="0.85"/>
+          <!-- Screen lines (form) -->
+          <rect x="172" y="210" width="80" height="6" rx="3" fill="white" opacity="0.7"/>
+          <rect x="172" y="222" width="110" height="5" rx="2.5" fill="white" opacity="0.4"/>
+          <rect x="172" y="233" width="95" height="5" rx="2.5" fill="white" opacity="0.4"/>
+          <rect x="172" y="244" width="60" height="5" rx="2.5" fill="white" opacity="0.4"/>
+          <!-- Submit button on screen -->
+          <rect x="172" y="258" width="55" height="18" rx="5" fill="white" opacity="0.9"/>
+          <rect x="178" y="263" width="43" height="8" rx="3" fill="var(--color-primary)" opacity="0.8"/>
+          <!-- Laptop hinge -->
+          <rect x="145" y="295" width="190" height="8" rx="4" fill="var(--color-border)"/>
+          <!-- Keyboard dots -->
+          <rect x="160" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="173" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="186" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="199" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="212" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="225" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="238" y="248" width="30" height="5" rx="2" fill="var(--color-border)" opacity="0.4"/>
+          <rect x="273" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="286" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="299" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+          <rect x="312" y="248" width="8" height="5" rx="2" fill="var(--color-border)" opacity="0.5"/>
+
+          <!-- Document floating -->
+          <g class="oas-illus-doc">
+            <rect x="316" y="148" width="78" height="98" rx="8" fill="white" stroke="var(--color-border)" stroke-width="1.5"/>
+            <rect x="326" y="164" width="48" height="5" rx="2.5" fill="var(--color-primary)" opacity="0.7"/>
+            <rect x="326" y="175" width="58" height="4" rx="2" fill="var(--color-border)"/>
+            <rect x="326" y="184" width="52" height="4" rx="2" fill="var(--color-border)"/>
+            <rect x="326" y="193" width="40" height="4" rx="2" fill="var(--color-border)"/>
+            <rect x="326" y="204" width="55" height="4" rx="2" fill="var(--color-border)"/>
+            <!-- Checkmark badge on doc -->
+            <circle cx="379" cy="155" r="12" fill="var(--color-primary)"/>
+            <polyline points="373,155 377,160 385,150" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- Person: body -->
+          <ellipse cx="200" cy="290" rx="38" ry="14" fill="var(--color-primary)" opacity="0.12"/>
+          <!-- Chair -->
+          <rect x="178" y="272" width="44" height="8" rx="4" fill="var(--color-primary)" opacity="0.15"/>
+          <rect x="192" y="280" width="16" height="28" rx="4" fill="var(--color-primary)" opacity="0.12"/>
+          <!-- Torso -->
+          <rect x="182" y="220" width="36" height="52" rx="14" fill="var(--color-primary)" opacity="0.75"/>
+          <!-- Shirt detail -->
+          <rect x="196" y="228" width="8" height="20" rx="3" fill="white" opacity="0.3"/>
+          <!-- Arms -->
+          <path d="M182 238 Q158 248 152 268" stroke="var(--color-primary)" stroke-width="14" stroke-linecap="round" opacity="0.75"/>
+          <path d="M218 238 Q238 248 248 262" stroke="var(--color-primary)" stroke-width="14" stroke-linecap="round" opacity="0.75"/>
+          <!-- Hands -->
+          <circle cx="150" cy="270" r="9" fill="var(--oas-illus-skin, #FBBF7A)"/>
+          <circle cx="250" cy="264" r="9" fill="var(--oas-illus-skin, #FBBF7A)"/>
+          <!-- Head -->
+          <circle cx="200" cy="194" r="30" fill="var(--oas-illus-skin, #FBBF7A)"/>
+          <!-- Hair -->
+          <path d="M172 188 Q174 164 200 162 Q226 164 228 188 Q220 178 200 178 Q180 178 172 188Z" fill="#3b2314" opacity="0.85"/>
+          <!-- Eyes -->
+          <ellipse cx="191" cy="194" rx="3.5" ry="4" fill="#3b2314"/>
+          <ellipse cx="209" cy="194" rx="3.5" ry="4" fill="#3b2314"/>
+          <!-- Eye shine -->
+          <circle cx="193" cy="192" r="1.2" fill="white"/>
+          <circle cx="211" cy="192" r="1.2" fill="white"/>
+          <!-- Smile -->
+          <path d="M193 203 Q200 210 207 203" stroke="#3b2314" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+          <!-- Floating sparkles -->
+          <g class="oas-illus-sparkle1">
+            <circle cx="96" cy="160" r="4" fill="var(--color-primary)" opacity="0.5"/>
+            <circle cx="96" cy="160" r="7" fill="var(--color-primary)" opacity="0.15"/>
+          </g>
+          <g class="oas-illus-sparkle2">
+            <circle cx="390" cy="240" r="3" fill="#10b981" opacity="0.5"/>
+            <circle cx="390" cy="240" r="6" fill="#10b981" opacity="0.15"/>
+          </g>
+          <g class="oas-illus-sparkle3">
+            <circle cx="120" cy="270" r="3" fill="var(--color-primary)" opacity="0.4"/>
+          </g>
+          <g class="oas-illus-sparkle4">
+            <circle cx="370" cy="175" r="5" fill="#f59e0b" opacity="0.45"/>
+            <circle cx="370" cy="175" r="8" fill="#f59e0b" opacity="0.12"/>
+          </g>
+
+          <!-- Send/arrow indicator -->
+          <g class="oas-illus-send">
+            <circle cx="310" cy="260" r="18" fill="var(--color-primary)" opacity="0.12"/>
+            <circle cx="310" cy="260" r="13" fill="var(--color-primary)" opacity="0.20"/>
+            <path d="M303 260 L317 260 M311 253 L318 260 L311 267" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+        </svg>
+
+        <!-- Caption -->
+        <div class="oas-illus-caption">
+          <i class="bi bi-send-check-fill"></i>
+          Apply for judicial positions digitally
         </div>
 
-        <button class="oas-card-cta" (click)="scrollTo('vacancies')">
-          View All Vacancies <i class="bi bi-arrow-right"></i>
-        </button>
-      </div>
-
-      <!-- Float badges -->
-      <div class="oas-float-badge oas-float-tl">
-        <i class="bi bi-patch-check-fill"></i> Official Portal
-      </div>
-      <div class="oas-float-badge oas-float-br">
-        <i class="bi bi-clock"></i> Closes Feb 28
       </div>
     </div>
 
