@@ -1,0 +1,434 @@
+<!-- ── SUCCESS STATE ── -->
+@if (submitted) {
+  <div class="rc-success">
+    <div class="rc-success-inner">
+      <div class="rc-success-icon">
+        <i class="bi bi-check-lg"></i>
+      </div>
+      <div class="rc-success-badge">Complaint Submitted</div>
+      <h1 class="rc-success-title">Your Voice Has Been Heard</h1>
+      <p class="rc-success-desc">
+        Your complaint has been successfully registered and assigned to the relevant department.
+        You will receive updates via SMS and email.
+      </p>
+
+      <div class="rc-ref-card">
+        <div class="rc-ref-label">Your Reference Number</div>
+        <div class="rc-ref-number">{{ refNumber }}</div>
+        <div class="rc-ref-hint">Save this number to track your complaint status</div>
+      </div>
+
+      <div class="rc-success-steps">
+        <div class="rc-ss-item">
+          <div class="rc-ss-icon"><i class="bi bi-check-circle-fill"></i></div>
+          <div>
+            <h4>Complaint Received</h4>
+            <p>Your case has been logged in our system</p>
+          </div>
+        </div>
+        <div class="rc-ss-item">
+          <div class="rc-ss-icon rc-ss-pending"><i class="bi bi-clock"></i></div>
+          <div>
+            <h4>Under Review</h4>
+            <p>A case officer will be assigned within 24 hours</p>
+          </div>
+        </div>
+        <div class="rc-ss-item">
+          <div class="rc-ss-icon rc-ss-pending"><i class="bi bi-tools"></i></div>
+          <div>
+            <h4>Resolution in Progress</h4>
+            <p>Field inspection and action will be taken</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc-success-actions">
+        <button class="rc-btn-primary" (click)="trackComplaint()">
+          <i class="bi bi-search"></i> Track My Complaint
+        </button>
+        <button class="rc-btn-outline" (click)="backToPortal()">
+          <i class="bi bi-arrow-left"></i> Back to Portal
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ── MAIN FORM ── -->
+@if (!submitted) {
+  <div class="rc-page">
+
+    <!-- Header -->
+    <div class="rc-header">
+      <div class="rc-header-inner">
+        <a (click)="backToPortal()" class="rc-back">
+          <i class="bi bi-arrow-left"></i> Back to Portal
+        </a>
+        <div class="rc-header-brand">
+          <div class="rc-brand-icon"><i class="bi bi-megaphone-fill"></i></div>
+          <span class="rc-brand-name">VoiceIt</span>
+        </div>
+        <div class="rc-header-help">
+          <i class="bi bi-question-circle"></i> Help
+        </div>
+      </div>
+    </div>
+
+    <div class="rc-body">
+
+      <!-- Stepper -->
+      <div class="rc-stepper">
+        <div class="rc-stepper-inner">
+          <div class="rc-progress-track">
+            <div class="rc-progress-fill" [style.width]="progress + '%'"></div>
+          </div>
+          @for (s of steps; track s.num) {
+            <div class="rc-step" [class.rc-step-done]="currentStep > s.num" [class.rc-step-active]="currentStep === s.num" (click)="goToStep(s.num)">
+              <div class="rc-step-bubble">
+                @if (currentStep > s.num) {
+                  <i class="bi bi-check-lg"></i>
+                } @else {
+                  <span>{{ s.num }}</span>
+                }
+              </div>
+              <div class="rc-step-label">{{ s.label }}</div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Form area -->
+      <div class="rc-form-wrap">
+
+        <!-- ── STEP 1: CATEGORY ── -->
+        @if (currentStep === 1) {
+          <div class="rc-step-panel">
+            <div class="rc-panel-header">
+              <h2 class="rc-panel-title">Select a Category</h2>
+              <p class="rc-panel-desc">Choose the category that best describes your complaint. This helps us route it to the right department.</p>
+            </div>
+
+            <div class="rc-cat-grid">
+              @for (c of categories; track c.id) {
+                <div class="rc-cat-card" [class.rc-cat-selected]="form.category === c.id" (click)="selectCategory(c.id)">
+                  <div class="rc-cat-icon" [class]="'rc-icon-'+c.color"><i [class]="c.icon"></i></div>
+                  <div class="rc-cat-label">{{ c.label }}</div>
+                  @if (form.category === c.id) {
+                    <div class="rc-cat-check"><i class="bi bi-check-lg"></i></div>
+                  }
+                </div>
+              }
+            </div>
+
+            @if (selectedCategory) {
+              <div class="rc-sub-section">
+                <label class="rc-label">Sub-category <span class="rc-req">*</span></label>
+                <div class="rc-sub-grid">
+                  @for (sub of selectedCategory.subs; track sub) {
+                    <div class="rc-sub-chip" [class.rc-sub-selected]="form.subcategory === sub" (click)="form.subcategory = sub">
+                      {{ sub }}
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ── STEP 2: DETAILS ── -->
+        @if (currentStep === 2) {
+          <div class="rc-step-panel">
+            <div class="rc-panel-header">
+              <h2 class="rc-panel-title">Complaint Details</h2>
+              <p class="rc-panel-desc">Provide as much detail as possible. A clear description helps us resolve your complaint faster.</p>
+            </div>
+
+            <div class="rc-form-grid">
+              <div class="rc-field rc-field-full">
+                <label class="rc-label">Complaint Title <span class="rc-req">*</span></label>
+                <input class="rc-input" type="text" [(ngModel)]="form.title"
+                  placeholder="e.g. No water supply for 3 days in Block 5">
+              </div>
+
+              <div class="rc-field rc-field-full">
+                <label class="rc-label">Description <span class="rc-req">*</span></label>
+                <textarea class="rc-input rc-textarea" [(ngModel)]="form.description"
+                  placeholder="Describe the issue in detail — when it started, how it affects you, what you've already tried..."
+                  rows="5"></textarea>
+                <div class="rc-field-hint">{{ form.description.length }}/1000 characters</div>
+              </div>
+
+              <div class="rc-field rc-field-full">
+                <label class="rc-label">Street / Location <span class="rc-req">*</span></label>
+                <div class="rc-input-icon-wrap">
+                  <i class="bi bi-geo-alt rc-input-icon"></i>
+                  <input class="rc-input rc-input-with-icon" type="text" [(ngModel)]="form.location"
+                    placeholder="e.g. Msasani Road, Block 5, near the central junction">
+                </div>
+              </div>
+
+              <div class="rc-field">
+                <label class="rc-label">District <span class="rc-req">*</span></label>
+                <select class="rc-input rc-select" [(ngModel)]="form.district">
+                  <option value="">Select district...</option>
+                  @for (d of districts; track d) {
+                    <option [value]="d">{{ d }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="rc-field">
+                <label class="rc-label">Urgency Level</label>
+                <div class="rc-urgency-grid">
+                  @for (u of urgencies; track u.id) {
+                    <div class="rc-urgency-card" [class.rc-urgency-selected]="form.urgency === u.id"
+                         [class]="'rc-urgency-card rc-urg-border-'+u.color + (form.urgency === u.id ? ' rc-urgency-selected' : '')"
+                         (click)="form.urgency = u.id">
+                      <div class="rc-urg-label" [class]="'rc-urg-'+u.color">{{ u.label }}</div>
+                      <div class="rc-urg-desc">{{ u.desc }}</div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- ── STEP 3: EVIDENCE ── -->
+        @if (currentStep === 3) {
+          <div class="rc-step-panel">
+            <div class="rc-panel-header">
+              <h2 class="rc-panel-title">Attach Evidence</h2>
+              <p class="rc-panel-desc">Upload photos, videos, or documents that support your complaint. This is optional but helps speed up resolution.</p>
+            </div>
+
+            <!-- Drop zone -->
+            <div class="rc-dropzone" [class.rc-dropzone-active]="dragOver"
+              (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+              <div class="rc-dz-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+              <div class="rc-dz-title">Drop files here or click to browse</div>
+              <div class="rc-dz-hint">Supports: JPG, PNG, PDF, MP4 · Max 5 files · 10MB each</div>
+              <label class="rc-btn-primary rc-dz-btn">
+                <i class="bi bi-folder2-open"></i> Browse Files
+                <input type="file" multiple accept="image/*,.pdf,video/*" style="display:none" (change)="onFileChange($event)">
+              </label>
+            </div>
+
+            <!-- File list -->
+            @if (form.files.length > 0) {
+              <div class="rc-file-list">
+                @for (f of form.files; track f.name; let i = $index) {
+                  <div class="rc-file-item">
+                    <div class="rc-file-icon"><i [class]="fileIcon(f)"></i></div>
+                    <div class="rc-file-info">
+                      <div class="rc-file-name">{{ f.name }}</div>
+                      <div class="rc-file-size">{{ fileSize(f.size) }}</div>
+                    </div>
+                    <button class="rc-file-remove" (click)="removeFile(i)">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+
+            <div class="rc-evidence-note">
+              <i class="bi bi-info-circle"></i>
+              Evidence is optional but increases the chance of faster resolution by up to 60%.
+            </div>
+          </div>
+        }
+
+        <!-- ── STEP 4: CONTACT ── -->
+        @if (currentStep === 4) {
+          <div class="rc-step-panel">
+            <div class="rc-panel-header">
+              <h2 class="rc-panel-title">Your Contact Info</h2>
+              <p class="rc-panel-desc">We need your contact details to send you updates. You can also file anonymously.</p>
+            </div>
+
+            <!-- Anonymous toggle -->
+            <div class="rc-anon-card" [class.rc-anon-active]="form.anonymous" (click)="form.anonymous = !form.anonymous">
+              <div class="rc-anon-left">
+                <div class="rc-anon-icon"><i class="bi bi-incognito"></i></div>
+                <div>
+                  <h4 class="rc-anon-title">File Anonymously</h4>
+                  <p class="rc-anon-desc">Your identity will be kept private. You won't receive status updates.</p>
+                </div>
+              </div>
+              <div class="rc-toggle" [class.rc-toggle-on]="form.anonymous">
+                <div class="rc-toggle-thumb"></div>
+              </div>
+            </div>
+
+            @if (!form.anonymous) {
+              <div class="rc-form-grid">
+                <div class="rc-field">
+                  <label class="rc-label">First Name <span class="rc-req">*</span></label>
+                  <input class="rc-input" type="text" [(ngModel)]="form.firstName" placeholder="e.g. James">
+                </div>
+                <div class="rc-field">
+                  <label class="rc-label">Last Name <span class="rc-req">*</span></label>
+                  <input class="rc-input" type="text" [(ngModel)]="form.lastName" placeholder="e.g. Okafor">
+                </div>
+                <div class="rc-field">
+                  <label class="rc-label">Phone Number <span class="rc-req">*</span></label>
+                  <div class="rc-input-icon-wrap">
+                    <i class="bi bi-phone rc-input-icon"></i>
+                    <input class="rc-input rc-input-with-icon" type="tel" [(ngModel)]="form.phone" placeholder="+255 7XX XXX XXX">
+                  </div>
+                </div>
+                <div class="rc-field">
+                  <label class="rc-label">Email Address</label>
+                  <div class="rc-input-icon-wrap">
+                    <i class="bi bi-envelope rc-input-icon"></i>
+                    <input class="rc-input rc-input-with-icon" type="email" [(ngModel)]="form.email" placeholder="james@example.com">
+                  </div>
+                </div>
+              </div>
+
+              <div class="rc-privacy-note">
+                <i class="bi bi-lock-fill"></i>
+                Your personal information is protected under our Privacy Policy and will only be used for case updates.
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ── STEP 5: REVIEW ── -->
+        @if (currentStep === 5) {
+          <div class="rc-step-panel">
+            <div class="rc-panel-header">
+              <h2 class="rc-panel-title">Review & Submit</h2>
+              <p class="rc-panel-desc">Please review your complaint before submitting. You can go back to edit any section.</p>
+            </div>
+
+            <div class="rc-review-grid">
+
+              <!-- Category -->
+              <div class="rc-review-card">
+                <div class="rc-review-card-header">
+                  <span class="rc-review-card-title"><i class="bi bi-grid"></i> Category</span>
+                  <button class="rc-review-edit" (click)="goToStep(1)"><i class="bi bi-pencil"></i> Edit</button>
+                </div>
+                <div class="rc-review-body">
+                  <div class="rc-review-row">
+                    <span class="rc-review-key">Category</span>
+                    <span class="rc-review-val">{{ selectedCategory?.label }}</span>
+                  </div>
+                  <div class="rc-review-row">
+                    <span class="rc-review-key">Sub-category</span>
+                    <span class="rc-review-val">{{ form.subcategory }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Details -->
+              <div class="rc-review-card">
+                <div class="rc-review-card-header">
+                  <span class="rc-review-card-title"><i class="bi bi-card-text"></i> Details</span>
+                  <button class="rc-review-edit" (click)="goToStep(2)"><i class="bi bi-pencil"></i> Edit</button>
+                </div>
+                <div class="rc-review-body">
+                  <div class="rc-review-row">
+                    <span class="rc-review-key">Title</span>
+                    <span class="rc-review-val">{{ form.title }}</span>
+                  </div>
+                  <div class="rc-review-row">
+                    <span class="rc-review-key">Location</span>
+                    <span class="rc-review-val">{{ form.location }}, {{ form.district }}</span>
+                  </div>
+                  <div class="rc-review-row">
+                    <span class="rc-review-key">Urgency</span>
+                    <span class="rc-review-val rc-review-urgency" [class]="'rc-urg-'+form.urgency">{{ form.urgency | titlecase }}</span>
+                  </div>
+                  <div class="rc-review-row rc-review-desc-row">
+                    <span class="rc-review-key">Description</span>
+                    <span class="rc-review-val rc-review-desc">{{ form.description }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Evidence -->
+              <div class="rc-review-card">
+                <div class="rc-review-card-header">
+                  <span class="rc-review-card-title"><i class="bi bi-paperclip"></i> Evidence</span>
+                  <button class="rc-review-edit" (click)="goToStep(3)"><i class="bi bi-pencil"></i> Edit</button>
+                </div>
+                <div class="rc-review-body">
+                  @if (form.files.length === 0) {
+                    <span class="rc-review-none">No files attached</span>
+                  } @else {
+                    @for (f of form.files; track f.name) {
+                      <div class="rc-review-file">
+                        <i [class]="fileIcon(f)"></i> {{ f.name }}
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+
+              <!-- Contact -->
+              <div class="rc-review-card">
+                <div class="rc-review-card-header">
+                  <span class="rc-review-card-title"><i class="bi bi-person"></i> Contact</span>
+                  <button class="rc-review-edit" (click)="goToStep(4)"><i class="bi bi-pencil"></i> Edit</button>
+                </div>
+                <div class="rc-review-body">
+                  @if (form.anonymous) {
+                    <div class="rc-review-anon"><i class="bi bi-incognito"></i> Filing anonymously</div>
+                  } @else {
+                    <div class="rc-review-row">
+                      <span class="rc-review-key">Name</span>
+                      <span class="rc-review-val">{{ form.firstName }} {{ form.lastName }}</span>
+                    </div>
+                    <div class="rc-review-row">
+                      <span class="rc-review-key">Phone</span>
+                      <span class="rc-review-val">{{ form.phone }}</span>
+                    </div>
+                    @if (form.email) {
+                      <div class="rc-review-row">
+                        <span class="rc-review-key">Email</span>
+                        <span class="rc-review-val">{{ form.email }}</span>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+
+            </div>
+
+            <div class="rc-submit-note">
+              <i class="bi bi-shield-check"></i>
+              By submitting, you confirm this complaint is accurate and truthful. False complaints may result in legal action.
+            </div>
+          </div>
+        }
+
+        <!-- ── NAV BUTTONS ── -->
+        <div class="rc-nav-btns">
+          @if (currentStep > 1) {
+            <button class="rc-btn-outline" (click)="prev()">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          } @else {
+            <button class="rc-btn-outline" (click)="backToPortal()">
+              <i class="bi bi-arrow-left"></i> Cancel
+            </button>
+          }
+
+          @if (currentStep < totalSteps) {
+            <button class="rc-btn-primary" (click)="next()" [disabled]="!canNext">
+              Continue <i class="bi bi-arrow-right"></i>
+            </button>
+          } @else {
+            <button class="rc-btn-submit" (click)="submit()">
+              <i class="bi bi-send-fill"></i> Submit Complaint
+            </button>
+          }
+        </div>
+
+      </div>
+    </div>
+  </div>
+}

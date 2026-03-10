@@ -1,0 +1,288 @@
+<!-- ── NAVBAR ── -->
+<nav class="cp-nav" [class.cp-nav-scrolled]="scrolled">
+  <a class="cp-nav-logo" href="#">
+    <div class="cp-logo-icon"><i class="bi bi-megaphone-fill"></i></div>
+    <span class="cp-logo-text">VoiceIt</span>
+  </a>
+  <ul class="cp-nav-links" [class.cp-nav-open]="menuOpen">
+    <li><a (click)="scrollTo('features');   menuOpen=false">Features</a></li>
+    <li><a (click)="scrollTo('how');        menuOpen=false">How It Works</a></li>
+    <li><a (click)="scrollTo('categories'); menuOpen=false">Categories</a></li>
+    <li><a (click)="scrollTo('contact');    menuOpen=false">Contact</a></li>
+  </ul>
+
+  <div class="cp-nav-cta">
+    <a routerLink="/landing/track-complaint" class="cp-btn-outline">Track Complaint</a>
+    <a routerLink="/landing/register-complaint" class="cp-btn-red">File a Complaint</a>
+    <button class="cp-hamburger" (click)="menuOpen=!menuOpen">
+      <i [class]="menuOpen ? 'bi bi-x-lg' : 'bi bi-list'"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="cp-hero">
+  <div class="cp-hero-pattern"></div>
+  <div class="cp-hero-shape"></div>
+
+  <div class="cp-hero-inner">
+    <!-- Left -->
+    <div class="cp-hero-left">
+      <div class="cp-hero-eyebrow">
+        <i class="bi bi-shield-check"></i> Official Complaints Portal
+      </div>
+      <h1 class="cp-hero-title">
+        Your Voice<br>
+        <span class="cp-red">Deserves</span><br>
+        To Be Heard.
+      </h1>
+      <p class="cp-hero-desc">
+        File, track, and resolve complaints with full transparency. Our platform connects citizens with the right
+        departments and ensures every issue gets the attention it deserves.
+      </p>
+      <div class="cp-hero-actions">
+        <a routerLink="/landing/register-complaint" class="cp-btn-red cp-btn-lg">
+          <i class="bi bi-plus-circle"></i> File a Complaint
+        </a>
+        <a routerLink="/landing/track-complaint" class="cp-btn-outline cp-btn-lg">
+          <i class="bi bi-search"></i> Track Status
+        </a>
+      </div>
+      <div class="cp-hero-trust">
+        <div class="cp-trust-avatars">
+          <div class="cp-avatar" style="background:#dc2626">AH</div>
+          <div class="cp-avatar" style="background:#f97316">JK</div>
+          <div class="cp-avatar" style="background:#16a34a">SM</div>
+          <div class="cp-avatar" style="background:#7c3aed">PM</div>
+        </div>
+        <div class="cp-trust-text">
+          <strong>24,000+</strong> complaints successfully resolved this year
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Live Complaints Card -->
+    <div class="cp-hero-right">
+      <div class="cp-complaints-card">
+        <div class="cp-card-header">
+          <div class="cp-card-header-icon"><i class="bi bi-clipboard-check"></i></div>
+          <div>
+            <h3 class="cp-card-header-title">Active Complaints</h3>
+            <p class="cp-card-header-sub">Updated just now</p>
+          </div>
+        </div>
+
+        <div class="cp-card-body">
+          @for (c of complaints; track c.ref) {
+          <div class="cp-complaint-row">
+            <div class="cp-complaint-icon" [class]="'cp-icon-'+c.color">
+              <i [class]="c.icon"></i>
+            </div>
+            <div class="cp-complaint-info">
+              <div class="cp-complaint-title">{{ c.title }}</div>
+              <div class="cp-complaint-ref">Ref {{ c.ref }} · {{ c.days }}</div>
+            </div>
+            <span class="cp-status-badge" [class]="'cp-status-'+c.statusColor">{{ c.status }}</span>
+          </div>
+          }
+        </div>
+
+        <div class="cp-card-footer">
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#dc2626">142</div>
+            <div class="cp-footer-stat-label">Open</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#f97316">89</div>
+            <div class="cp-footer-stat-label">In Progress</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#16a34a">2,847</div>
+            <div class="cp-footer-stat-label">Resolved</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value">94%</div>
+            <div class="cp-footer-stat-label">Resolution Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="cp-features" id="features">
+  <div class="cp-section-inner">
+    <div class="cp-section-header cp-reveal">
+      <div class="cp-section-tag"><i class="bi bi-stars"></i> Why VoiceIt</div>
+      <h2 class="cp-section-title">A Smarter Way to<br>Resolve Complaints</h2>
+      <p class="cp-section-desc">Designed to make the complaint process transparent, fast, and effective for everyone.
+      </p>
+    </div>
+
+    <div class="cp-features-grid">
+      @for (f of features; track f.title; let i = $index) {
+      <div class="cp-feat-card cp-reveal" [style.transition-delay]="(i * 0.06) + 's'">
+        <div class="cp-feat-icon" [class]="'cp-icon-'+f.color"><i [class]="f.icon"></i></div>
+        <h3 class="cp-feat-title">{{ f.title }}</h3>
+        <p class="cp-feat-desc">{{ f.desc }}</p>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="cp-hiw" id="how">
+  <div class="cp-hiw-inner">
+    <!-- Steps side -->
+    <div class="cp-reveal">
+      <div class="cp-section-tag"><i class="bi bi-diagram-3"></i> Simple Process</div>
+      <h2 class="cp-section-title">From Complaint to<br>Resolution in 4 Steps</h2>
+      <p class="cp-section-desc">Our streamlined process ensures every complaint reaches the right people and gets
+        resolved efficiently.</p>
+
+      <div class="cp-steps-list">
+        @for (s of steps; track s.num) {
+        <div class="cp-step-card">
+          <div class="cp-step-num">{{ s.num }}</div>
+          <div>
+            <h4 class="cp-step-title">{{ s.title }}</h4>
+            <p class="cp-step-desc">{{ s.desc }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Ticket card -->
+    <div class="cp-reveal">
+      <div class="cp-ticket-card">
+        <div class="cp-ticket-header">
+          <span class="cp-ticket-ref">Case #CP-2024-0891</span>
+          <span class="cp-ticket-tag">In Progress</span>
+        </div>
+
+        <div class="cp-ticket-body">
+          <h3 class="cp-ticket-title">Water Supply Interruption — Kinondoni District</h3>
+          <p class="cp-ticket-desc">Residents in Block 5 have been without water supply for 3 consecutive days. The main
+            pipe appears to be damaged near the central junction.</p>
+
+          <div class="cp-timeline">
+            @for (t of timeline; track t.title) {
+            <div class="cp-tl-item">
+              <div class="cp-tl-dot" [class]="'cp-tl-'+t.state"><i [class]="t.icon"></i></div>
+              <div class="cp-tl-text">
+                <h5>{{ t.title }}</h5>
+                <p>{{ t.sub }}</p>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="cp-ticket-footer">
+          <div class="cp-ticket-assignee">
+            <div class="cp-ticket-avatar">AH</div>
+            <div>
+              <strong class="cp-assignee-name">Amina Hassan</strong>
+              <span class="cp-assignee-role">Case Officer · Water Dept.</span>
+            </div>
+          </div>
+          <a href="#" class="cp-btn-red" style="font-size:13px;padding:7px 14px">
+            Message Officer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATEGORIES ── -->
+<section class="cp-categories" id="categories">
+  <div class="cp-section-inner">
+    <div class="cp-section-header cp-reveal">
+      <div class="cp-section-tag"><i class="bi bi-grid"></i> Complaint Categories</div>
+      <h2 class="cp-section-title">What Can You Report?</h2>
+      <p class="cp-section-desc" style="max-width:480px;margin:0 auto">From infrastructure to public services — every
+        issue has a category and a responsible department.</p>
+    </div>
+
+    <div class="cp-categories-grid cp-reveal">
+      @for (c of categories; track c.name) {
+      <div class="cp-cat-card">
+        <div class="cp-cat-icon" [class]="'cp-icon-'+c.color"><i [class]="c.icon"></i></div>
+        <div class="cp-cat-name">{{ c.name }}</div>
+        <div class="cp-cat-count">{{ c.count }}</div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cp-cta">
+  <div class="cp-cta-inner cp-reveal">
+    <div class="cp-cta-tag"><i class="bi bi-megaphone"></i> Your Rights Matter</div>
+    <h2 class="cp-cta-title">Make Your Voice<br>Count Today</h2>
+    <p class="cp-cta-desc">Every complaint filed is a step toward a better community. Join thousands of citizens
+      actively shaping public services through VoiceIt.</p>
+    <div class="cp-cta-actions">
+     <a routerLink="/landing/register-complaint" class="cp-btn-white cp-btn-lg"><i class="bi bi-plus-circle"></i> File a Complaint</a>
+<a routerLink="/landing/track-complaint" class="cp-btn-transparent cp-btn-lg"><i class="bi bi-search"></i> Track My Case</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="cp-footer" id="contact">
+  <div class="cp-footer-inner">
+    <div class="cp-footer-top">
+      <div class="cp-footer-brand">
+        <div class="cp-footer-logo">
+          <div class="cp-logo-icon"><i class="bi bi-megaphone-fill"></i></div>
+          <span class="cp-logo-text" style="color:white">VoiceIt</span>
+        </div>
+        <p>The official citizens' complaint portal. Transparent, fast, and effective resolution for every community
+          concern.</p>
+      </div>
+      <div class="cp-footer-col">
+        <h4>Portal</h4>
+        <ul>
+          <li><a href="#">File Complaint</a></li>
+          <li><a href="#">Track Status</a></li>
+          <li><a href="#">View Statistics</a></li>
+          <li><a href="#">Annual Reports</a></li>
+        </ul>
+      </div>
+      <div class="cp-footer-col">
+        <h4>Departments</h4>
+        <ul>
+          <li><a href="#">Water Authority</a></li>
+          <li><a href="#">Roads Agency</a></li>
+          <li><a href="#">Health Ministry</a></li>
+          <li><a href="#">Local Government</a></li>
+        </ul>
+      </div>
+      <div class="cp-footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cp-footer-bottom">
+      <span>© 2026 VoiceIt Complaint Portal. All rights reserved.</span>
+      <div class="cp-footer-socials">
+        <a href="#" class="cp-social-btn"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="cp-social-btn"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="cp-social-btn"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="cp-social-btn"><i class="bi bi-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>

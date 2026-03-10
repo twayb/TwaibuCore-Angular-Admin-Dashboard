@@ -1,0 +1,283 @@
+<!-- ── HEADER ── -->
+<div class="tc-header">
+  <div class="tc-header-inner">
+    <a (click)="backToPortal()" class="tc-back">
+      <i class="bi bi-arrow-left"></i> Back to Portal
+    </a>
+    <div class="tc-header-brand">
+      <div class="tc-brand-icon"><i class="bi bi-megaphone-fill"></i></div>
+      <span class="tc-brand-name">VoiceIt</span>
+    </div>
+    <a (click)="fileNew()" class="tc-header-file">
+      <i class="bi bi-plus-circle"></i> File New
+    </a>
+  </div>
+</div>
+
+<!-- ── PAGE ── -->
+<div class="tc-page">
+
+  <!-- Search section -->
+  <div class="tc-search-section">
+    <div class="tc-search-inner">
+      <div class="tc-search-badge"><i class="bi bi-search"></i> Track Your Complaint</div>
+      <h1 class="tc-search-title">Check Your Case Status</h1>
+      <p class="tc-search-desc">Enter your reference number to view the current status and updates on your complaint.</p>
+
+      <div class="tc-search-box">
+        <div class="tc-search-input-wrap">
+          <i class="bi bi-hash tc-search-icon"></i>
+          <input
+            class="tc-search-input"
+            type="text"
+            [(ngModel)]="refInput"
+            placeholder="e.g. CP-2026-1234"
+            (keyup.enter)="search()"
+          >
+          @if (refInput) {
+            <button class="tc-search-clear" (click)="reset()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          }
+        </div>
+        <button class="tc-search-btn" (click)="search()" [disabled]="loading || !refInput.trim()">
+          @if (loading) {
+            <span class="tc-spinner"></span> Searching...
+          } @else {
+            <i class="bi bi-search"></i> Track
+          }
+        </button>
+      </div>
+
+      <div class="tc-demo-hint">
+        <i class="bi bi-info-circle"></i>
+        Try demo: <span class="tc-demo-code" (click)="refInput='CP-2026-1234'; search()">CP-2026-1234</span>
+        or <span class="tc-demo-code" (click)="refInput='CP-2026-5678'; search()">CP-2026-5678</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LOADING ── -->
+  @if (loading) {
+    <div class="tc-loading">
+      <div class="tc-loading-spinner"></div>
+      <div class="tc-loading-text">Looking up your complaint...</div>
+    </div>
+  }
+
+  <!-- ── NOT FOUND ── -->
+  @if (searched && notFound) {
+    <div class="tc-not-found">
+      <div class="tc-nf-icon"><i class="bi bi-search"></i></div>
+      <h3 class="tc-nf-title">No Complaint Found</h3>
+      <p class="tc-nf-desc">We couldn't find a complaint with reference number <strong>{{ refInput }}</strong>. Please check the number and try again.</p>
+      <div class="tc-nf-actions">
+        <button class="tc-btn-outline" (click)="reset()">Try Again</button>
+        <button class="tc-btn-red" (click)="fileNew()">
+          <i class="bi bi-plus-circle"></i> File New Complaint
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ── RESULT ── -->
+  @if (result) {
+    <div class="tc-result">
+
+      <!-- Status banner -->
+      <div class="tc-status-banner" [class]="'tc-banner-'+result.statusColor">
+        <div class="tc-sb-left">
+          <div class="tc-sb-icon" [class]="'tc-icon-'+result.categoryColor">
+            <i [class]="result.categoryIcon"></i>
+          </div>
+          <div>
+            <div class="tc-sb-ref">{{ result.ref }}</div>
+            <div class="tc-sb-title">{{ result.title }}</div>
+          </div>
+        </div>
+        <div class="tc-sb-right">
+          <div class="tc-sb-status" [class]="'tc-status-'+result.statusColor">
+            <span class="tc-status-dot"></span>
+            {{ result.status }}
+          </div>
+          <div class="tc-sb-days">Open for {{ result.daysOpen }} days</div>
+        </div>
+      </div>
+
+      <div class="tc-result-body">
+
+        <!-- Left column -->
+        <div class="tc-result-left">
+
+          <!-- Progress -->
+          <div class="tc-card">
+            <div class="tc-card-header">
+              <h3 class="tc-card-title"><i class="bi bi-graph-up"></i> Resolution Progress</h3>
+            </div>
+            <div class="tc-card-body">
+              <div class="tc-progress-nums">
+                <span class="tc-progress-pct">{{ result.resolutionRate }}%</span>
+                <span class="tc-progress-label">Complete</span>
+              </div>
+              <div class="tc-progress-bar">
+                <div class="tc-progress-fill" [style.width]="result.resolutionRate + '%'"></div>
+              </div>
+              <div class="tc-progress-meta">
+                <span>Submitted {{ result.submittedDate }}</span>
+                <span>Updated {{ result.lastUpdate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Complaint info -->
+          <div class="tc-card">
+            <div class="tc-card-header">
+              <h3 class="tc-card-title"><i class="bi bi-card-text"></i> Complaint Info</h3>
+            </div>
+            <div class="tc-card-body tc-info-grid">
+              <div class="tc-info-row">
+                <span class="tc-info-key">Category</span>
+                <span class="tc-info-val">
+                  <span class="tc-info-badge" [class]="'tc-badge-'+result.categoryColor">{{ result.category }}</span>
+                </span>
+              </div>
+              <div class="tc-info-row">
+                <span class="tc-info-key">Location</span>
+                <span class="tc-info-val"><i class="bi bi-geo-alt"></i> {{ result.location }}</span>
+              </div>
+              <div class="tc-info-row">
+                <span class="tc-info-key">District</span>
+                <span class="tc-info-val">{{ result.district }}</span>
+              </div>
+              <div class="tc-info-row">
+                <span class="tc-info-key">Urgency</span>
+                <span class="tc-info-val">
+                  <span class="tc-urg-badge" [class]="'tc-urg-'+result.urgencyColor">{{ result.urgency }}</span>
+                </span>
+              </div>
+              <div class="tc-info-row">
+                <span class="tc-info-key">Submitted</span>
+                <span class="tc-info-val">{{ result.submittedDate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assigned officer -->
+          <div class="tc-card">
+            <div class="tc-card-header">
+              <h3 class="tc-card-title"><i class="bi bi-person-badge"></i> Assigned Officer</h3>
+            </div>
+            <div class="tc-card-body">
+              <div class="tc-officer">
+                <div class="tc-officer-avatar">{{ result.officerInitials }}</div>
+                <div>
+                  <div class="tc-officer-name">{{ result.officer }}</div>
+                  <div class="tc-officer-dept">{{ result.officerDept }}</div>
+                </div>
+              </div>
+              @if (result.officer !== 'Pending Assignment') {
+                <button class="tc-msg-btn">
+                  <i class="bi bi-chat-dots"></i> Message Officer
+                </button>
+              } @else {
+                <div class="tc-pending-assign">
+                  <i class="bi bi-clock"></i> Officer not yet assigned
+                </div>
+              }
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right column: tabs -->
+        <div class="tc-result-right">
+          <div class="tc-card tc-card-tall">
+
+            <!-- Tabs -->
+            <div class="tc-tabs">
+              <button class="tc-tab" [class.tc-tab-active]="activeTab==='timeline'" (click)="activeTab='timeline'">
+                <i class="bi bi-clock-history"></i> Timeline
+              </button>
+              <button class="tc-tab" [class.tc-tab-active]="activeTab==='updates'" (click)="activeTab='updates'">
+                <i class="bi bi-chat-square-text"></i> Updates
+                <span class="tc-tab-badge">{{ result.updates.length }}</span>
+              </button>
+            </div>
+
+            <!-- Timeline tab -->
+            @if (activeTab === 'timeline') {
+              <div class="tc-tab-body">
+                <div class="tc-timeline">
+                  @for (t of result.timeline; track t.title) {
+                    <div class="tc-tl-item" [class]="'tc-tl-'+t.state">
+                      <div class="tc-tl-left">
+                        <div class="tc-tl-dot" [class]="'tc-dot-'+t.state">
+                          <i [class]="t.icon"></i>
+                        </div>
+                        @if (!$last) {
+                          <div class="tc-tl-line" [class]="t.state==='done' ? 'tc-line-done' : 'tc-line-pending'"></div>
+                        }
+                      </div>
+                      <div class="tc-tl-content">
+                        <div class="tc-tl-title">{{ t.title }}</div>
+                        <div class="tc-tl-sub">{{ t.sub }}</div>
+                      </div>
+                      <div class="tc-tl-date">{{ t.date }}</div>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Updates tab -->
+            @if (activeTab === 'updates') {
+              <div class="tc-tab-body">
+                @if (result.updates.length === 0) {
+                  <div class="tc-no-updates">
+                    <i class="bi bi-chat-square"></i>
+                    <p>No updates yet. Check back soon.</p>
+                  </div>
+                } @else {
+                  <div class="tc-updates">
+                    @for (u of result.updates; track u.date) {
+                      <div class="tc-update-item">
+                        <div class="tc-update-header">
+                          <div class="tc-update-author">
+                            <div class="tc-update-avatar">
+                              @if (u.author === 'System') {
+                                <i class="bi bi-gear-fill"></i>
+                              } @else {
+                                {{ u.author.charAt(0) }}
+                              }
+                            </div>
+                            <strong>{{ u.author }}</strong>
+                          </div>
+                          <span class="tc-update-date">{{ u.date }}</span>
+                        </div>
+                        <p class="tc-update-msg">{{ u.message }}</p>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="tc-result-actions">
+        <button class="tc-btn-outline" (click)="reset()">
+          <i class="bi bi-arrow-left"></i> Track Another
+        </button>
+        <button class="tc-btn-red" (click)="fileNew()">
+          <i class="bi bi-plus-circle"></i> File New Complaint
+        </button>
+      </div>
+
+    </div>
+  }
+
+</div>

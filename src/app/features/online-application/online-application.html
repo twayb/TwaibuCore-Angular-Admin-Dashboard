@@ -1,0 +1,332 @@
+<!-- ══════════════════════════════════════════
+     STICKY NAV WRAPPER — both bars stick together
+═══════════════════════════════════════════ -->
+<div class="oas-nav-wrapper">
+  <nav class="oas-top-nav" [class.oas-top-nav-scrolled]="scrolled">
+    <div class="oas-top-nav-inner">
+      <div class="oas-logos">
+        <img src="assets/images/logos/courtofArm.png" alt="Coat of Arms" class="oas-logo-arm" />
+        <div class="oas-title-block">
+          <span class="oas-title-country">THE UNITED REPUBLIC OF TANZANIA</span>
+          <span class="oas-title-org">Judicial Service Commission</span>
+        </div>
+        <img src="assets/images/jsc.png" alt="JSC Logo" class="oas-logo-jsc" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- OAS Brand Bar -->
+  <header class="oas-brand-bar">
+    <div class="oas-brand-bar-inner">
+      <div class="oas-brand-left">
+        <div class="oas-brand-icon"><i class="bi bi-scales"></i></div>
+        <span class="oas-brand-label">OAS</span>
+        <span class="oas-brand-divider">|</span>
+        <span class="oas-brand-name">Online Application System</span>
+      </div>
+      <div class="oas-brand-links">
+        <a (click)="scrollTo('guide')"     class="oas-brand-link">Guide</a>
+        <a (click)="scrollTo('vacancies')" class="oas-brand-link">Vacancies</a>
+        <a (click)="scrollTo('contact')"   class="oas-brand-link">Contact</a>
+        <button class="oas-btn-login"    (click)="navigateTo('applicant-login')">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+        <button class="oas-btn-register" (click)="navigateTo('applicant-register')">
+          <i class="bi bi-person-plus"></i> Register
+        </button>
+      </div>
+    </div>
+  </header>
+</div><!-- /.oas-nav-wrapper -->
+
+<!-- ══════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════ -->
+<section class="oas-hero">
+
+  <!-- Animated grid + moving dots background -->
+  <canvas class="oas-grid-canvas" aria-hidden="true"></canvas>
+
+  <div class="oas-hero-inner">
+
+    <!-- Left: Text -->
+    <div class="oas-hero-left">
+      <div class="oas-hero-badge oas-anim-badge">
+        <i class="bi bi-shield-check"></i> Official Judicial Portal
+      </div>
+      <h1 class="oas-hero-title oas-anim-title">
+        Apply for Judicial<br>
+        <span class="oas-primary-text">Positions</span> Online
+      </h1>
+      <p class="oas-hero-desc oas-anim-desc">
+        The Online Application System (OAS) is a digital platform for applying to judicial positions in Tanzania.
+        Browse vacancies, submit applications, and track your status — all in one place.
+      </p>
+      <div class="oas-hero-actions oas-anim-actions">
+        <button class="oas-btn-primary oas-btn-lg" (click)="scrollTo('vacancies')">
+          <i class="bi bi-briefcase"></i> View Vacancies
+        </button>
+        <button class="oas-btn-ghost oas-btn-lg" (click)="navigateTo('applicant-login')">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+      </div>
+      <div class="oas-hero-stats">
+        <div class="oas-stat">
+          <div class="oas-stat-value">{{ allVacancies.length }}</div>
+          <div class="oas-stat-label">Open Positions</div>
+        </div>
+        <div class="oas-stat">
+          <div class="oas-stat-value">48</div>
+          <div class="oas-stat-label">Available Posts</div>
+        </div>
+        <div class="oas-stat">
+          <div class="oas-stat-value">2026</div>
+          <div class="oas-stat-label">Intake Year</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Card widget -->
+    <div class="oas-hero-right">
+      <div class="oas-app-card oas-anim-card">
+        <div class="oas-app-card-top">
+          <div class="oas-app-card-label">
+            <i class="bi bi-circle-fill oas-pulse-dot"></i> Live Applications
+          </div>
+          <span class="oas-app-card-count">{{ allVacancies.length }} open</span>
+        </div>
+
+        <div class="oas-vacancy-list">
+          @for (v of allVacancies.slice(0,5); track v.id; let i = $index) {
+            <div class="oas-vl-item" [style.animation-delay]="(i * 0.1 + 0.5) + 's'">
+              <div class="oas-vl-icon"><i class="bi bi-briefcase"></i></div>
+              <div class="oas-vl-info">
+                <div class="oas-vl-title">{{ v.post }}</div>
+                <div class="oas-vl-dept">{{ v.department }}</div>
+              </div>
+              <div class="oas-vl-posts">{{ v.numberOfPosts }} posts</div>
+            </div>
+          }
+        </div>
+
+        <button class="oas-card-cta" (click)="scrollTo('vacancies')">
+          View All Vacancies <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Float badges -->
+      <div class="oas-float-badge oas-float-tl">
+        <i class="bi bi-patch-check-fill"></i> Official Portal
+      </div>
+      <div class="oas-float-badge oas-float-br">
+        <i class="bi bi-clock"></i> Closes Feb 28
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     APPLICATION GUIDE SECTION
+═══════════════════════════════════════════ -->
+<section class="oas-guide" id="guide">
+  <div class="oas-section-inner">
+
+    <!-- Header — fade up -->
+    <div class="oas-section-header oas-reveal">
+      <div class="oas-section-tag"><i class="bi bi-compass"></i> How It Works</div>
+      <h2 class="oas-section-title">Application Guide</h2>
+      <p class="oas-section-desc">Follow these simple steps to complete your application successfully.</p>
+    </div>
+
+    <!-- Step cards — staggered scale-up -->
+    <div class="oas-steps-grid">
+      @for (s of steps; track s.title; let i = $index) {
+        <div class="oas-step-card oas-reveal-scale" [style.transition-delay]="(i * 0.12) + 's'">
+          <div class="oas-step-num">{{ i + 1 }}</div>
+          <div class="oas-step-icon"><i [class]="s.icon"></i></div>
+          <h3 class="oas-step-title">{{ s.title }}</h3>
+          <p class="oas-step-desc">{{ s.desc }}</p>
+        </div>
+      }
+    </div>
+
+    <!-- Info banner — slide from left -->
+    <div class="oas-info-banner oas-reveal-left">
+      <div class="oas-info-banner-icon"><i class="bi bi-info-circle-fill"></i></div>
+      <div class="oas-info-banner-text">
+        <strong>Important:</strong> Ensure all uploaded documents are clear, valid, and not expired.
+        Incomplete applications or those with unclear documents will not be considered.
+        All applications must be submitted before the closing date.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     VACANCIES SECTION
+═══════════════════════════════════════════ -->
+<section class="oas-vacancies" id="vacancies">
+  <div class="oas-section-inner">
+
+    <!-- Header — fade up -->
+    <div class="oas-section-header oas-reveal">
+      <div class="oas-section-tag"><i class="bi bi-briefcase"></i> Current Openings</div>
+      <h2 class="oas-section-title">Available Vacancies</h2>
+      <p class="oas-section-desc">Explore current openings and find your perfect opportunity within the Judiciary.</p>
+    </div>
+
+    <!-- Search — fade from right -->
+    <div class="oas-search-wrap oas-reveal-right">
+      <i class="bi bi-search oas-search-icon"></i>
+      <input
+        class="oas-search-input"
+        type="text"
+        placeholder="Search by position or department..."
+        (keyup)="onSearch($event)"
+      />
+    </div>
+
+    <!-- Table card — scale reveal -->
+    <div class="oas-table-card oas-reveal-scale" style="transition-delay:0.1s">
+
+      @if (allVacancies.length > 0) {
+        <div class="oas-table-wrap">
+          <table class="oas-table">
+            <thead>
+              <tr>
+                <th class="oas-th-no">No</th>
+                <th class="oas-th-pos">Position</th>
+                <th class="oas-th-dept">Department</th>
+                <th class="oas-th-posts">Posts</th>
+                <th class="oas-th-deadline">Deadline</th>
+                <th class="oas-th-action">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (filteredVacancies.length > 0) {
+                @for (v of filteredVacancies; track v.id; let i = $index) {
+                  <tr class="oas-tr">
+                    <td><span class="oas-row-num">{{ i + 1 }}</span></td>
+                    <td>
+                      <div class="oas-position-cell">
+                        <div class="oas-position-icon"><i class="bi bi-briefcase"></i></div>
+                        <span class="oas-position-title">{{ v.post }}</span>
+                      </div>
+                    </td>
+                    <td><span class="oas-dept-tag">{{ v.department }}</span></td>
+                    <td><span class="oas-posts-badge">{{ v.numberOfPosts }}</span></td>
+                    <td>
+                      <div class="oas-deadline-cell">
+                        <i class="bi bi-calendar3"></i> {{ v.deadline }}
+                      </div>
+                    </td>
+                    <td>
+                      <button class="oas-btn-view" (click)="vacancyDetails(v)">
+                        <i class="bi bi-eye"></i> View Details
+                      </button>
+                    </td>
+                  </tr>
+                }
+              } @else {
+                <tr>
+                  <td colspan="6" class="oas-empty-search-cell">
+                    <div class="oas-empty-search">
+                      <i class="bi bi-search"></i>
+                      <p>No positions found matching <strong>"{{ searchQuery }}"</strong></p>
+                      <span>Try a different keyword</span>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table footer -->
+        <div class="oas-table-footer">
+          <span class="oas-table-count">
+            Showing {{ filteredVacancies.length }} of {{ allVacancies.length }} positions
+          </span>
+          <button class="oas-btn-register-cta" (click)="navigateTo('applicant-register')">
+            <i class="bi bi-person-plus"></i> Create Account to Apply
+          </button>
+        </div>
+
+      } @else {
+        <div class="oas-empty-state">
+          <div class="oas-empty-icon-wrap">
+            <div class="oas-empty-pulse"></div>
+            <i class="bi bi-folder2-open oas-empty-icon"></i>
+          </div>
+          <h3 class="oas-empty-title">No Vacancies Available</h3>
+          <p class="oas-empty-desc">There are currently no open positions. Register an account to be notified when new vacancies are posted.</p>
+          <button class="oas-btn-primary" (click)="navigateTo('applicant-register')">
+            <i class="bi bi-person-plus"></i> Create Account
+          </button>
+        </div>
+      }
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT SECTION
+═══════════════════════════════════════════ -->
+<section class="oas-contact" id="contact">
+  <div class="oas-section-inner">
+    <div class="oas-contact-inner oas-reveal">
+
+      <div class="oas-contact-label">
+        <i class="bi bi-headset"></i> Contact Us
+      </div>
+
+      <div class="oas-contact-items">
+        <div class="oas-contact-item oas-reveal" style="transition-delay:0.1s">
+          <div class="oas-contact-icon"><i class="bi bi-telephone-fill"></i></div>
+          <div class="oas-contact-detail">
+            <span class="oas-contact-key">Phone</span>
+            <span class="oas-contact-val">+255 262 320001</span>
+          </div>
+        </div>
+
+        <div class="oas-contact-sep"></div>
+
+        <div class="oas-contact-item oas-reveal" style="transition-delay:0.2s">
+          <div class="oas-contact-icon"><i class="bi bi-envelope-fill"></i></div>
+          <div class="oas-contact-detail">
+            <span class="oas-contact-key">Email</span>
+            <span class="oas-contact-val">secretary&#64;jsc.go.tz</span>
+          </div>
+        </div>
+
+        <div class="oas-contact-sep"></div>
+
+        <div class="oas-contact-item oas-reveal" style="transition-delay:0.3s">
+          <div class="oas-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+          <div class="oas-contact-detail">
+            <span class="oas-contact-key">Address</span>
+            <span class="oas-contact-val">P.O. BOX 2705, 41104 Tambukareli Dodoma</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer class="oas-footer">
+  <div class="oas-footer-inner">
+    <div class="oas-footer-brand">
+      <div class="oas-footer-logo"><i class="bi bi-scales"></i></div>
+      <span>Judicial Service Commission — Online Application System</span>
+    </div>
+    <span class="oas-footer-copy">© 2026 Judicial Service Commission. All Rights Reserved.</span>
+  </div>
+</footer>

@@ -23,6 +23,9 @@ import { EmailComponent } from './features/email/email';
 
 export const routes: Routes = [
 
+
+  
+
   // ── AUTH PAGES (no sidebar) ──
   { path: 'pages/auth/login',           component: LoginComponent          },
   { path: 'pages/auth/register',        component: RegisterComponent        },
@@ -34,6 +37,43 @@ export const routes: Routes = [
 { path: 'errors/500', component: ServerErrorComponent },
 { path: 'errors/403', component: ForbiddenComponent  },
 { path: 'errors/maintenance', component: MaintenanceComponent },
+
+
+  // ── LANDING PAGES (no sidebar) ──
+ {
+    path: 'landing/online-application',
+    loadComponent: () =>
+      import('./features/online-application/online-application')
+        .then(m => m.OnlineApplicationComponent)
+  },
+    {
+    path: 'landing/complaint-portal',
+    loadComponent: () =>
+      import('./features/complaint-portal/complaint-portal')
+        .then(m => m.ComplaintPortalComponent)
+  },
+
+   {
+    path: 'landing/transportation',
+    loadComponent: () =>
+      import('./features/transportation-system/transportation-system')
+        .then(m => m.TransportationSystemComponent)
+  },
+
+  // Add these two routes to app.routes.ts alongside the existing complaint-portal route:
+
+{
+  path: 'landing/register-complaint',
+  loadComponent: () =>
+    import('./features/registercomplaint/registercomplaint')
+      .then(m => m.RegisterComplaintComponent)
+},
+{
+  path: 'landing/track-complaint',
+  loadComponent: () =>
+    import('./features/trackcomplaint/trackcomplaint')
+      .then(m => m.TrackComplaintComponent)
+},
 
   // ── MAIN APP PAGES (with sidebar) ──
   { path: 'dashboard/admin',          component: AdminDashboardComponent          },

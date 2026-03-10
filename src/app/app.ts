@@ -21,7 +21,7 @@ import { AppLoaderComponent } from './shared/components/app-loader/app-loader';
 })
 export class AppComponent {
 
-private noLayoutRoutes = ['/pages/auth', '/errors/'];
+private noLayoutRoutes = ['/pages/auth', '/errors/', '/landing/'];
   private currentUrl = signal('');
    isLoading              = signal(true);
 

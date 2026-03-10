@@ -1,0 +1,321 @@
+<!-- ── NAVBAR ── -->
+<nav class="ts-nav" [class.ts-nav-scrolled]="scrolled">
+  <a class="ts-nav-logo" href="#">
+    <div class="ts-logo-icon"><i class="bi bi-bus-front"></i></div>
+    <span class="ts-logo-text">Transit<span class="ts-logo-accent">Go</span></span>
+  </a>
+
+<!-- transportation.html nav -->
+<ul class="ts-nav-links" [class.ts-nav-open]="menuOpen">
+  <li><a (click)="scrollTo('features'); menuOpen=false">Features</a></li>
+  <li><a (click)="scrollTo('how');      menuOpen=false">Book a Seat</a></li>
+  <li><a (click)="scrollTo('routes');   menuOpen=false">Routes</a></li>
+  <li><a (click)="scrollTo('contact');  menuOpen=false">Contact</a></li>
+</ul>
+
+  <div class="ts-nav-cta">
+    <a href="#" class="ts-btn-outline">Track Bus</a>
+    <a href="#" class="ts-btn-green">Book Now</a>
+    <button class="ts-hamburger" (click)="menuOpen=!menuOpen">
+      <i [class]="menuOpen ? 'bi bi-x-lg' : 'bi bi-list'"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="ts-hero">
+  <div class="ts-hero-bg"></div>
+  <div class="ts-hero-dots"></div>
+
+  <div class="ts-hero-inner">
+    <!-- Left -->
+    <div class="ts-hero-left">
+      <div class="ts-hero-badge">
+        <i class="bi bi-geo-alt-fill"></i> Real-Time Transport Tracking
+      </div>
+      <h1 class="ts-hero-title">
+        Travel Smarter.<br>
+        Ride with <span class="ts-green-text">Confidence.</span>
+      </h1>
+      <p class="ts-hero-desc">
+        Book seats, track buses in real time, and manage your entire journey from one platform. TransitGo brings modern technology to public transportation.
+      </p>
+      <div class="ts-hero-actions">
+        <a href="#how" class="ts-btn-green ts-btn-lg">
+          <i class="bi bi-ticket-perforated"></i> Book a Seat
+        </a>
+        <a href="#" class="ts-btn-ghost-hero ts-btn-lg">
+          <i class="bi bi-geo-alt"></i> Track Live
+        </a>
+      </div>
+
+      <div class="ts-hero-metrics">
+        @for (m of metrics; track m.label) {
+          <div class="ts-metric-card">
+            <div class="ts-metric-value">{{ m.value }}</div>
+            <div class="ts-metric-label">{{ m.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Right: Live Tracker Dashboard -->
+    <div class="ts-hero-right">
+      <div class="ts-dashboard">
+        <div class="ts-dash-header">
+          <span class="ts-dash-title">Live Route Tracker</span>
+          <span class="ts-dash-live"><span class="ts-live-dot"></span> Live</span>
+        </div>
+
+        <!-- Mini map -->
+        <div class="ts-map-preview">
+          <div class="ts-map-road ts-road-main"></div>
+          <div class="ts-map-road ts-road-alt1"></div>
+          <div class="ts-map-road ts-road-alt2"></div>
+          <!-- Stations -->
+          <div class="ts-map-station ts-station-start">
+            <div class="ts-station-pulse"></div>
+          </div>
+          <div class="ts-map-station ts-station-mid1"></div>
+          <div class="ts-map-station ts-station-mid2"></div>
+          <div class="ts-map-station ts-station-end"></div>
+          <!-- Moving bus -->
+          <div class="ts-map-bus">🚌</div>
+          <!-- Labels -->
+          <span class="ts-map-label ts-label-start">Dar Central</span>
+          <span class="ts-map-label ts-label-end">Ubungo</span>
+        </div>
+
+        <!-- Route items -->
+        <div class="ts-routes-list">
+          @for (r of liveRoutes; track r.name) {
+            <div class="ts-route-item" [class.ts-route-active]="r.color === 'green'">
+              <div class="ts-route-icon" [class]="'ts-icon-'+r.color"><i [class]="r.icon"></i></div>
+              <div class="ts-route-info">
+                <div class="ts-route-name">{{ r.name }}</div>
+                <div class="ts-route-stops">{{ r.stops }}</div>
+              </div>
+              <div class="ts-route-time">
+                <div class="ts-route-eta" [class]="'ts-eta-'+r.color">{{ r.eta }}</div>
+                <div class="ts-route-eta-label">{{ r.etaLabel }}</div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="ts-features" id="features">
+  <div class="ts-section-inner">
+    <div class="ts-section-header ts-reveal">
+      <div class="ts-section-tag"><i class="bi bi-stars"></i> Platform Features</div>
+      <h2 class="ts-section-title">Everything You Need for<br>Seamless Travel</h2>
+      <p class="ts-section-desc">From booking to arrival, TransitGo gives you complete control over your transport experience.</p>
+    </div>
+
+    <div class="ts-features-grid">
+      @for (f of features; track f.title; let i = $index) {
+        <div class="ts-feat-card ts-reveal" [style.transition-delay]="(i * 0.06) + 's'">
+          <div class="ts-feat-icon" [class]="'ts-icon-'+f.color"><i [class]="f.icon"></i></div>
+          <h3 class="ts-feat-title">{{ f.title }}</h3>
+          <p class="ts-feat-desc">{{ f.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS / BOOKING ── -->
+<section class="ts-hiw" id="how">
+  <div class="ts-hiw-inner">
+    <!-- Steps -->
+    <div class="ts-reveal">
+      <div class="ts-section-tag"><i class="bi bi-diagram-3"></i> How It Works</div>
+      <h2 class="ts-section-title">Book Your Journey<br>in 4 Easy Steps</h2>
+      <p class="ts-section-desc">Our simple booking process gets you from search to confirmed ticket in under 3 minutes.</p>
+
+      <div class="ts-steps-list">
+        @for (s of steps; track s.num) {
+          <div class="ts-step-card">
+            <div class="ts-step-num">{{ s.num }}</div>
+            <div>
+              <h4 class="ts-step-title">{{ s.title }}</h4>
+              <p class="ts-step-desc">{{ s.desc }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Booking card -->
+    <div class="ts-reveal">
+      <div class="ts-booking-card">
+        <div class="ts-booking-header">
+          <div>
+            <h3 class="ts-booking-title">Book Your Seat</h3>
+            <p class="ts-booking-route">Dar es Salaam → Mbeya Express</p>
+          </div>
+          <div class="ts-booking-date">Dec 15, 2024</div>
+        </div>
+
+        <div class="ts-booking-body">
+          <!-- Route points -->
+          <div class="ts-route-points">
+            <div class="ts-point">
+              <div class="ts-point-label">From</div>
+              <div class="ts-point-city">Dar es Salaam</div>
+              <div class="ts-point-time">06:00 AM</div>
+            </div>
+            <div class="ts-route-arrow"><i class="bi bi-arrow-right"></i></div>
+            <div class="ts-point">
+              <div class="ts-point-label">To</div>
+              <div class="ts-point-city">Mbeya</div>
+              <div class="ts-point-time">02:30 PM</div>
+            </div>
+          </div>
+
+          <!-- Trip details -->
+          <div class="ts-trip-details">
+            <div class="ts-trip-item">
+              <div class="ts-trip-val">8h 30m</div>
+              <div class="ts-trip-label">Duration</div>
+            </div>
+            <div class="ts-trip-item">
+              <div class="ts-trip-val" style="color:var(--ts-primary)">24</div>
+              <div class="ts-trip-label">Seats Left</div>
+            </div>
+            <div class="ts-trip-item">
+              <div class="ts-trip-val">TZS 25k</div>
+              <div class="ts-trip-label">Per Seat</div>
+            </div>
+          </div>
+
+          <!-- Seat map -->
+          <div class="ts-seat-section">
+            <div class="ts-seat-title">Choose Your Seat</div>
+            <div class="ts-seat-grid">
+              @for (s of seats; track s.num) {
+                <div class="ts-seat" [class]="'ts-seat-'+s.state">{{ s.num }}</div>
+              }
+            </div>
+          </div>
+
+          <button class="ts-booking-submit">
+            <i class="bi bi-ticket-perforated"></i> Confirm & Pay — TZS 25,000
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POPULAR ROUTES ── -->
+<section class="ts-routes" id="routes">
+  <div class="ts-section-inner">
+    <div class="ts-routes-header ts-reveal">
+      <div>
+        <div class="ts-section-tag"><i class="bi bi-map"></i> Popular Routes</div>
+        <h2 class="ts-section-title">Where Do You Want to Go?</h2>
+      </div>
+      <a href="#" class="ts-btn-outline">View All Routes <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="ts-routes-grid ts-reveal">
+      @for (r of routes; track r.from) {
+        <div class="ts-route-card">
+          <div class="ts-rc-top">
+            <div class="ts-rc-codes">{{ r.from }} → {{ r.to }}</div>
+            <span class="ts-rc-badge" [class]="'ts-badge-'+r.badgeColor">{{ r.badge }}</span>
+          </div>
+          <div class="ts-rc-body">
+            <div class="ts-rc-cities">{{ r.fromFull }} → {{ r.toFull }}</div>
+            <div class="ts-rc-details">
+              <div class="ts-rc-detail">
+                <div class="ts-rc-detail-label">Duration</div>
+                <div class="ts-rc-detail-val">{{ r.duration }}</div>
+              </div>
+              <div class="ts-rc-detail">
+                <div class="ts-rc-detail-label">Departs</div>
+                <div class="ts-rc-detail-val">{{ r.departs }}</div>
+              </div>
+              <div class="ts-rc-detail">
+                <div class="ts-rc-detail-label">From</div>
+                <div class="ts-rc-detail-val" style="color:var(--ts-primary)">{{ r.price }}</div>
+              </div>
+            </div>
+            <button class="ts-rc-book">Book Now <i class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="ts-cta">
+  <div class="ts-cta-bg"></div>
+  <div class="ts-cta-inner ts-reveal">
+    <div class="ts-cta-tag"><i class="bi bi-bus-front"></i> Start Your Journey</div>
+    <h2 class="ts-cta-title">Ready to Travel<br>the Smart Way?</h2>
+    <p class="ts-cta-desc">Join over 200,000 passengers who trust TransitGo for safe, comfortable, and reliable transportation across Tanzania.</p>
+    <div class="ts-cta-actions">
+      <a href="#" class="ts-btn-green ts-btn-lg"><i class="bi bi-ticket-perforated"></i> Book Your Seat</a>
+      <a href="#" class="ts-btn-ghost-cta ts-btn-lg"><i class="bi bi-download"></i> Download App</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="ts-footer" id="contact">
+  <div class="ts-footer-inner">
+    <div class="ts-footer-top">
+      <div class="ts-footer-brand">
+        <div class="ts-footer-logo">
+          <div class="ts-logo-icon"><i class="bi bi-bus-front"></i></div>
+          <span class="ts-logo-text" style="color:white">Transit<span class="ts-logo-accent">Go</span></span>
+        </div>
+        <p>Tanzania's leading digital transportation platform. Safe, affordable, and reliable travel for everyone.</p>
+      </div>
+      <div class="ts-footer-col">
+        <h4>Travel</h4>
+        <ul>
+          <li><a href="#">Book a Seat</a></li>
+          <li><a href="#">Track My Bus</a></li>
+          <li><a href="#">View Routes</a></li>
+          <li><a href="#">Timetables</a></li>
+        </ul>
+      </div>
+      <div class="ts-footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Partner with Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News</a></li>
+        </ul>
+      </div>
+      <div class="ts-footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ts-footer-bottom">
+      <span>© 2026 TransitGo. All rights reserved.</span>
+      <div class="ts-footer-socials">
+        <a href="#" class="ts-social-btn"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="ts-social-btn"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="ts-social-btn"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="ts-social-btn"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
