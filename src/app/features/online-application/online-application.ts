@@ -1,7 +1,9 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { LayoutService } from '../../core/services/layout-service';
+
 
 export interface Vacancy {
   id: number;
@@ -34,6 +36,8 @@ export interface FeedbackErrors {
   styleUrl: './online-application.css'
 })
 export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  layout = inject(LayoutService);
 
   scrolled    = false;
   searchQuery = '';
@@ -160,7 +164,6 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
     if (!this.validateFeedback()) return;
 
     this.feedbackLoading = true;
-    // Simulate API call
     setTimeout(() => {
       this.feedbackLoading   = false;
       this.feedbackSubmitted = true;
@@ -169,11 +172,7 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
 
   getRatingLabel(rating: number): string {
     const labels: Record<number, string> = {
-      1: 'Poor',
-      2: 'Fair',
-      3: 'Good',
-      4: 'Very Good',
-      5: 'Excellent',
+      1: 'Poor', 2: 'Fair', 3: 'Good', 4: 'Very Good', 5: 'Excellent',
     };
     return labels[rating] || '';
   }

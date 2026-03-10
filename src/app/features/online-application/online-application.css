@@ -851,6 +851,176 @@
   50%       { transform: translate(-50%,-50%) scale(1.15); opacity: 0.3; }
 }
 
+/* ═══════════════════════════════════════════
+   DARK MODE OVERRIDES
+   (LayoutService adds .dark to <html>)
+═══════════════════════════════════════════ */
+
+/* Top nav — use card bg instead of white in dark */
+:root.dark .oas-top-nav {
+  background: var(--color-bg-2);
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+:root.dark .oas-title-country {
+  color: var(--color-muted);
+}
+
+:root.dark .oas-title-org {
+  color: var(--color-text);
+}
+
+/* Nav scrolled shadow in dark */
+:root.dark .oas-top-nav-scrolled {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+
+/* Hero — darker background */
+:root.dark .oas-hero {
+  background: var(--color-bg-1);
+}
+
+/* Section backgrounds */
+:root.dark .oas-guide    { background: var(--color-bg-2); }
+:root.dark .oas-vacancies { background: var(--color-bg-1); }
+:root.dark .oas-contact  { background: var(--color-bg-2); border-top-color: var(--color-border); }
+
+/* Guide section - step cards */
+:root.dark .oas-step-card {
+  background: var(--color-card);
+  border-color: var(--color-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+:root.dark .oas-step-card:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Info banner dark */
+:root.dark .oas-info-banner {
+  background: rgba(245,158,11,0.08);
+  border-color: rgba(245,158,11,0.25);
+}
+
+/* Table card */
+:root.dark .oas-table-card {
+  background: var(--color-card);
+  border-color: var(--color-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+:root.dark .oas-tr td {
+  background: var(--color-card);
+  border-bottom-color: var(--color-border);
+}
+
+:root.dark .oas-tr:hover td {
+  background: var(--color-bg-2);
+}
+
+:root.dark .oas-table-footer {
+  background: var(--color-bg-1);
+  border-top-color: var(--color-border);
+}
+
+:root.dark .oas-dept-tag {
+  background: var(--color-bg-1);
+  border-color: var(--color-border);
+  color: var(--color-muted);
+}
+
+:root.dark .oas-deadline-cell { color: var(--color-muted); }
+
+/* Search input */
+:root.dark .oas-search-input {
+  background: var(--color-bg-2);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root.dark .oas-search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(79,110,247,0.15);
+}
+
+/* Contact inner */
+:root.dark .oas-contact-inner {
+  background: var(--color-card);
+  border-color: var(--color-border);
+}
+
+:root.dark .oas-contact-sep { background: var(--color-border); }
+
+/* Float badges */
+:root.dark .oas-float-badge {
+  background: var(--color-card);
+  border-color: var(--color-border);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Ghost button dark */
+:root.dark .oas-btn-ghost {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root.dark .oas-btn-ghost:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(79,110,247,0.08);
+}
+
+/* Illustration caption */
+:root.dark .oas-illus-caption {
+  background: var(--color-card);
+  border-color: var(--color-border);
+}
+
+/* Modal dark */
+:root.dark .oas-modal {
+  background: var(--color-card);
+  border-color: var(--color-border);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+
+:root.dark .oas-modal-close {
+  background: var(--color-bg-1);
+  color: var(--color-muted);
+}
+
+:root.dark .oas-modal-close:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+:root.dark .oas-form-input {
+  background: var(--color-bg-1);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root.dark .oas-form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79,110,247,0.15);
+}
+
+:root.dark .oas-form-input.oas-input-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
+}
+
+:root.dark .oas-star { color: var(--color-border); }
+
+:root.dark .oas-modal-overlay {
+  background: rgba(0,0,0,0.65);
+}
+
+/* Transition for smooth theme switch */
+:host {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 960px) {
   .oas-hero-inner  { grid-template-columns: 1fr; gap: 40px; }
@@ -878,6 +1048,48 @@
 /* ═══════════════════════════════════════════
    FEEDBACK BUTTON (NAV)
 ═══════════════════════════════════════════ */
+/* ═══ FLOATING THEME TOGGLE FAB ═══ */
+.oas-theme-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 32px;
+  z-index: 1000;
+  width: 48px; height: 48px; border-radius: 50%;
+  border: none; cursor: pointer;
+  background: var(--color-primary);
+  color: white; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(79,110,247,0.4);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+  font-family: inherit;
+}
+
+.oas-theme-fab:hover {
+  transform: scale(1.12) rotate(20deg);
+  box-shadow: 0 10px 28px rgba(79,110,247,0.55);
+}
+
+.oas-theme-fab:active {
+  transform: scale(0.95);
+}
+
+/* Pulse ring on first load */
+.oas-theme-fab::after {
+  content: '';
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  opacity: 0;
+  animation: oasFabPing 2.5s ease-out infinite 1s;
+}
+
+@keyframes oasFabPing {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(1.55); opacity: 0;   }
+}
+
 .oas-btn-feedback {
   padding: 7px 16px; border-radius: 8px; cursor: pointer;
   border: 1.5px solid rgba(255,255,255,0.35);

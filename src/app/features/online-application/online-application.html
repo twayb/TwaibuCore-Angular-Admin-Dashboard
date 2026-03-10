@@ -576,3 +576,14 @@
   </div>
 </footer>
 
+<!-- Floating dark mode toggle -->
+<button
+  class="oas-theme-fab"
+  (click)="layout.toggleDarkMode()"
+  [title]="layout.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+  @if (layout.isDarkMode()) {
+    <i class="bi bi-sun-fill"></i>
+  } @else {
+    <i class="bi bi-moon-fill"></i>
+  }
+</button>
