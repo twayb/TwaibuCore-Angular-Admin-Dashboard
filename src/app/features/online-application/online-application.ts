@@ -11,6 +11,21 @@ export interface Vacancy {
   department: string;
 }
 
+export interface FeedbackForm {
+  name:     string;
+  email:    string;
+  rating:   number;
+  category: string;
+  message:  string;
+}
+
+export interface FeedbackErrors {
+  name?:    string;
+  email?:   string;
+  rating?:  string;
+  message?: string;
+}
+
 @Component({
   selector: 'app-online-application',
   standalone: true,
@@ -22,6 +37,18 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
 
   scrolled    = false;
   searchQuery = '';
+
+  // ── Feedback modal state ──
+  feedbackOpen      = false;
+  feedbackSubmitted = false;
+  feedbackLoading   = false;
+  feedbackHover     = 0;
+
+  feedback: FeedbackForm = {
+    name: '', email: '', rating: 0, category: '', message: ''
+  };
+
+  feedbackErrors: FeedbackErrors = {};
 
   allVacancies: Vacancy[] = [
     { id: 1, post: 'Judge of the High Court',   numberOfPosts: 5,  deadline: 'Feb 28, 2026', department: 'High Court'       },
@@ -43,7 +70,7 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
     { icon: 'bi bi-send',              title: 'Submit Application', desc: 'Fill all sections accurately and submit your application before the closing deadline' },
   ];
 
-  private animFrameId = 0;
+  private animFrameId   = 0;
   private resizeHandler: (() => void) | null = null;
 
   constructor(private router: Router) {}
@@ -67,6 +94,93 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
     this.scrolled = window.scrollY > 10;
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    if (this.feedbackOpen) this.closeFeedback();
+  }
+
+  // ─────────────────────────────────────────
+  // FEEDBACK MODAL
+  // ─────────────────────────────────────────
+  openFeedback() {
+    this.feedbackOpen      = true;
+    this.feedbackSubmitted = false;
+    this.feedbackErrors    = {};
+    this.feedback          = { name: '', email: '', rating: 0, category: '', message: '' };
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeFeedback() {
+    this.feedbackOpen = false;
+    document.body.style.overflow = '';
+  }
+
+  closeFeedbackOutside(event: MouseEvent) {
+    if ((event.target as HTMLElement).classList.contains('oas-modal-overlay')) {
+      this.closeFeedback();
+    }
+  }
+
+  validateFeedback(): boolean {
+    this.feedbackErrors = {};
+    let valid = true;
+
+    if (!this.feedback.name.trim()) {
+      this.feedbackErrors.name = 'Full name is required';
+      valid = false;
+    }
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!this.feedback.email.trim()) {
+      this.feedbackErrors.email = 'Email address is required';
+      valid = false;
+    } else if (!emailRe.test(this.feedback.email)) {
+      this.feedbackErrors.email = 'Please enter a valid email address';
+      valid = false;
+    }
+
+    if (!this.feedback.rating) {
+      this.feedbackErrors.rating = 'Please select a rating';
+      valid = false;
+    }
+
+    if (!this.feedback.message.trim()) {
+      this.feedbackErrors.message = 'Message is required';
+      valid = false;
+    } else if (this.feedback.message.length > 500) {
+      this.feedbackErrors.message = 'Message must be 500 characters or less';
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  submitFeedback(event: Event) {
+    event.preventDefault();
+    if (!this.validateFeedback()) return;
+
+    this.feedbackLoading = true;
+    // Simulate API call
+    setTimeout(() => {
+      this.feedbackLoading   = false;
+      this.feedbackSubmitted = true;
+    }, 1500);
+  }
+
+  getRatingLabel(rating: number): string {
+    const labels: Record<number, string> = {
+      1: 'Poor',
+      2: 'Fair',
+      3: 'Good',
+      4: 'Very Good',
+      5: 'Excellent',
+    };
+    return labels[rating] || '';
+  }
+
+  // ─────────────────────────────────────────
+  // NAVIGATION
+  // ─────────────────────────────────────────
   onSearch(event: Event) {
     const q = (event.target as HTMLInputElement).value.toLowerCase();
     this.searchQuery = q;
@@ -91,7 +205,7 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
   trackById(_: number, v: Vacancy) { return v.id; }
 
   // ─────────────────────────────────────────
-  // SCROLL REVEAL — re-animates every scroll
+  // SCROLL REVEAL
   // ─────────────────────────────────────────
   private initScrollReveal() {
     const selectors = '.oas-reveal, .oas-reveal-left, .oas-reveal-right, .oas-reveal-scale';
@@ -144,7 +258,7 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
         vy:         (Math.random() - 0.5) * 0.55,
         r:          Math.random() * 3.5 + 2,
         color:      Math.random() > 0.5 ? C_PRIMARY : C_SECONDARY,
-        alpha:      Math.random() * 0.5 + 0.3,
+        alpha:      Math.random() * 0.2 + 0.1,
         pulse:      Math.random() * Math.PI * 2,
         pulseSpeed: Math.random() * 0.02 + 0.01,
       }));
@@ -202,12 +316,12 @@ export class OnlineApplicationComponent implements OnInit, AfterViewInit, OnDest
 
         const grd = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, r * 3);
         grd.addColorStop(0,   'rgba(' + d.color + ', ' + a + ')');
-        grd.addColorStop(0.5, 'rgba(' + d.color + ', ' + (a * 0.4) + ')');
+        grd.addColorStop(0.5, 'rgba(' + d.color + ', ' + (a * 0.2) + ')');
         grd.addColorStop(1,   'rgba(' + d.color + ', 0)');
         ctx.fillStyle = grd;
         ctx.beginPath(); ctx.arc(d.x, d.y, r * 3, 0, Math.PI * 2); ctx.fill();
 
-        ctx.fillStyle = 'rgba(' + d.color + ', ' + Math.min(a + 0.3, 1) + ')';
+        ctx.fillStyle = 'rgba(' + d.color + ', ' + Math.min(a + 0.1, 0.5) + ')';
         ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, Math.PI * 2); ctx.fill();
 
         d.x += d.vx; d.y += d.vy;

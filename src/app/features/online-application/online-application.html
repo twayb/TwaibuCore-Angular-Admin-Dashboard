@@ -28,6 +28,9 @@
         <a (click)="scrollTo('guide')"     class="oas-brand-link">Guide</a>
         <a (click)="scrollTo('vacancies')" class="oas-brand-link">Vacancies</a>
         <a (click)="scrollTo('contact')"   class="oas-brand-link">Contact</a>
+        <button class="oas-btn-feedback" (click)="openFeedback()">
+          <i class="bi bi-chat-square-heart"></i> Feedback
+        </button>
         <button class="oas-btn-login"    (click)="navigateTo('applicant-login')">
           <i class="bi bi-box-arrow-in-right"></i> Login
         </button>
@@ -38,6 +41,156 @@
     </div>
   </header>
 </div><!-- /.oas-nav-wrapper -->
+
+<!-- ══════════════════════════════════════════
+     FEEDBACK MODAL
+═══════════════════════════════════════════ -->
+<div class="oas-modal-overlay" [class.oas-modal-open]="feedbackOpen" (click)="closeFeedbackOutside($event)">
+  <div class="oas-modal" role="dialog" aria-modal="true" aria-labelledby="oas-modal-title">
+
+    <!-- Header -->
+    <div class="oas-modal-header">
+      <div class="oas-modal-title-group">
+        <div class="oas-modal-icon"><i class="bi bi-chat-square-heart-fill"></i></div>
+        <div>
+          <h3 class="oas-modal-title" id="oas-modal-title">Share Your Feedback</h3>
+          <p class="oas-modal-subtitle">Help us improve the Online Application System</p>
+        </div>
+      </div>
+      <button class="oas-modal-close" (click)="closeFeedback()" aria-label="Close">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <!-- Success state -->
+    @if (feedbackSubmitted) {
+      <div class="oas-modal-success">
+        <div class="oas-success-icon">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h4>Thank You!</h4>
+        <p>Your feedback has been submitted successfully. We appreciate you taking the time to help us improve.</p>
+        <button class="oas-btn-primary" (click)="closeFeedback()">
+          <i class="bi bi-x"></i> Close
+        </button>
+      </div>
+    } @else {
+      <!-- Form -->
+      <form class="oas-modal-form" (submit)="submitFeedback($event)">
+
+        <!-- Name & Email row -->
+        <div class="oas-form-row">
+          <div class="oas-form-group">
+            <label class="oas-form-label" for="fb-name">
+              <i class="bi bi-person"></i> Full Name <span class="oas-required">*</span>
+            </label>
+            <input
+              id="fb-name" type="text" class="oas-form-input"
+              placeholder="e.g. John Doe"
+              [(ngModel)]="feedback.name" name="fbName"
+              [class.oas-input-error]="feedbackErrors.name"
+            />
+            @if (feedbackErrors.name) {
+              <span class="oas-error-msg"><i class="bi bi-exclamation-circle"></i> {{ feedbackErrors.name }}</span>
+            }
+          </div>
+          <div class="oas-form-group">
+            <label class="oas-form-label" for="fb-email">
+              <i class="bi bi-envelope"></i> Email Address <span class="oas-required">*</span>
+            </label>
+            <input
+              id="fb-email" type="email" class="oas-form-input"
+              placeholder="e.g. john@example.com"
+              [(ngModel)]="feedback.email" name="fbEmail"
+              [class.oas-input-error]="feedbackErrors.email"
+            />
+            @if (feedbackErrors.email) {
+              <span class="oas-error-msg"><i class="bi bi-exclamation-circle"></i> {{ feedbackErrors.email }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Star Rating -->
+        <div class="oas-form-group">
+          <label class="oas-form-label">
+            <i class="bi bi-star"></i> Overall Rating <span class="oas-required">*</span>
+          </label>
+          <div class="oas-star-row">
+            @for (star of [1,2,3,4,5]; track star) {
+              <button
+                type="button"
+                class="oas-star"
+                [class.oas-star-active]="star <= (feedbackHover || feedback.rating)"
+                (mouseenter)="feedbackHover = star"
+                (mouseleave)="feedbackHover = 0"
+                (click)="feedback.rating = star"
+                [attr.aria-label]="'Rate ' + star + ' out of 5'"
+              >
+                <i class="bi bi-star-fill"></i>
+              </button>
+            }
+            <span class="oas-star-label">
+              {{ getRatingLabel(feedbackHover || feedback.rating) }}
+            </span>
+          </div>
+          @if (feedbackErrors.rating) {
+            <span class="oas-error-msg"><i class="bi bi-exclamation-circle"></i> {{ feedbackErrors.rating }}</span>
+          }
+        </div>
+
+        <!-- Category -->
+        <div class="oas-form-group">
+          <label class="oas-form-label" for="fb-category">
+            <i class="bi bi-tag"></i> Feedback Category
+          </label>
+          <select id="fb-category" class="oas-form-input oas-form-select"
+            [(ngModel)]="feedback.category" name="fbCategory">
+            <option value="">Select a category...</option>
+            <option value="usability">Website Usability</option>
+            <option value="process">Application Process</option>
+            <option value="support">Customer Support</option>
+            <option value="performance">System Performance</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <!-- Message -->
+        <div class="oas-form-group">
+          <label class="oas-form-label" for="fb-message">
+            <i class="bi bi-chat-text"></i> Message <span class="oas-required">*</span>
+          </label>
+          <textarea
+            id="fb-message" class="oas-form-input oas-form-textarea"
+            placeholder="Tell us about your experience..."
+            [(ngModel)]="feedback.message" name="fbMessage"
+            rows="4"
+            [class.oas-input-error]="feedbackErrors.message"
+          ></textarea>
+          <div class="oas-char-count">{{ feedback.message.length }} / 500</div>
+          @if (feedbackErrors.message) {
+            <span class="oas-error-msg"><i class="bi bi-exclamation-circle"></i> {{ feedbackErrors.message }}</span>
+          }
+        </div>
+
+        <!-- Actions -->
+        <div class="oas-modal-actions">
+          <button type="button" class="oas-btn-ghost" (click)="closeFeedback()">
+            Cancel
+          </button>
+          <button type="submit" class="oas-btn-primary" [class.oas-btn-loading]="feedbackLoading">
+            @if (feedbackLoading) {
+              <span class="oas-spinner"></span> Submitting...
+            } @else {
+              <i class="bi bi-send"></i> Submit Feedback
+            }
+          </button>
+        </div>
+
+      </form>
+    }
+
+  </div>
+</div>
 
 <!-- ══════════════════════════════════════════
      HERO SECTION
@@ -422,3 +575,4 @@
     <span class="oas-footer-copy">© 2026 Judicial Service Commission. All Rights Reserved.</span>
   </div>
 </footer>
+
