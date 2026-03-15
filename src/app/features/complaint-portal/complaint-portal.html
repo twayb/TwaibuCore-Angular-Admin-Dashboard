@@ -2,17 +2,15 @@
 <nav class="cp-nav" [class.cp-nav-scrolled]="scrolled">
   <a class="cp-nav-logo" href="#">
     <div class="cp-logo-icon"><i class="bi bi-megaphone-fill"></i></div>
-    <span class="cp-logo-text">VoiceIt</span>
+    <span class="cp-logo-text">JSC Complaint Portal</span>
   </a>
   <ul class="cp-nav-links" [class.cp-nav-open]="menuOpen">
-    <li><a (click)="scrollTo('features');   menuOpen=false">Features</a></li>
     <li><a (click)="scrollTo('how');        menuOpen=false">How It Works</a></li>
     <li><a (click)="scrollTo('categories'); menuOpen=false">Categories</a></li>
     <li><a (click)="scrollTo('contact');    menuOpen=false">Contact</a></li>
   </ul>
-
   <div class="cp-nav-cta">
-    <a routerLink="/landing/track-complaint" class="cp-btn-outline">Track Complaint</a>
+    <a routerLink="/landing/track-complaint"    class="cp-btn-outline">Track Complaint</a>
     <a routerLink="/landing/register-complaint" class="cp-btn-red">File a Complaint</a>
     <button class="cp-hamburger" (click)="menuOpen=!menuOpen">
       <i [class]="menuOpen ? 'bi bi-x-lg' : 'bi bi-list'"></i>
@@ -29,16 +27,15 @@
     <!-- Left -->
     <div class="cp-hero-left">
       <div class="cp-hero-eyebrow">
-        <i class="bi bi-shield-check"></i> Official Complaints Portal
+        <i class="bi bi-shield-check"></i> Official JSC Platform
       </div>
       <h1 class="cp-hero-title">
-        Your Voice<br>
-        <span class="cp-red">Deserves</span><br>
-        To Be Heard.
+        Lodge Your Complaint<br>
+        <span class="cp-red">With Confidence</span>
       </h1>
       <p class="cp-hero-desc">
-        File, track, and resolve complaints with full transparency. Our platform connects citizens with the right
-        departments and ensures every issue gets the attention it deserves.
+        Welcome to the JSC Complaints Portal designed to handle complaints.
+        Your voice matters in maintaining the integrity of our justice system.
       </p>
       <div class="cp-hero-actions">
         <a routerLink="/landing/register-complaint" class="cp-btn-red cp-btn-lg">
@@ -61,73 +58,122 @@
       </div>
     </div>
 
-    <!-- Right: Live Complaints Card -->
+    <!-- Right: Illustration -->
     <div class="cp-hero-right">
-      <div class="cp-complaints-card">
-        <div class="cp-card-header">
-          <div class="cp-card-header-icon"><i class="bi bi-clipboard-check"></i></div>
-          <div>
-            <h3 class="cp-card-header-title">Active Complaints</h3>
-            <p class="cp-card-header-sub">Updated just now</p>
-          </div>
+      <div class="cp-illus-wrap">
+
+        <div class="cp-float-badge cp-float-tl">
+          <i class="bi bi-patch-check-fill"></i> Official Portal
+        </div>
+        <div class="cp-float-badge cp-float-br">
+          <i class="bi bi-shield-lock-fill"></i> 100% Secure
         </div>
 
-        <div class="cp-card-body">
-          @for (c of complaints; track c.ref) {
-          <div class="cp-complaint-row">
-            <div class="cp-complaint-icon" [class]="'cp-icon-'+c.color">
-              <i [class]="c.icon"></i>
-            </div>
-            <div class="cp-complaint-info">
-              <div class="cp-complaint-title">{{ c.title }}</div>
-              <div class="cp-complaint-ref">Ref {{ c.ref }} · {{ c.days }}</div>
-            </div>
-            <span class="cp-status-badge" [class]="'cp-status-'+c.statusColor">{{ c.status }}</span>
-          </div>
-          }
+        <svg class="cp-illus-svg" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Complaint illustration">
+
+          <circle cx="240" cy="210" r="185" fill="#dc2626" opacity="0.04"/>
+          <circle cx="240" cy="210" r="140" fill="#dc2626" opacity="0.03"/>
+
+          <!-- Desk -->
+          <rect x="80"  y="300" width="320" height="14" rx="7" fill="#dc2626" opacity="0.12"/>
+          <rect x="110" y="314" width="18"  height="55" rx="6" fill="#dc2626" opacity="0.09"/>
+          <rect x="352" y="314" width="18"  height="55" rx="6" fill="#dc2626" opacity="0.09"/>
+
+          <!-- Laptop base -->
+          <rect x="145" y="230" width="190" height="72" rx="10" fill="white" stroke="#e7e5e4" stroke-width="2"/>
+          <!-- Laptop screen -->
+          <rect x="155" y="190" width="170" height="105" rx="8" fill="#dc2626" opacity="0.85"/>
+          <rect x="163" y="198" width="154" height="90"  rx="5" fill="#7f1d1d" opacity="0.8"/>
+          <!-- Form lines on screen -->
+          <rect x="172" y="210" width="75"  height="6"  rx="3" fill="white" opacity="0.8"/>
+          <rect x="172" y="222" width="110" height="5"  rx="2.5" fill="white" opacity="0.35"/>
+          <rect x="172" y="233" width="90"  height="5"  rx="2.5" fill="white" opacity="0.35"/>
+          <rect x="172" y="244" width="60"  height="5"  rx="2.5" fill="white" opacity="0.35"/>
+          <rect x="172" y="258" width="58"  height="18" rx="5" fill="white" opacity="0.9"/>
+          <rect x="178" y="263" width="46"  height="8"  rx="3" fill="#dc2626" opacity="0.85"/>
+          <!-- Laptop hinge -->
+          <rect x="145" y="295" width="190" height="8" rx="4" fill="#e7e5e4"/>
+          <!-- Keyboard -->
+          <rect x="160" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="173" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="186" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="199" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="212" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="225" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="238" y="248" width="30" height="5" rx="2" fill="#e7e5e4" opacity="0.5"/>
+          <rect x="273" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="286" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="299" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+          <rect x="312" y="248" width="8"  height="5" rx="2" fill="#e7e5e4" opacity="0.6"/>
+
+          <!-- Floating complaint document -->
+          <g class="cp-illus-doc">
+            <rect x="316" y="148" width="78" height="98" rx="8" fill="white" stroke="#e7e5e4" stroke-width="1.5"/>
+            <rect x="326" y="162" width="48" height="6" rx="3" fill="#dc2626" opacity="0.8"/>
+            <rect x="326" y="174" width="58" height="4" rx="2" fill="#e7e5e4"/>
+            <rect x="326" y="183" width="50" height="4" rx="2" fill="#e7e5e4"/>
+            <rect x="326" y="192" width="42" height="4" rx="2" fill="#e7e5e4"/>
+            <rect x="326" y="201" width="54" height="4" rx="2" fill="#e7e5e4"/>
+            <circle cx="379" cy="155" r="12" fill="#dc2626"/>
+            <text x="379" y="160" text-anchor="middle" font-size="13" fill="white" font-weight="bold">!</text>
+          </g>
+
+          <!-- Chair -->
+          <rect x="178" y="272" width="44" height="8"  rx="4" fill="#dc2626" opacity="0.12"/>
+          <rect x="192" y="280" width="16" height="28" rx="4" fill="#dc2626" opacity="0.10"/>
+          <!-- Torso -->
+          <rect x="182" y="220" width="36" height="52" rx="14" fill="#dc2626" opacity="0.80"/>
+          <rect x="196" y="228" width="8"  height="20" rx="3" fill="white" opacity="0.25"/>
+          <!-- Arms -->
+          <path d="M182 238 Q158 248 152 268" stroke="#dc2626" stroke-width="14" stroke-linecap="round" opacity="0.80"/>
+          <path d="M218 238 Q238 248 248 262" stroke="#dc2626" stroke-width="14" stroke-linecap="round" opacity="0.80"/>
+          <!-- Hands -->
+          <circle cx="150" cy="270" r="9" fill="#FBBF7A"/>
+          <circle cx="250" cy="264" r="9" fill="#FBBF7A"/>
+          <!-- Head -->
+          <circle cx="200" cy="194" r="30" fill="#FBBF7A"/>
+          <!-- Hair -->
+          <path d="M172 188 Q174 164 200 162 Q226 164 228 188 Q220 178 200 178 Q180 178 172 188Z" fill="#3b2314" opacity="0.85"/>
+          <!-- Eyes -->
+          <ellipse cx="191" cy="194" rx="3.5" ry="4" fill="#3b2314"/>
+          <ellipse cx="209" cy="194" rx="3.5" ry="4" fill="#3b2314"/>
+          <circle cx="193" cy="192" r="1.2" fill="white"/>
+          <circle cx="211" cy="192" r="1.2" fill="white"/>
+          <!-- Concerned brows -->
+          <path d="M187 187 Q191 184 195 186" stroke="#3b2314" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M205 186 Q209 184 213 187" stroke="#3b2314" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <!-- Concerned mouth -->
+          <path d="M193 205 Q200 201 207 205" stroke="#3b2314" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+          <!-- Send arrow indicator -->
+          <g class="cp-illus-send">
+            <circle cx="310" cy="260" r="18" fill="#dc2626" opacity="0.08"/>
+            <circle cx="310" cy="260" r="13" fill="#dc2626" opacity="0.15"/>
+            <path d="M303 260 L317 260 M311 253 L318 260 L311 267" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- Sparkles -->
+          <g class="cp-illus-sparkle1">
+            <circle cx="96"  cy="160" r="4" fill="#dc2626" opacity="0.4"/>
+            <circle cx="96"  cy="160" r="7" fill="#dc2626" opacity="0.10"/>
+          </g>
+          <g class="cp-illus-sparkle2">
+            <circle cx="390" cy="235" r="3" fill="#f97316" opacity="0.45"/>
+            <circle cx="390" cy="235" r="6" fill="#f97316" opacity="0.12"/>
+          </g>
+          <g class="cp-illus-sparkle3">
+            <circle cx="370" cy="175" r="4" fill="#f59e0b" opacity="0.4"/>
+            <circle cx="370" cy="175" r="7" fill="#f59e0b" opacity="0.10"/>
+          </g>
+
+        </svg>
+
+        <div class="cp-illus-caption">
+          <i class="bi bi-megaphone-fill"></i>
+          Submit complaints with full transparency
         </div>
 
-        <div class="cp-card-footer">
-          <div class="cp-footer-stat">
-            <div class="cp-footer-stat-value" style="color:#dc2626">142</div>
-            <div class="cp-footer-stat-label">Open</div>
-          </div>
-          <div class="cp-footer-stat">
-            <div class="cp-footer-stat-value" style="color:#f97316">89</div>
-            <div class="cp-footer-stat-label">In Progress</div>
-          </div>
-          <div class="cp-footer-stat">
-            <div class="cp-footer-stat-value" style="color:#16a34a">2,847</div>
-            <div class="cp-footer-stat-label">Resolved</div>
-          </div>
-          <div class="cp-footer-stat">
-            <div class="cp-footer-stat-value">94%</div>
-            <div class="cp-footer-stat-label">Resolution Rate</div>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FEATURES ── -->
-<section class="cp-features" id="features">
-  <div class="cp-section-inner">
-    <div class="cp-section-header cp-reveal">
-      <div class="cp-section-tag"><i class="bi bi-stars"></i> Why VoiceIt</div>
-      <h2 class="cp-section-title">A Smarter Way to<br>Resolve Complaints</h2>
-      <p class="cp-section-desc">Designed to make the complaint process transparent, fast, and effective for everyone.
-      </p>
-    </div>
-
-    <div class="cp-features-grid">
-      @for (f of features; track f.title; let i = $index) {
-      <div class="cp-feat-card cp-reveal" [style.transition-delay]="(i * 0.06) + 's'">
-        <div class="cp-feat-icon" [class]="'cp-icon-'+f.color"><i [class]="f.icon"></i></div>
-        <h3 class="cp-feat-title">{{ f.title }}</h3>
-        <p class="cp-feat-desc">{{ f.desc }}</p>
-      </div>
-      }
     </div>
   </div>
 </section>
@@ -135,65 +181,21 @@
 <!-- ── HOW IT WORKS ── -->
 <section class="cp-hiw" id="how">
   <div class="cp-hiw-inner">
-    <!-- Steps side -->
-    <div class="cp-reveal">
+    <div class="cp-section-header cp-reveal">
       <div class="cp-section-tag"><i class="bi bi-diagram-3"></i> Simple Process</div>
-      <h2 class="cp-section-title">From Complaint to<br>Resolution in 4 Steps</h2>
-      <p class="cp-section-desc">Our streamlined process ensures every complaint reaches the right people and gets
-        resolved efficiently.</p>
-
-      <div class="cp-steps-list">
-        @for (s of steps; track s.num) {
-        <div class="cp-step-card">
-          <div class="cp-step-num">{{ s.num }}</div>
-          <div>
-            <h4 class="cp-step-title">{{ s.title }}</h4>
-            <p class="cp-step-desc">{{ s.desc }}</p>
-          </div>
-        </div>
-        }
-      </div>
+      <h2 class="cp-section-title">How to Lodge<br>Your Complaint</h2>
+      <p class="cp-section-desc">Our platform is designed to make the complaint process transparent, fast, and effective for everyone.</p>
     </div>
 
-    <!-- Ticket card -->
-    <div class="cp-reveal">
-      <div class="cp-ticket-card">
-        <div class="cp-ticket-header">
-          <span class="cp-ticket-ref">Case #CP-2024-0891</span>
-          <span class="cp-ticket-tag">In Progress</span>
+    <div class="cp-steps-grid">
+      @for (s of steps; track s.num; let i = $index) {
+        <div class="cp-step-card cp-reveal" [style.transition-delay]="(i * 0.1) + 's'">
+          <div class="cp-step-num">{{ s.num }}</div>
+          <div class="cp-step-icon"><i [class]="s.icon"></i></div>
+          <h4 class="cp-step-title">{{ s.title }}</h4>
+          <p class="cp-step-desc">{{ s.desc }}</p>
         </div>
-
-        <div class="cp-ticket-body">
-          <h3 class="cp-ticket-title">Water Supply Interruption — Kinondoni District</h3>
-          <p class="cp-ticket-desc">Residents in Block 5 have been without water supply for 3 consecutive days. The main
-            pipe appears to be damaged near the central junction.</p>
-
-          <div class="cp-timeline">
-            @for (t of timeline; track t.title) {
-            <div class="cp-tl-item">
-              <div class="cp-tl-dot" [class]="'cp-tl-'+t.state"><i [class]="t.icon"></i></div>
-              <div class="cp-tl-text">
-                <h5>{{ t.title }}</h5>
-                <p>{{ t.sub }}</p>
-              </div>
-            </div>
-            }
-          </div>
-        </div>
-
-        <div class="cp-ticket-footer">
-          <div class="cp-ticket-assignee">
-            <div class="cp-ticket-avatar">AH</div>
-            <div>
-              <strong class="cp-assignee-name">Amina Hassan</strong>
-              <span class="cp-assignee-role">Case Officer · Water Dept.</span>
-            </div>
-          </div>
-          <a href="#" class="cp-btn-red" style="font-size:13px;padding:7px 14px">
-            Message Officer
-          </a>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </section>
@@ -204,18 +206,71 @@
     <div class="cp-section-header cp-reveal">
       <div class="cp-section-tag"><i class="bi bi-grid"></i> Complaint Categories</div>
       <h2 class="cp-section-title">What Can You Report?</h2>
-      <p class="cp-section-desc" style="max-width:480px;margin:0 auto">From infrastructure to public services — every
-        issue has a category and a responsible department.</p>
+      <p class="cp-section-desc">From judicial conduct to procedural issues — every concern has a category and a responsible department.</p>
     </div>
 
-    <div class="cp-categories-grid cp-reveal">
-      @for (c of categories; track c.name) {
-      <div class="cp-cat-card">
-        <div class="cp-cat-icon" [class]="'cp-icon-'+c.color"><i [class]="c.icon"></i></div>
-        <div class="cp-cat-name">{{ c.name }}</div>
-        <div class="cp-cat-count">{{ c.count }}</div>
+    <div class="cp-cat-two-col">
+
+      <!-- Complaint Types -->
+      <div class="cp-cat-panel cp-reveal-left">
+        <div class="cp-cat-panel-header cp-cat-panel-red">
+          <div class="cp-cat-panel-icon"><i class="bi bi-list-ul"></i></div>
+          <div>
+            <h3>Complaint Types</h3>
+            <p>Categories of judicial complaints we handle</p>
+          </div>
+        </div>
+        <div class="cp-cat-panel-body">
+          @for (item of complaintTypes; track item.name) {
+            <div class="cp-cat-item">
+              <div class="cp-cat-item-icon" [class]="'cp-icon-' + item.color">
+                <i [class]="item.icon"></i>
+              </div>
+              <div class="cp-cat-item-info">
+                <div class="cp-cat-item-name">{{ item.name }}</div>
+                <div class="cp-cat-item-desc">{{ item.desc }}</div>
+              </div>
+              <span class="cp-cat-item-badge">{{ item.count }}</span>
+            </div>
+          }
+        </div>
+        <div class="cp-cat-panel-footer">
+          <a routerLink="/landing/register-complaint" class="cp-btn-red">
+            <i class="bi bi-plus-circle"></i> File a Complaint
+          </a>
+        </div>
       </div>
-      }
+
+      <!-- Complaint Sources -->
+      <div class="cp-cat-panel cp-reveal-right">
+        <div class="cp-cat-panel-header cp-cat-panel-dark">
+          <div class="cp-cat-panel-icon"><i class="bi bi-people-fill"></i></div>
+          <div>
+            <h3>Complaint Sources</h3>
+            <p>Who can submit a complaint to JSC</p>
+          </div>
+        </div>
+        <div class="cp-cat-panel-body">
+          @for (item of complaintSources; track item.name) {
+            <div class="cp-cat-item">
+              <div class="cp-cat-item-icon" [class]="'cp-icon-' + item.color">
+                <i [class]="item.icon"></i>
+              </div>
+              <div class="cp-cat-item-info">
+                <div class="cp-cat-item-name">{{ item.name }}</div>
+                <div class="cp-cat-item-desc">{{ item.desc }}</div>
+              </div>
+              <span class="cp-cat-item-badge">{{ item.count }}</span>
+            </div>
+          }
+        </div>
+        <div class="cp-cat-panel-footer">
+          <a routerLink="/landing/register-complaint" class="cp-btn-outline">
+            <i class="bi bi-info-circle"></i> Learn More
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -225,11 +280,14 @@
   <div class="cp-cta-inner cp-reveal">
     <div class="cp-cta-tag"><i class="bi bi-megaphone"></i> Your Rights Matter</div>
     <h2 class="cp-cta-title">Make Your Voice<br>Count Today</h2>
-    <p class="cp-cta-desc">Every complaint filed is a step toward a better community. Join thousands of citizens
-      actively shaping public services through VoiceIt.</p>
+    <p class="cp-cta-desc">Every complaint filed is a step toward a better justice system. Join thousands of citizens actively shaping public services through the JSC portal.</p>
     <div class="cp-cta-actions">
-     <a routerLink="/landing/register-complaint" class="cp-btn-white cp-btn-lg"><i class="bi bi-plus-circle"></i> File a Complaint</a>
-<a routerLink="/landing/track-complaint" class="cp-btn-transparent cp-btn-lg"><i class="bi bi-search"></i> Track My Case</a>
+      <a routerLink="/landing/register-complaint" class="cp-btn-white cp-btn-lg">
+        <i class="bi bi-plus-circle"></i> File a Complaint
+      </a>
+      <a routerLink="/landing/track-complaint" class="cp-btn-transparent cp-btn-lg">
+        <i class="bi bi-search"></i> Track My Case
+      </a>
     </div>
   </div>
 </section>
@@ -241,10 +299,9 @@
       <div class="cp-footer-brand">
         <div class="cp-footer-logo">
           <div class="cp-logo-icon"><i class="bi bi-megaphone-fill"></i></div>
-          <span class="cp-logo-text" style="color:white">VoiceIt</span>
+          <span class="cp-logo-text" style="color:white">JSC Complaint Portal</span>
         </div>
-        <p>The official citizens' complaint portal. Transparent, fast, and effective resolution for every community
-          concern.</p>
+        <p>The official JSC citizens' complaint portal. Transparent, fast, and effective resolution for every community concern.</p>
       </div>
       <div class="cp-footer-col">
         <h4>Portal</h4>
@@ -258,10 +315,10 @@
       <div class="cp-footer-col">
         <h4>Departments</h4>
         <ul>
-          <li><a href="#">Water Authority</a></li>
-          <li><a href="#">Roads Agency</a></li>
-          <li><a href="#">Health Ministry</a></li>
-          <li><a href="#">Local Government</a></li>
+          <li><a href="#">High Court</a></li>
+          <li><a href="#">Magistrate Court</a></li>
+          <li><a href="#">JSC Secretariat</a></li>
+          <li><a href="#">Legal Affairs</a></li>
         </ul>
       </div>
       <div class="cp-footer-col">
@@ -274,9 +331,8 @@
         </ul>
       </div>
     </div>
-
     <div class="cp-footer-bottom">
-      <span>© 2026 VoiceIt Complaint Portal. All rights reserved.</span>
+      <span>© 2026 JSC Complaint Portal. All rights reserved.</span>
       <div class="cp-footer-socials">
         <a href="#" class="cp-social-btn"><i class="bi bi-twitter-x"></i></a>
         <a href="#" class="cp-social-btn"><i class="bi bi-facebook"></i></a>

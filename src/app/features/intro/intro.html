@@ -1,0 +1,211 @@
+<!-- ══ NAV ══ -->
+<nav class="ti-nav" [class.ti-nav-scrolled]="scrolled">
+  <div class="ti-nav-inner">
+    <a class="ti-logo">
+      <img src="assets/icons/logo.png" alt="TwaibuCore" class="ti-logo-img" />
+    </a>
+
+    <div class="ti-nav-links">
+      <a (click)="scrollTo('stack')"   [class.active]="activeSection==='stack'">Stack</a>
+      <a (click)="scrollTo('modules')" [class.active]="activeSection==='modules'">Modules</a>
+      <a (click)="scrollTo('cta')"     [class.active]="activeSection==='cta'">Get Started</a>
+    </div>
+
+    <button class="ti-btn-primary" (click)="goToDashboard()">
+      <i class="bi bi-grid-1x2-fill"></i> Open Dashboard
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="ti-hero" id="hero">
+  <div class="ti-hero-bg">
+    <div class="ti-orb ti-orb-1"></div>
+    <div class="ti-orb ti-orb-2"></div>
+    <div class="ti-orb ti-orb-3"></div>
+  </div>
+  <div class="ti-hero-grid"></div>
+
+  <div class="ti-hero-inner">
+    <div class="ti-hero-badge">
+      <span class="ti-badge-dot"></span>
+      Angular 20 · Production Ready
+    </div>
+
+    <h1 class="ti-hero-title">
+      Meet <span class="ti-gradient-text">TwaibuCore</span>
+      — The Admin Dashboard Built for Scale
+    </h1>
+
+    <p class="ti-hero-desc">
+      A full-featured Angular 20 admin dashboard with standalone components, signal-based state management, dark mode, landing pages, and a complete component library — all built with a clean, scoped CSS architecture.
+    </p>
+
+    <div class="ti-hero-actions">
+      <button class="ti-btn-primary ti-btn-lg" (click)="goToDashboard()">
+        <i class="bi bi-grid-1x2-fill"></i> Open Dashboard
+      </button>
+      <button class="ti-btn-ghost ti-btn-lg" (click)="scrollTo('stack')">
+        <i class="bi bi-code-slash"></i> Explore Stack
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="ti-hero-stats">
+      @for (s of stats; track s.label; let i = $index) {
+        <div class="ti-stat" [style.animation-delay]="(0.6 + i * 0.1) + 's'">
+          <div class="ti-stat-value">{{ s.value }}</div>
+          <div class="ti-stat-label">{{ s.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Floating code card -->
+  <div class="ti-code-card">
+    <div class="ti-code-header">
+      <div class="ti-code-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="ti-code-file">layout.service.ts</span>
+    </div>
+    <pre class="ti-code-body" [innerHTML]="codeSnippet"></pre>
+  </div>
+</section>
+
+<!-- ══ TECH STACK ══ -->
+<section class="ti-stack" id="stack">
+  <div class="ti-section-inner">
+
+    <div class="ti-section-header reveal">
+      <div class="ti-section-tag"><i class="bi bi-stack"></i> Tech Stack</div>
+      <h2 class="ti-section-title">Three Layers&#44; One Cohesive System</h2>
+      <p class="ti-section-desc">TwaibuCore is built on Angular 20, a layered CSS architecture, and Tailwind CSS — each playing a specific role in the overall system.</p>
+    </div>
+
+    <div class="ti-stack-grid">
+      @for (tech of techStack; track tech.name; let i = $index) {
+        <div class="ti-stack-card reveal" [style.transition-delay]="(i * 0.12) + 's'">
+          <div class="ti-stack-top">
+            <div class="ti-stack-icon" [class]="'ti-icon-' + tech.color">
+              <i [class]="tech.icon"></i>
+            </div>
+            <div>
+              <div class="ti-stack-label">{{ tech.label }}</div>
+              <h3 class="ti-stack-name">{{ tech.name }}</h3>
+            </div>
+          </div>
+          <ul class="ti-stack-points">
+            @for (p of tech.points; track p) {
+              <li>
+                <i class="bi bi-check2-circle"></i>
+                {{ p }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="ti-arch reveal">
+      <div class="ti-arch-title"><i class="bi bi-diagram-3"></i> How They Work Together</div>
+      <div class="ti-arch-row">
+        <div class="ti-arch-box ti-arch-angular">
+          <i class="bi bi-hexagon-fill"></i>
+          <span>Angular 20</span>
+          <small>Structure & Logic</small>
+        </div>
+        <div class="ti-arch-arrow"><i class="bi bi-arrow-right"></i></div>
+        <div class="ti-arch-box ti-arch-css">
+          <i class="bi bi-palette-fill"></i>
+          <span>CSS Variables</span>
+          <small>Theme & Design Tokens</small>
+        </div>
+        <div class="ti-arch-arrow"><i class="bi bi-arrow-right"></i></div>
+        <div class="ti-arch-box ti-arch-tw">
+          <i class="bi bi-wind"></i>
+          <span>Tailwind</span>
+          <small>Dashboard Utilities</small>
+        </div>
+        <div class="ti-arch-arrow"><i class="bi bi-arrow-right"></i></div>
+        <div class="ti-arch-box ti-arch-result">
+          <i class="bi bi-stars"></i>
+          <span>TwaibuCore</span>
+          <small>The Final Product</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MODULES ══ -->
+<section class="ti-modules" id="modules">
+  <div class="ti-section-inner">
+
+    <div class="ti-section-header reveal">
+      <div class="ti-section-tag"><i class="bi bi-grid"></i> What's Inside</div>
+      <h2 class="ti-section-title">Everything You Need&#44; Already Built</h2>
+      <p class="ti-section-desc">From authentication to complaint portals — TwaibuCore ships with a complete set of production-ready modules.</p>
+    </div>
+
+    <div class="ti-modules-grid">
+      @for (m of modules; track m.name; let i = $index) {
+        <div class="ti-module-card reveal" [style.transition-delay]="(i * 0.07) + 's'">
+          <div class="ti-module-icon" [class]="'ti-icon-' + m.color">
+            <i [class]="m.icon"></i>
+          </div>
+          <h3 class="ti-module-name">{{ m.name }}</h3>
+          <p class="ti-module-desc">{{ m.desc }}</p>
+          <div class="ti-module-arrow"><i class="bi bi-arrow-right"></i></div>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="ti-cta" id="cta">
+  <div class="ti-cta-bg">
+    <div class="ti-cta-orb-1"></div>
+    <div class="ti-cta-orb-2"></div>
+  </div>
+  <div class="ti-cta-inner reveal">
+    <div class="ti-cta-tag"><i class="bi bi-rocket-takeoff-fill"></i> Ready to Explore</div>
+    <h2 class="ti-cta-title">Start Using <span class="ti-gradient-text">TwaibuCore</span> Today</h2>
+    <p class="ti-cta-desc">Jump into the dashboard and explore every module — from the admin panel to the JSC landing pages and complaint portal.</p>
+    <div class="ti-cta-actions">
+      <button class="ti-btn-primary ti-btn-lg" (click)="goToDashboard()">
+        <i class="bi bi-grid-1x2-fill"></i> Open Dashboard
+      </button>
+      <button class="ti-btn-white ti-btn-lg" (click)="scrollTo('stack')">
+        <i class="bi bi-book"></i> Read the Docs
+      </button>
+    </div>
+    <!-- Feature pills -->
+    <div class="ti-cta-pills">
+      <span><i class="bi bi-check-lg"></i> No NgModule</span>
+      <span><i class="bi bi-check-lg"></i> Signal-based State</span>
+      <span><i class="bi bi-check-lg"></i> Dark Mode</span>
+      <span><i class="bi bi-check-lg"></i> SSR Ready</span>
+      <span><i class="bi bi-check-lg"></i> Fully Responsive</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="ti-footer">
+  <div class="ti-footer-inner">
+    <div class="ti-footer-brand">
+      <img src="assets/icons/logo.png" alt="TwaibuCore" class="ti-logo-img ti-logo-img-footer" />
+    </div>
+    <span class="ti-footer-copy">© 2026 TwaibuCore. Angular 20 Admin Dashboard.</span>
+    <div class="ti-footer-links">
+      <a (click)="scrollTo('stack')">Stack</a>
+      <a (click)="scrollTo('modules')">Modules</a>
+      <a (click)="goToDashboard()">Dashboard</a>
+    </div>
+  </div>
+</footer>

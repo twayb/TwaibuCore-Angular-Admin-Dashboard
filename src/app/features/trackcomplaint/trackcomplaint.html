@@ -31,7 +31,7 @@
             class="tc-search-input"
             type="text"
             [(ngModel)]="refInput"
-            placeholder="e.g. CP-2026-1234"
+            placeholder="e.g. JSC-2026-1234"
             (keyup.enter)="search()"
           >
           @if (refInput) {
@@ -51,8 +51,8 @@
 
       <div class="tc-demo-hint">
         <i class="bi bi-info-circle"></i>
-        Try demo: <span class="tc-demo-code" (click)="refInput='CP-2026-1234'; search()">CP-2026-1234</span>
-        or <span class="tc-demo-code" (click)="refInput='CP-2026-5678'; search()">CP-2026-5678</span>
+        Try demo: <span class="tc-demo-code" (click)="refInput='JSC-2026-1234'; search()">JSC-2026-1234</span>
+        or <span class="tc-demo-code" (click)="refInput='JSC-2026-5678'; search()">JSC-2026-5678</span>
       </div>
     </div>
   </div>

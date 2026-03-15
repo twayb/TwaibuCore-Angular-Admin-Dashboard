@@ -1,0 +1,45 @@
+ <div class="cp-hero-right">
+      <div class="cp-complaints-card">
+        <div class="cp-card-header">
+          <div class="cp-card-header-icon"><i class="bi bi-clipboard-check"></i></div>
+          <div>
+            <h3 class="cp-card-header-title">Active Complaints</h3>
+            <p class="cp-card-header-sub">Updated just now</p>
+          </div>
+        </div>
+
+        <div class="cp-card-body">
+          @for (c of complaints; track c.ref) {
+          <div class="cp-complaint-row">
+            <div class="cp-complaint-icon" [class]="'cp-icon-'+c.color">
+              <i [class]="c.icon"></i>
+            </div>
+            <div class="cp-complaint-info">
+              <div class="cp-complaint-title">{{ c.title }}</div>
+              <div class="cp-complaint-ref">Ref {{ c.ref }} · {{ c.days }}</div>
+            </div>
+            <span class="cp-status-badge" [class]="'cp-status-'+c.statusColor">{{ c.status }}</span>
+          </div>
+          }
+        </div>
+
+        <div class="cp-card-footer">
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#dc2626">142</div>
+            <div class="cp-footer-stat-label">Open</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#f97316">89</div>
+            <div class="cp-footer-stat-label">In Progress</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value" style="color:#16a34a">2,847</div>
+            <div class="cp-footer-stat-label">Resolved</div>
+          </div>
+          <div class="cp-footer-stat">
+            <div class="cp-footer-stat-value">94%</div>
+            <div class="cp-footer-stat-label">Resolution Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
