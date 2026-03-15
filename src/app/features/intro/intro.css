@@ -362,4 +362,5 @@
   .ti-section-inner { padding: 0 24px; }
   .ti-footer { padding: 20px 24px; }
   .ti-footer-inner { flex-direction: column; text-align: center; }
+ .ti-nav .ti-btn-primary { display: none; }
 }
